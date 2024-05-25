@@ -190,6 +190,7 @@ export class LevanaPerpExecute {
 		return await this.client.executeMultiple(senderAddress, instructions, fee, memo);
 	}
 }
+
 export class LevanaPerpQuery {
 	protected readonly client: CosmWasmClient;
 
