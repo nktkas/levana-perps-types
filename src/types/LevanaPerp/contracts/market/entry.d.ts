@@ -64,16 +64,6 @@ export interface DeltaNeutralityFeeResp {
 	slippage_assert_price: PriceBaseInQuote;
 }
 
-/** Response for QueryMsg::DeltaNeutralityFee */
-export interface DeltaNeutralityFeeResp {
-	/** the amount charged */
-	amount: Signed<Collateral>;
-	/** the amount in the fund currently */
-	fund_total: Collateral;
-	/** Expected effective price after slippage, can be used for the slippage assert. */
-	slippage_assert_price: PriceBaseInQuote;
-}
-
 /** History information on a limit order which was triggered. */
 export interface ExecutedLimitOrder {
 	/** The order itself */
