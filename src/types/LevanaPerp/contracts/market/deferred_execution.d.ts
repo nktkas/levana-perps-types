@@ -1,4 +1,4 @@
-import { PositionId } from "./position.ts";
+import { PositionId } from "./position.d.ts";
 import {
 	Addr,
 	Collateral,
@@ -11,10 +11,10 @@ import {
 	TakeProfitTrader,
 	Timestamp,
 	Usd,
-} from "../../prelude.ts";
-import { OrderId } from "./order.ts";
-import { Option, Vec } from "../../../rust.ts";
-import { SlippageAssert, StopLoss } from "./entry.ts";
+} from "../../prelude.d.ts";
+import { OrderId } from "./order.d.ts";
+import { Option, Vec } from "../../../rust.d.ts";
+import { SlippageAssert, StopLoss } from "./entry.d.ts";
 
 // Structs
 

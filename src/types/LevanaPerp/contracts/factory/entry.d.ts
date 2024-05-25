@@ -1,7 +1,7 @@
-import { Addr, MarketId, RawAddr, Uint64 } from "../../prelude.ts";
-import { Option, u32, Vec } from "../../../rust.ts";
-import { ShutdownEffect, ShutdownImpact } from "../../shutdown.ts";
-import { NewMarketParams } from "../market/entry.ts";
+import { Addr, MarketId, RawAddr, Uint64 } from "../../prelude.d.ts";
+import { Option, u32, Vec } from "../../../rust.d.ts";
+import { ShutdownEffect, ShutdownImpact } from "../../shutdown.d.ts";
+import { NewMarketParams } from "../market/entry.d.ts";
 
 // Structs
 

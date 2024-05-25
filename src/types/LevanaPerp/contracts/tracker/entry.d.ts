@@ -1,5 +1,5 @@
-import { Option, u32, u64 } from "../../../rust.ts";
-import { Timestamp } from "../../prelude.ts";
+import { Option, u32, u64 } from "../../../rust.d.ts";
+import { Timestamp } from "../../prelude.d.ts";
 
 // Enums
 

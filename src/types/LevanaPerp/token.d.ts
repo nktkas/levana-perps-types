@@ -1,5 +1,5 @@
-import { u8 } from "../rust.ts";
-import { RawAddr } from "./prelude.ts";
+import { u8 } from "../rust.d.ts";
+import { RawAddr } from "./prelude.d.ts";
 
 // Enums
 

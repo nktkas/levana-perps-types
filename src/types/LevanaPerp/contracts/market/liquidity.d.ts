@@ -1,4 +1,4 @@
-import { Collateral, LpToken } from "../../prelude.ts";
+import { Collateral, LpToken } from "../../prelude.d.ts";
 
 // Structs
 

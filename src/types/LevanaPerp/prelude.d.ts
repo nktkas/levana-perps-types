@@ -1,4 +1,4 @@
-import { Option, u32, u64 } from "../rust.ts";
+import { Option, u32, u64 } from "../rust.d.ts";
 
 // Structs
 

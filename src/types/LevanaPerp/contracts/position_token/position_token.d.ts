@@ -1,7 +1,7 @@
-import { Binary } from "../../../cosmwasm.ts";
-import { Expiration } from "../../../cw20.ts";
-import { Option, Vec } from "../../../rust.ts";
-import { Addr } from "../../prelude.ts";
+import { Binary } from "../../../cosmwasm.d.ts";
+import { Expiration } from "../../../cw20.d.ts";
+import { Option, Vec } from "../../../rust.d.ts";
+import { Addr } from "../../prelude.d.ts";
 
 // Structs
 

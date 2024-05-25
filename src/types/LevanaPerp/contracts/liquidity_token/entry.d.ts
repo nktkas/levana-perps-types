@@ -1,8 +1,8 @@
-import { Binary, Uint128 } from "../../../cosmwasm.ts";
-import { Expiration } from "../../../cw20.ts";
-import { Option, u32 } from "../../../rust.ts";
-import { MarketId, RawAddr } from "../../prelude.ts";
-import { LiquidityTokenKind } from "./liquidity_token.ts";
+import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
+import { Expiration } from "../../../cw20.d.ts";
+import { Option, u32 } from "../../../rust.d.ts";
+import { MarketId, RawAddr } from "../../prelude.d.ts";
+import { LiquidityTokenKind } from "./liquidity_token.d.ts";
 
 // Structs
 

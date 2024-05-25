@@ -1,8 +1,8 @@
-import { Binary, Uint128 } from "../../../cosmwasm.ts";
-import { Expiration } from "../../../cw20.ts";
-import { Option, u32, u8, Vec } from "../../../rust.ts";
-import { Addr, RawAddr } from "../../prelude.ts";
-import { Cw20Coin } from "./cw20.ts";
+import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
+import { Expiration } from "../../../cw20.d.ts";
+import { Option, u32, u8, Vec } from "../../../rust.d.ts";
+import { Addr, RawAddr } from "../../prelude.d.ts";
+import { Cw20Coin } from "./cw20.d.ts";
 
 // Structs
 

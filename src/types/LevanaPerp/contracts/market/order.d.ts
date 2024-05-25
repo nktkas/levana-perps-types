@@ -8,8 +8,8 @@ import {
 	PriceBaseInQuote,
 	TakeProfitTrader,
 	Usd,
-} from "../../prelude.ts";
-import { Option } from "../../../rust.ts";
+} from "../../prelude.d.ts";
+import { Option } from "../../../rust.d.ts";
 
 // Structs
 

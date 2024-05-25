@@ -1,6 +1,6 @@
-import { PriceIdentifier } from "../../../pyth.ts";
-import { Option, u32, Vec } from "../../../rust.ts";
-import { Addr, NumberGtZero, RawAddr } from "../../prelude.ts";
+import { PriceIdentifier } from "../../../pyth.d.ts";
+import { Option, u32, Vec } from "../../../rust.d.ts";
+import { Addr, NumberGtZero, RawAddr } from "../../prelude.d.ts";
 
 // Structs
 

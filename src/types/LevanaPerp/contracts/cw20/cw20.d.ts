@@ -1,5 +1,5 @@
-import { Binary, Uint128 } from "../../../cosmwasm.ts";
-import { Addr } from "../../prelude.ts";
+import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
+import { Addr } from "../../prelude.d.ts";
 
 // Structs
 

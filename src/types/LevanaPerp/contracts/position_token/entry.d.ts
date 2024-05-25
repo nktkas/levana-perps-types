@@ -1,8 +1,8 @@
-import { Binary } from "../../../cosmwasm.ts";
-import { Expiration } from "../../../cw20.ts";
-import { Option, u32, u64, Vec } from "../../../rust.ts";
-import { Addr, MarketId, RawAddr } from "../../prelude.ts";
-import { Approval, Metadata } from "./position_token.ts";
+import { Binary } from "../../../cosmwasm.d.ts";
+import { Expiration } from "../../../cw20.d.ts";
+import { Option, u32, u64, Vec } from "../../../rust.d.ts";
+import { Addr, MarketId, RawAddr } from "../../prelude.d.ts";
+import { Approval, Metadata } from "./position_token.d.ts";
 
 // Structs
 

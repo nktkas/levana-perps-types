@@ -1,9 +1,9 @@
-import { Config, ConfigUpdate } from "./config.ts";
-import { DeferredExecId } from "./deferred_execution.ts";
-import { LiquidityStats } from "./liquidity.ts";
-import { LimitOrder, OrderId } from "./order.ts";
-import { Option, u32, u64, Vec } from "../../../rust.ts";
-import { ClosedPosition, PositionId } from "./position.ts";
+import { Config, ConfigUpdate } from "./config.d.ts";
+import { DeferredExecId } from "./deferred_execution.d.ts";
+import { LiquidityStats } from "./liquidity.d.ts";
+import { LimitOrder, OrderId } from "./order.d.ts";
+import { Option, u32, u64, Vec } from "../../../rust.d.ts";
+import { ClosedPosition, PositionId } from "./position.d.ts";
 import {
 	Addr,
 	Collateral,
@@ -27,14 +27,14 @@ import {
 	TakeProfitTrader,
 	Timestamp,
 	Usd,
-} from "../../prelude.ts";
-import { Token, TokenInit } from "../../token.ts";
-import { CrankWorkInfo } from "./crank.ts";
-import { SpotPriceConfigInit } from "./spot_price.ts";
-import { LiquidityTokenKind } from "../liquidity_token/liquidity_token.ts";
-import { ExecuteMsg as PositionTokenExecuteMsg, QueryMsg as PositionTokenQueryMsg } from "../position_token/entry.ts";
-import { ExecuteMsg as LiquidityTokenExecuteMsg, QueryMsg as LiquidityTokenQueryMsg } from "../liquidity_token/entry.ts";
-import { Binary, BlockInfo, Uint128 } from "../../../cosmwasm.ts";
+} from "../../prelude.d.ts";
+import { Token, TokenInit } from "../../token.d.ts";
+import { CrankWorkInfo } from "./crank.d.ts";
+import { SpotPriceConfigInit } from "./spot_price.d.ts";
+import { LiquidityTokenKind } from "../liquidity_token/liquidity_token.d.ts";
+import { ExecuteMsg as PositionTokenExecuteMsg, QueryMsg as PositionTokenQueryMsg } from "../position_token/entry.d.ts";
+import { ExecuteMsg as LiquidityTokenExecuteMsg, QueryMsg as LiquidityTokenQueryMsg } from "../liquidity_token/entry.d.ts";
+import { Binary, BlockInfo, Uint128 } from "../../../cosmwasm.d.ts";
 
 // Structs
 

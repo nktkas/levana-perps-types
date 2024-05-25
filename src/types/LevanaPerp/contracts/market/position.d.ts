@@ -11,12 +11,12 @@ import {
 	TakeProfitTrader,
 	Timestamp,
 	Usd,
-} from "../../prelude.ts";
+} from "../../prelude.d.ts";
 
-import { Option, Vec } from "../../../rust.ts";
-import { PricePoint } from "../../prelude.ts";
-import { NonZero } from "../../prelude.ts";
-import { Price } from "../../prelude.ts";
+import { Option, Vec } from "../../../rust.d.ts";
+import { PricePoint } from "../../prelude.d.ts";
+import { NonZero } from "../../prelude.d.ts";
+import { Price } from "../../prelude.d.ts";
 
 // Structs
 

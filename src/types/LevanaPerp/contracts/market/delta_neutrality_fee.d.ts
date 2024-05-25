@@ -1,4 +1,4 @@
-import { Collateral, Signed } from "../../prelude.ts";
+import { Collateral, Signed } from "../../prelude.d.ts";
 
 // Structs
 

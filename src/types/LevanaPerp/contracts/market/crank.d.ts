@@ -1,6 +1,6 @@
-import { DeferredExecId, DeferredExecTarget } from "./deferred_execution.ts";
-import { OrderId } from "./order.ts";
-import { LiquidationReason, PositionId } from "./position.ts";
+import { DeferredExecId, DeferredExecTarget } from "./deferred_execution.d.ts";
+import { OrderId } from "./order.d.ts";
+import { LiquidationReason, PositionId } from "./position.d.ts";
 
 // Enums
 

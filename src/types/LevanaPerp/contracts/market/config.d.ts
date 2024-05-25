@@ -1,10 +1,10 @@
-import { Option, u32 } from "../../../rust.ts";
-import { NumberGtZero } from "../../prelude.ts";
-import { Usd } from "../../prelude.ts";
-import { Collateral } from "../../prelude.ts";
-import { NonZero } from "../../prelude.ts";
-import { Decimal256, Number } from "../../prelude.ts";
-import { SpotPriceConfig, SpotPriceConfigInit } from "./spot_price.ts";
+import { Option, u32 } from "../../../rust.d.ts";
+import { NumberGtZero } from "../../prelude.d.ts";
+import { Usd } from "../../prelude.d.ts";
+import { Collateral } from "../../prelude.d.ts";
+import { NonZero } from "../../prelude.d.ts";
+import { Decimal256, Number } from "../../prelude.d.ts";
+import { SpotPriceConfig, SpotPriceConfigInit } from "./spot_price.d.ts";
 
 // Structs
 

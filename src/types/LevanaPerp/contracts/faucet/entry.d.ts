@@ -1,7 +1,7 @@
-import { Option, u32, u64, Vec } from "../../../rust.ts";
-import { Addr, Decimal256, Number, RawAddr, Timestamp } from "../../prelude.ts";
-import { Uint128 } from "../../../cosmwasm.ts";
-import { Cw20Coin } from "../cw20/cw20.ts";
+import { Option, u32, u64, Vec } from "../../../rust.d.ts";
+import { Addr, Decimal256, Number, RawAddr, Timestamp } from "../../prelude.d.ts";
+import { Uint128 } from "../../../cosmwasm.d.ts";
+import { Cw20Coin } from "../cw20/cw20.d.ts";
 
 // Structs
 
