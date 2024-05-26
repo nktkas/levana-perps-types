@@ -1,6 +1,20 @@
 import { CosmWasmClient, ExecuteInstruction, ExecuteResult, SigningCosmWasmClient } from "https://esm.sh/@cosmjs/cosmwasm-stargate@0.32.3";
 import { Coin, StdFee } from "https://esm.sh/@cosmjs/amino@0.32.3";
+import { ContractVersion } from "./types/cw2.d.ts";
 import { PricePoint } from "./types/LevanaPerp/prelude.d.ts";
+import {
+	AllAccountsResponse,
+	AllAllowancesResponse,
+	AllowanceResponse,
+	AllSpenderAllowancesResponse,
+	BalanceResponse,
+	DownloadLogoResponse,
+	ExecuteMsg as Cw20ExecuteMsg,
+	MarketingInfoResponse,
+	MinterResponse,
+	QueryMsg as Cw20QueryMsg,
+	TokenInfoResponse,
+} from "./types/LevanaPerp/contracts/cw20/entry.d.ts";
 import {
 	AddrIsContractResp,
 	CodeIds,
@@ -11,6 +25,12 @@ import {
 	QueryMsg as FactoryQueryMsg,
 	ShutdownStatus,
 } from "./types/LevanaPerp/contracts/factory/entry.d.ts";
+import {
+	ExecuteMsg as LiquidityTokenExecuteMsg,
+	QueryMsg as LiquidityTokenQueryMsg,
+} from "./types/LevanaPerp/contracts/liquidity_token/entry.d.ts";
+import { LiquidityTokenKind } from "./types/LevanaPerp/contracts/liquidity_token/liquidity_token.d.ts";
+import { GetDeferredExecResp, ListDeferredExecsResp } from "./types/LevanaPerp/contracts/market/deferred_execution.d.ts";
 import {
 	ClosedPositionsResp,
 	DeltaNeutralityFeeResp,
@@ -29,10 +49,6 @@ import {
 	TradeHistorySummary,
 	TraderActionHistoryResp,
 } from "./types/LevanaPerp/contracts/market/entry.d.ts";
-import {
-	ExecuteMsg as LiquidityTokenExecuteMsg,
-	QueryMsg as LiquidityTokenQueryMsg,
-} from "./types/LevanaPerp/contracts/liquidity_token/entry.d.ts";
 import { PositionsResp } from "./types/LevanaPerp/contracts/market/position.d.ts";
 import {
 	AllNftInfoResponse,
@@ -47,22 +63,6 @@ import {
 	QueryMsg as PositionTokenQueryMsg,
 	TokensResponse,
 } from "./types/LevanaPerp/contracts/position_token/entry.d.ts";
-import { GetDeferredExecResp, ListDeferredExecsResp } from "./types/LevanaPerp/contracts/market/deferred_execution.d.ts";
-import { LiquidityTokenKind } from "./types/LevanaPerp/contracts/liquidity_token/liquidity_token.d.ts";
-import {
-	AllAccountsResponse,
-	AllAllowancesResponse,
-	AllowanceResponse,
-	AllSpenderAllowancesResponse,
-	BalanceResponse,
-	ExecuteMsg as Cw20ExecuteMsg,
-	MarketingInfoResponse,
-	QueryMsg as Cw20QueryMsg,
-	TokenInfoResponse,
-} from "./types/LevanaPerp/contracts/cw20/entry.d.ts";
-import { ContractVersion } from "./types/cw2.d.ts";
-import { DownloadLogoResponse } from "./types/LevanaPerp/contracts/cw20/entry.d.ts";
-import { MinterResponse } from "./types/LevanaPerp/contracts/cw20/entry.d.ts";
 
 // ———————————————Types———————————————
 
@@ -93,8 +93,8 @@ export interface LevanaExecuteInstruction<
 export type Cw20QueryResult<T extends Cw20QueryMsg> = UnionKeys<T> extends "balance" ? BalanceResponse
 	: UnionKeys<T> extends "token_info" ? TokenInfoResponse
 	: UnionKeys<T> extends "minter" ? MinterResponse
-	: UnionKeys<T> extends "allowance" ? AllAllowancesResponse
-	: UnionKeys<T> extends "all_allowances" ? FactoryOwnerResp
+	: UnionKeys<T> extends "allowance" ? AllowanceResponse
+	: UnionKeys<T> extends "all_allowances" ? AllAllowancesResponse
 	: UnionKeys<T> extends "all_spender_allowances" ? AllSpenderAllowancesResponse
 	: UnionKeys<T> extends "all_accounts" ? AllAccountsResponse
 	: UnionKeys<T> extends "marketing_info" ? MarketingInfoResponse
@@ -168,10 +168,10 @@ export class LevanaPerpExecute {
 		this.client = client;
 	}
 
-	async execute<T extends Cw20ExecuteMsg | FactoryExecuteMsg | LiquidityTokenExecuteMsg | MarketExecuteMsg | PositionTokenExecuteMsg>(
+	async execute(
 		senderAddress: string,
 		contractAddress: string,
-		msg: T,
+		msg: Cw20ExecuteMsg | FactoryExecuteMsg | LiquidityTokenExecuteMsg | MarketExecuteMsg | PositionTokenExecuteMsg,
 		fee: number | StdFee | "auto",
 		memo?: string,
 		funds?: readonly Coin[],
@@ -179,11 +179,11 @@ export class LevanaPerpExecute {
 		return await this.client.execute(senderAddress, contractAddress, msg, fee, memo, funds);
 	}
 
-	async executeMultiple<
-		T extends Cw20ExecuteMsg | FactoryExecuteMsg | LiquidityTokenExecuteMsg | MarketExecuteMsg | PositionTokenExecuteMsg,
-	>(
+	async executeMultiple(
 		senderAddress: string,
-		instructions: readonly LevanaExecuteInstruction<T>[],
+		instructions: readonly LevanaExecuteInstruction<
+			Cw20ExecuteMsg | FactoryExecuteMsg | LiquidityTokenExecuteMsg | MarketExecuteMsg | PositionTokenExecuteMsg
+		>[],
 		fee: number | StdFee | "auto",
 		memo?: string,
 	): Promise<ExecuteResult> {
