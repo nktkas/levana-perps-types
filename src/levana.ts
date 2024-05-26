@@ -1,7 +1,7 @@
 import { CosmWasmClient, ExecuteInstruction, ExecuteResult, SigningCosmWasmClient } from "https://esm.sh/@cosmjs/cosmwasm-stargate@0.32.3";
 import { Coin, StdFee } from "https://esm.sh/@cosmjs/amino@0.32.3";
 import { ContractVersion } from "./types/cw2.d.ts";
-import { PricePoint } from "./types/LevanaPerp/prelude.d.ts";
+import { PricePoint } from "./types/LevanaPerps/prelude.d.ts";
 import {
 	AllAccountsResponse,
 	AllAllowancesResponse,
@@ -14,7 +14,7 @@ import {
 	MinterResponse,
 	QueryMsg as Cw20QueryMsg,
 	TokenInfoResponse,
-} from "./types/LevanaPerp/contracts/cw20/entry.d.ts";
+} from "./types/LevanaPerps/contracts/cw20/entry.d.ts";
 import {
 	AddrIsContractResp,
 	CodeIds,
@@ -24,13 +24,13 @@ import {
 	MarketsResp,
 	QueryMsg as FactoryQueryMsg,
 	ShutdownStatus,
-} from "./types/LevanaPerp/contracts/factory/entry.d.ts";
+} from "./types/LevanaPerps/contracts/factory/entry.d.ts";
 import {
 	ExecuteMsg as LiquidityTokenExecuteMsg,
 	QueryMsg as LiquidityTokenQueryMsg,
-} from "./types/LevanaPerp/contracts/liquidity_token/entry.d.ts";
-import { LiquidityTokenKind } from "./types/LevanaPerp/contracts/liquidity_token/liquidity_token.d.ts";
-import { GetDeferredExecResp, ListDeferredExecsResp } from "./types/LevanaPerp/contracts/market/deferred_execution.d.ts";
+} from "./types/LevanaPerps/contracts/liquidity_token/entry.d.ts";
+import { LiquidityTokenKind } from "./types/LevanaPerps/contracts/liquidity_token/liquidity_token.d.ts";
+import { GetDeferredExecResp, ListDeferredExecsResp } from "./types/LevanaPerps/contracts/market/deferred_execution.d.ts";
 import {
 	ClosedPositionsResp,
 	DeltaNeutralityFeeResp,
@@ -48,8 +48,8 @@ import {
 	StatusResp,
 	TradeHistorySummary,
 	TraderActionHistoryResp,
-} from "./types/LevanaPerp/contracts/market/entry.d.ts";
-import { PositionsResp } from "./types/LevanaPerp/contracts/market/position.d.ts";
+} from "./types/LevanaPerps/contracts/market/entry.d.ts";
+import { PositionsResp } from "./types/LevanaPerps/contracts/market/position.d.ts";
 import {
 	AllNftInfoResponse,
 	ApprovalResponse,
@@ -62,7 +62,7 @@ import {
 	OwnerOfResponse,
 	QueryMsg as PositionTokenQueryMsg,
 	TokensResponse,
-} from "./types/LevanaPerp/contracts/position_token/entry.d.ts";
+} from "./types/LevanaPerps/contracts/position_token/entry.d.ts";
 
 // ———————————————Types———————————————
 
@@ -161,7 +161,7 @@ export type PositionTokenQueryResult<T extends PositionTokenQueryMsg> = UnionKey
 
 // ———————————————Classes———————————————
 
-export class LevanaPerpExecute {
+export class LevanaPerpsExecute {
 	protected readonly client: SigningCosmWasmClient;
 
 	constructor(client: SigningCosmWasmClient) {
@@ -191,7 +191,7 @@ export class LevanaPerpExecute {
 	}
 }
 
-export class LevanaPerpQuery {
+export class LevanaPerpsQuery {
 	protected readonly client: CosmWasmClient;
 
 	constructor(client: CosmWasmClient) {

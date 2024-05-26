@@ -10,7 +10,7 @@ export type {
 	ClientToBridgeMsg,
 	ClientToBridgeWrapper,
 	ExecError,
-} from "./src/types/LevanaPerp/bridge.d.ts";
+} from "./src/types/LevanaPerps/bridge.d.ts";
 export type {
 	Addr,
 	AuthCheck,
@@ -55,10 +55,10 @@ export type {
 	TriggerType,
 	Uint64,
 	Usd,
-} from "./src/types/LevanaPerp/prelude.d.ts";
-export type { ShutdownEffect, ShutdownImpact, ShutdownWallet } from "./src/types/LevanaPerp/shutdown.d.ts";
-export type { Token, TokenInit } from "./src/types/LevanaPerp/token.d.ts";
-export type { Cw20Coin, Cw20CoinVerified, Cw20ReceiveMsg, ReceiverExecuteMsg } from "./src/types/LevanaPerp/contracts/cw20/cw20.d.ts";
+} from "./src/types/LevanaPerps/prelude.d.ts";
+export type { ShutdownEffect, ShutdownImpact, ShutdownWallet } from "./src/types/LevanaPerps/shutdown.d.ts";
+export type { Token, TokenInit } from "./src/types/LevanaPerps/token.d.ts";
+export type { Cw20Coin, Cw20CoinVerified, Cw20ReceiveMsg, ReceiverExecuteMsg } from "./src/types/LevanaPerps/contracts/cw20/cw20.d.ts";
 export type {
 	AllAccountsResponse,
 	AllAllowancesResponse,
@@ -79,7 +79,7 @@ export type {
 	QueryMsg as Cw20QueryMsg,
 	SpenderAllowanceInfo,
 	TokenInfoResponse,
-} from "./src/types/LevanaPerp/contracts/cw20/entry.d.ts";
+} from "./src/types/LevanaPerps/contracts/cw20/entry.d.ts";
 export type {
 	AddrIsContractResp,
 	CodeIds,
@@ -92,7 +92,7 @@ export type {
 	MarketsResp,
 	QueryMsg as FactoryQueryMsg,
 	ShutdownStatus,
-} from "./src/types/LevanaPerp/contracts/factory/entry.d.ts";
+} from "./src/types/LevanaPerps/contracts/factory/entry.d.ts";
 export type {
 	ConfigResponse,
 	ExecuteMsg as FaucetExecuteMsg,
@@ -111,15 +111,15 @@ export type {
 	TapAmountResponse,
 	TapEligibleResponse,
 	TappersResp,
-} from "./src/types/LevanaPerp/contracts/faucet/entry.d.ts";
+} from "./src/types/LevanaPerps/contracts/faucet/entry.d.ts";
 export type {
 	ExecuteMsg as LiquidityTokenExecuteMsg,
 	InstantiateMsg as LiquidityTokenInstantiateMsg,
 	QueryMsg as LiquidityTokenQueryMsg,
-} from "./src/types/LevanaPerp/contracts/liquidity_token/entry.d.ts";
-export type { LiquidityTokenKind } from "./src/types/LevanaPerp/contracts/liquidity_token/liquidity_token.d.ts";
-export type { Config, ConfigUpdate, MaxLiquidity } from "./src/types/LevanaPerp/contracts/market/config.d.ts";
-export type { CrankWorkInfo } from "./src/types/LevanaPerp/contracts/market/crank.d.ts";
+} from "./src/types/LevanaPerps/contracts/liquidity_token/entry.d.ts";
+export type { LiquidityTokenKind } from "./src/types/LevanaPerps/contracts/liquidity_token/liquidity_token.d.ts";
+export type { Config, ConfigUpdate, MaxLiquidity } from "./src/types/LevanaPerps/contracts/market/config.d.ts";
+export type { CrankWorkInfo } from "./src/types/LevanaPerps/contracts/market/crank.d.ts";
 export type {
 	DeferredExecCompleteTarget,
 	DeferredExecExecutedEvent,
@@ -132,8 +132,8 @@ export type {
 	FeesReturnedEvent,
 	GetDeferredExecResp,
 	ListDeferredExecsResp,
-} from "./src/types/LevanaPerp/contracts/market/deferred_execution.d.ts";
-export type { DeltaNeutralityFeeEvent, DeltaNeutralityFeeReason } from "./src/types/LevanaPerp/contracts/market/delta_neutrality_fee.d.ts";
+} from "./src/types/LevanaPerps/contracts/market/deferred_execution.d.ts";
+export type { DeltaNeutralityFeeEvent, DeltaNeutralityFeeReason } from "./src/types/LevanaPerps/contracts/market/delta_neutrality_fee.d.ts";
 export type {
 	ClosedPositionCursor,
 	ClosedPositionsResp,
@@ -174,9 +174,9 @@ export type {
 	TradeHistorySummary,
 	TraderActionHistoryResp,
 	UnstakingStatus,
-} from "./src/types/LevanaPerp/contracts/market/entry.d.ts";
-export type { LiquidityStats } from "./src/types/LevanaPerp/contracts/market/liquidity.d.ts";
-export type { LimitOrder, OrderId } from "./src/types/LevanaPerp/contracts/market/order.d.ts";
+} from "./src/types/LevanaPerps/contracts/market/entry.d.ts";
+export type { LiquidityStats } from "./src/types/LevanaPerps/contracts/market/liquidity.d.ts";
+export type { LimitOrder, OrderId } from "./src/types/LevanaPerps/contracts/market/order.d.ts";
 export type {
 	ClosedPosition,
 	ClosePositionInstructions,
@@ -191,7 +191,7 @@ export type {
 	PositionQueryResponse,
 	PositionsResp,
 	SignedCollateralAndUsd,
-} from "./src/types/LevanaPerp/contracts/market/position.d.ts";
+} from "./src/types/LevanaPerps/contracts/market/position.d.ts";
 export type {
 	PythConfig,
 	PythConfigInit,
@@ -204,7 +204,7 @@ export type {
 	SpotPriceFeedInit,
 	StrideConfig,
 	StrideConfigInit,
-} from "./src/types/LevanaPerp/contracts/market/spot_price.d.ts";
+} from "./src/types/LevanaPerps/contracts/market/spot_price.d.ts";
 export type {
 	AllNftInfoResponse,
 	ApprovalResponse,
@@ -218,17 +218,17 @@ export type {
 	OwnerOfResponse,
 	QueryMsg as PositionTokenQueryMsg,
 	TokensResponse,
-} from "./src/types/LevanaPerp/contracts/position_token/entry.d.ts";
+} from "./src/types/LevanaPerps/contracts/position_token/entry.d.ts";
 export type {
 	Approval,
 	Cw721ReceiveMsg,
 	FullTokenInfo,
 	Metadata,
 	Trait,
-} from "./src/types/LevanaPerp/contracts/position_token/position_token.d.ts";
+} from "./src/types/LevanaPerps/contracts/position_token/position_token.d.ts";
 export type {
 	CodeIdResp,
 	ContractResp,
 	ExecuteMsg as TrackerExecuteMsg,
 	QueryMsg as TrackerQueryMsg,
-} from "./src/types/LevanaPerp/contracts/tracker/entry.d.ts";
+} from "./src/types/LevanaPerps/contracts/tracker/entry.d.ts";

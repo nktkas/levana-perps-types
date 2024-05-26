@@ -5,5 +5,5 @@ Source: https://apidocs.levana.finance/msg/doc/levana_perpswap_cosmos_msg/index.
 ## Install (Deno)
 
 ```typescript
-import { LevanaPerpExecute, LevanaPerpQuery } from "https://raw.githubusercontent.com/nktkas/LevanaPerps/master/index.ts";
+import { LevanaPerpsExecute, LevanaPerpsQuery } from "https://raw.githubusercontent.com/nktkas/LevanaPerps/master/index.ts";
 ```
