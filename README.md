@@ -77,7 +77,7 @@ const numTokensResponse = await levanaCosmWasmClient.queryContractSmart(marketIn
 If you follow the original documentation:
 
 ```typescript
-const marketsResp = await levanaCosmWasmClient.query(FACTORY_ADDRESS, {
+const marketsResp = await levanaCosmWasmClient.queryContractSmart(FACTORY_ADDRESS, {
 	markets: {
 		limit: null,
 		start_after: null,
