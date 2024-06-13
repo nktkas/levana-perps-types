@@ -191,6 +191,20 @@ export declare class LevanaCosmWasmClient extends CosmWasmClient {
 }
 
 export declare class LevanaSigningCosmWasmClient extends SigningCosmWasmClient {
+	queryContractSmart<
+		T extends Cw20QueryMsg | FactoryQueryMsg | LiquidityTokenQueryMsg | MarketQueryMsg | PositionTokenQueryMsg,
+	>(
+		address: string,
+		queryMsg: T,
+	): Promise<
+		T extends Cw20QueryMsg ? Cw20QueryResult<T>
+			: T extends FactoryQueryMsg ? FactoryQueryResult<T>
+			: T extends LiquidityTokenQueryMsg ? LiquidityTokenQueryResult<T>
+			: T extends MarketQueryMsg ? MarketQueryResult<T>
+			: T extends PositionTokenQueryMsg ? PositionTokenQueryResult<T>
+			: never
+	>;
+
 	execute(
 		senderAddress: string,
 		contractAddress: string,
