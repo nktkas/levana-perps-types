@@ -168,6 +168,7 @@ export class LevanaPerpsExecute {
 		this.client = client;
 	}
 
+	/** Re-export `execute` from `SigningCosmWasmClient` but with types from LevanaPerps */
 	async execute(
 		senderAddress: string,
 		contractAddress: string,
@@ -179,6 +180,7 @@ export class LevanaPerpsExecute {
 		return await this.client.execute(senderAddress, contractAddress, msg, fee, memo, funds);
 	}
 
+	/** Re-export `executeMultiple` from `SigningCosmWasmClient` but with types from LevanaPerps */
 	async executeMultiple(
 		senderAddress: string,
 		instructions: readonly LevanaExecuteInstruction<
@@ -198,7 +200,8 @@ export class LevanaPerpsQuery {
 		this.client = client;
 	}
 
-	async query<T extends Cw20QueryMsg | FactoryQueryMsg | LiquidityTokenQueryMsg | MarketQueryMsg | PositionTokenQueryMsg>(
+	/** Re-export `queryContractSmart` from `CosmWasmClient` but with types from LevanaPerps */
+	async queryContractSmart<T extends Cw20QueryMsg | FactoryQueryMsg | LiquidityTokenQueryMsg | MarketQueryMsg | PositionTokenQueryMsg>(
 		address: string,
 		queryMsg: T,
 	): Promise<
