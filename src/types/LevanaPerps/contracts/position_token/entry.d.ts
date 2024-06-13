@@ -117,7 +117,7 @@ export type ExecuteMsg =
 			/** Position ID, represented as a `String` to match the NFT spec */
 			token_id: string;
 			/** When the approval expires */
-			expires: Option<Expiration>;
+			expires?: Option<Expiration>;
 		};
 	}
 	| {
@@ -135,7 +135,7 @@ export type ExecuteMsg =
 			/** Address that is allowed to spend all NFTs by the sending wallet */
 			operator: RawAddr;
 			/** When the approval expires */
-			expires: Option<Expiration>;
+			expires?: Option<Expiration>;
 		};
 	}
 	| {
@@ -161,7 +161,7 @@ export type QueryMsg =
 			/** Position ID, represented as a `String` to match the NFT spec */
 			token_id: string;
 			/** unset or false will filter out expired approvals, you must set to true to see them */
-			include_expired: Option<boolean>;
+			include_expired?: Option<boolean>;
 		};
 	}
 	| {
@@ -175,7 +175,7 @@ export type QueryMsg =
 			/** Spender */
 			spender: RawAddr;
 			/** Should we include expired approvals? */
-			include_expired: Option<boolean>;
+			include_expired?: Option<boolean>;
 		};
 	}
 	| {
@@ -187,7 +187,7 @@ export type QueryMsg =
 			/** Position ID, represented as a `String` to match the NFT spec */
 			token_id: string;
 			/** Should we include expired approvals? */
-			include_expired: Option<boolean>;
+			include_expired?: Option<boolean>;
 		};
 	}
 	| {
@@ -199,11 +199,11 @@ export type QueryMsg =
 			/** Position ID, represented as a `String` to match the NFT spec */
 			owner: RawAddr;
 			/** unset or false will filter out expired items, you must set to true to see them */
-			include_expired: Option<boolean>;
+			include_expired?: Option<boolean>;
 			/** Last operator seen */
-			start_after: Option<string>;
+			start_after?: Option<string>;
 			/** How many operators to return */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 		};
 	}
 	| {
@@ -239,7 +239,7 @@ export type QueryMsg =
 			/** Position ID, represented as a `String` to match the NFT spec */
 			token_id: string;
 			/** unset or false will filter out expired approvals, you must set to true to see them */
-			include_expired: Option<boolean>;
+			include_expired?: Option<boolean>;
 		};
 	}
 	| {
@@ -251,9 +251,9 @@ export type QueryMsg =
 			/** Owner to enumerate over */
 			owner: RawAddr;
 			/** Last position ID seen */
-			start_after: Option<string>;
+			start_after?: Option<string>;
 			/** Number of positions to return */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 		};
 	}
 	| {
@@ -263,9 +263,9 @@ export type QueryMsg =
 		 */
 		all_tokens: {
 			/** Last position ID seen */
-			start_after: Option<string>;
+			start_after?: Option<string>;
 			/** Number of positions to return */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 		};
 	}
 	| {

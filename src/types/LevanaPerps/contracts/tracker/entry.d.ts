@@ -59,7 +59,7 @@ export type ExecuteMsg =
 			/** SHA256 hash to uniquely identify a file */
 			hash: string;
 			/** Git commit that generated this code, if known */
-			gitrev: Option<string>;
+			gitrev?: Option<string>;
 		};
 	}
 	| {
@@ -135,6 +135,6 @@ export type QueryMsg =
 			 *
 			 * If omitted, gets the most recent
 			 */
-			sequence: Option<u32>;
+			sequence?: Option<u32>;
 		};
 	};

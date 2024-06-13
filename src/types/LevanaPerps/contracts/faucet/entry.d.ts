@@ -60,7 +60,7 @@ export type ExecuteMsg =
 		tap: {
 			assets: Vec<FaucetAsset>;
 			recipient: RawAddr;
-			amount: Option<number>;
+			amount?: Option<number>;
 		};
 	}
 	| {
@@ -191,7 +191,7 @@ export type QueryMsg =
 		 */
 		get_token: {
 			name: string;
-			trading_competition_index: Option<u32>;
+			trading_competition_index?: Option<u32>;
 		};
 	}
 	| {
@@ -248,7 +248,7 @@ export type QueryMsg =
 		 */
 		funds_sent: {
 			asset: FaucetAsset;
-			timestamp: Option<Timestamp>;
+			timestamp?: Option<Timestamp>;
 		};
 	}
 	| {
@@ -256,8 +256,8 @@ export type QueryMsg =
 		 * Enumerate all wallets that tapped the faucet
 		 */
 		tappers: {
-			start_after: Option<RawAddr>;
-			limit: Option<u32>;
+			start_after?: Option<RawAddr>;
+			limit?: Option<u32>;
 		};
 	};
 

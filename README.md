@@ -5,46 +5,38 @@ Source: https://apidocs.levana.finance/msg/doc/levana_perpswap_cosmos_msg/index.
 ## Usage (Deno)
 
 ```typescript
-import { LevanaPerpsExecute, LevanaPerpsQuery } from "https://raw.githubusercontent.com/nktkas/LevanaPerps/master/index.ts";
+import { LevanaCosmWasmClient, LevanaSigningCosmWasmClient } from "./index.ts";
 import { CosmWasmClient } from "https://esm.sh/@cosmjs/cosmwasm-stargate@0.32.3";
 
 const RPC_ENDPOINT = "https://osmosis-rpc.publicnode.com:443";
 const FACTORY_ADDRESS = "osmo1ssw6x553kzqher0earlkwlxasfm2stnl3ms3ma2zz4tnajxyyaaqlucd45";
 
-const cosmWasmClient = await CosmWasmClient.connect(RPC_ENDPOINT);
-const levanaPerpsQuery = new LevanaPerpsQuery(cosmWasmClient);
+const levanaCosmWasmClient = await CosmWasmClient.connect(RPC_ENDPOINT) as LevanaCosmWasmClient;
 
 // TypeScript automatically recognizes a query and offers certain hints and returns the appropriate type for the query
 
-const marketsResp = await levanaPerpsQuery.query(FACTORY_ADDRESS, {
-	markets: {
-		limit: null,
-		start_after: null,
-	},
+const marketsResp = await levanaCosmWasmClient.queryContractSmart(FACTORY_ADDRESS, {
+	markets: {},
 });
 console.log("All market ids:", marketsResp);
 
-const marketInfoResponse = await levanaPerpsQuery.query(FACTORY_ADDRESS, {
+const marketInfoResponse = await levanaCosmWasmClient.queryContractSmart(FACTORY_ADDRESS, {
 	market_info: {
 		market_id: marketsResp.markets[0],
 	},
 });
 console.log("Market info:", marketInfoResponse);
 
-const statusResp = await levanaPerpsQuery.query(marketInfoResponse.market_addr, {
-	status: {
-		price: null,
-	},
+const statusResp = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
+	status: {},
 });
 console.log("Market status:", statusResp);
 
-const tokensResponse = await levanaPerpsQuery.query(marketInfoResponse.market_addr, {
+const tokensResponse = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
 	nft_proxy: {
 		nft_msg: {
 			tokens: {
 				owner: "osmo13euuwxeg62w2xw3ul8pyk2s4fq6awnh8tqgs5y",
-				start_after: null,
-				limit: null,
 			},
 		},
 	},
@@ -53,19 +45,19 @@ console.log("Tokens:", tokensResponse);
 
 // TypeScript will also notify you if you try to make a query that does not exist in the documentation
 
-const marketLimitOrder = await levanaPerpsQuery.query(marketInfoResponse.market_addr, {
-	// TS Error: Type '{}' is missing the following properties from type '{ owner: string; start_after: Option<string>; limit: Option<number>; order: Option<OrderInMessage>; }': owner, start_after, limit, order
+const marketLimitOrder = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
+	// TS Error: Property 'owner' is missing in type '{}' but required in type '{ owner: string; start_after?: Option<string> | undefined; limit?: Option<number> | undefined; order?: Option<OrderInMessage> | undefined; }'.
 	limit_orders: {},
 });
 
-const marketOraclePrice = await levanaPerpsQuery.query(marketInfoResponse.market_addr, {
+const marketOraclePrice = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
 	oracle_price: {
 		// TS Error: Type 'number' is not assignable to type 'boolean'.
 		validate_age: 0,
 	},
 });
 
-const numTokensResponse = await levanaPerpsQuery.query(marketInfoResponse.market_addr, {
+const numTokensResponse = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
 	nft_proxy: {
 		nft_msg: {
 			num_tokens: {
@@ -74,5 +66,29 @@ const numTokensResponse = await levanaPerpsQuery.query(marketInfoResponse.market
 			},
 		},
 	},
+});
+```
+
+## Differences from the original documentation
+
+1. Changed keys `_unused1`, `_unused2`, `_unused3`, `_unused4` in type [Config](https://apidocs.levana.finance/msg/doc/levana_perpswap_cosmos_msg/contracts/market/config/struct.Config.html#structfield._unused1) to actual keys from blockchain `price_update_too_old_seconds`, `unpend_limit`, `limit_order_fee`, `staleness_seconds`
+2. Keys whose values are of type Option can now be omitted in the following types: ExecuteMsg, QueryMsg.
+
+If you follow the original documentation:
+
+```typescript
+const marketsResp = await levanaPerpsQuery.query(FACTORY_ADDRESS, {
+	markets: {
+		limit: null,
+		start_after: null,
+	},
+});
+```
+
+Now you can shorten it like this:
+
+```typescript
+const marketsResp = await levanaCosmWasmClient.queryContractSmart(FACTORY_ADDRESS, {
+	markets: {},
 });
 ```

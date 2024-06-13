@@ -64,7 +64,7 @@ export type ExecuteMsg =
 			/** Amount they can spend */
 			amount: Uint128;
 			/** When the allowance expires */
-			expires: Option<Expiration>;
+			expires?: Option<Expiration>;
 		};
 	}
 	| {
@@ -75,7 +75,7 @@ export type ExecuteMsg =
 			/** Amount to reduce by */
 			amount: Uint128;
 			/** When the allowance should expire */
-			expires: Option<Expiration>;
+			expires?: Option<Expiration>;
 		};
 	}
 	| {
@@ -143,9 +143,9 @@ export type QueryMsg =
 			/** Owner of tokens */
 			owner: RawAddr;
 			/** Last spender we saw */
-			start_after: Option<RawAddr>;
+			start_after?: Option<RawAddr>;
 			/** How many spenders to iterate on */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 		};
 	}
 	| {
@@ -157,9 +157,9 @@ export type QueryMsg =
 			/** Spender address */
 			spender: RawAddr;
 			/** Last owner we saw */
-			start_after: Option<RawAddr>;
+			start_after?: Option<RawAddr>;
 			/** How many owners to iterate on */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 		};
 	}
 	| {
@@ -169,9 +169,9 @@ export type QueryMsg =
 		 */
 		all_accounts: {
 			/** Last owner we saw */
-			start_after: Option<RawAddr>;
+			start_after?: Option<RawAddr>;
 			/** How many owners to iterate on */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 		};
 	}
 	| {

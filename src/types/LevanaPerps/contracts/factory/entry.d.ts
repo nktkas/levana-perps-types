@@ -203,9 +203,9 @@ export type QueryMsg =
 		 */
 		markets: {
 			/** Last seen market ID in a MarketsResp for enumeration */
-			start_after: Option<MarketId>;
+			start_after?: Option<MarketId>;
 			/** Defaults to {@link MARKETS_QUERY_LIMIT_DEFAULT} */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 		};
 	}
 	| {

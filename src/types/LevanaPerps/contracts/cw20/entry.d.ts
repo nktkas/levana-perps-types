@@ -142,7 +142,7 @@ export type ExecuteMsg =
 		increase_allowance: {
 			spender: RawAddr;
 			amount: Uint128;
-			expires: Option<Expiration>;
+			expires?: Option<Expiration>;
 		};
 	}
 	| {
@@ -150,7 +150,7 @@ export type ExecuteMsg =
 		decrease_allowance: {
 			spender: RawAddr;
 			amount: Uint128;
-			expires: Option<Expiration>;
+			expires?: Option<Expiration>;
 		};
 	}
 	| {
@@ -198,11 +198,11 @@ export type ExecuteMsg =
 		/** If authorized, updates marketing metadata. Setting None/null for any of these will leave it unchanged. Setting Some(“”) will clear this field on the contract storage */
 		update_marketing: {
 			/** A URL pointing to the project behind this token. */
-			project: Option<string>;
+			project?: Option<string>;
 			/** A longer description of the token and it’s utility. Designed for tooltips or such */
-			description: Option<string>;
+			description?: Option<string>;
 			/** The address (if any) who can update this data structure */
-			marketing: Option<string>;
+			marketing?: Option<string>;
 		};
 	}
 	| {
@@ -277,8 +277,8 @@ export type QueryMsg =
 		 */
 		all_allowances: {
 			owner: RawAddr;
-			start_after: Option<RawAddr>;
-			limit: Option<u32>;
+			start_after?: Option<RawAddr>;
+			limit?: Option<u32>;
 		};
 	}
 	| {
@@ -288,8 +288,8 @@ export type QueryMsg =
 		 */
 		all_spender_allowances: {
 			spender: RawAddr;
-			start_after: Option<RawAddr>;
-			limit: Option<u32>;
+			start_after?: Option<RawAddr>;
+			limit?: Option<u32>;
 		};
 	}
 	| {
@@ -298,8 +298,8 @@ export type QueryMsg =
 		 * @returns {AllAccountsResponse}
 		 */
 		all_accounts: {
-			start_after: Option<RawAddr>;
-			limit: Option<u32>;
+			start_after?: Option<RawAddr>;
+			limit?: Option<u32>;
 		};
 	}
 	| {

@@ -533,17 +533,17 @@ export type ExecuteMsg =
 		/** Open a new position */
 		open_position: {
 			/** Assertion that the price has not moved too far */
-			slippage_assert: Option<SlippageAssert>;
+			slippage_assert?: Option<SlippageAssert>;
 			/** Leverage of new position */
 			leverage: LeverageToBase;
 			/** Direction of new position */
 			direction: DirectionToBase;
 			/** Maximum gains of new position */
-			max_gains: Option<MaxGainsInQuote>;
+			max_gains?: Option<MaxGainsInQuote>;
 			/** Stop loss price of new position */
-			stop_loss_override: Option<PriceBaseInQuote>;
+			stop_loss_override?: Option<PriceBaseInQuote>;
 			/** Take profit price of new position if max_gains is `None`, this must be `Some` */
-			take_profit: Option<TakeProfitTrader>;
+			take_profit?: Option<TakeProfitTrader>;
 		};
 	}
 	| {
@@ -567,7 +567,7 @@ export type ExecuteMsg =
 			/** ID of position to update */
 			id: PositionId;
 			/** Assertion that the price has not moved too far */
-			slippage_assert: Option<SlippageAssert>;
+			slippage_assert?: Option<SlippageAssert>;
 		};
 	}
 	| {
@@ -587,7 +587,7 @@ export type ExecuteMsg =
 			/** Amount of funds to remove from the position */
 			amount: NonZero<Collateral>;
 			/** Assertion that the price has not moved too far */
-			slippage_assert: Option<SlippageAssert>;
+			slippage_assert?: Option<SlippageAssert>;
 		};
 	}
 	| {
@@ -602,7 +602,7 @@ export type ExecuteMsg =
 			/** New leverage of the position */
 			leverage: LeverageToBase;
 			/** Assertion that the price has not moved too far */
-			slippage_assert: Option<SlippageAssert>;
+			slippage_assert?: Option<SlippageAssert>;
 		};
 	}
 	| {
@@ -638,9 +638,9 @@ export type ExecuteMsg =
 			/** ID of position to modify */
 			id: PositionId;
 			/** New stop loss price of the position Passing None will remove the override. */
-			stop_loss_override: Option<PriceBaseInQuote>;
+			stop_loss_override?: Option<PriceBaseInQuote>;
 			/** New take profit price of the position, merely as a trigger. Passing None will bypass changing this This does not affect the locked up counter collateral (or borrow fees etc.). if this override is further away than the position’s take profit price, the position’s will be triggered first if you want to update the position itself, use ExecuteMsg::UpdatePositionTakeProfitPrice */
-			take_profit: Option<TakeProfitTrader>;
+			take_profit?: Option<TakeProfitTrader>;
 		};
 	}
 	| {
@@ -653,11 +653,11 @@ export type ExecuteMsg =
 			/** Direction of new position */
 			direction: DirectionToBase;
 			/** Maximum gains of new position */
-			max_gains: Option<MaxGainsInQuote>;
+			max_gains?: Option<MaxGainsInQuote>;
 			/** Stop loss price of new position */
-			stop_loss_override: Option<PriceBaseInQuote>;
+			stop_loss_override?: Option<PriceBaseInQuote>;
 			/** Take profit price of new position if max_gains is `None`, this must be `Some` */
-			take_profit: Option<TakeProfitTrader>;
+			take_profit?: Option<TakeProfitTrader>;
 		};
 	}
 	| {
@@ -673,7 +673,7 @@ export type ExecuteMsg =
 			/** ID of position to close */
 			id: PositionId;
 			/** Assertion that the price has not moved too far */
-			slippage_assert: Option<SlippageAssert>;
+			slippage_assert?: Option<SlippageAssert>;
 		};
 	}
 	| {
@@ -701,14 +701,14 @@ export type ExecuteMsg =
 			 *
 			 * If `None`, reinvests all pending rewards.
 			 */
-			amount: Option<NonZero<Collateral>>;
+			amount?: Option<NonZero<Collateral>>;
 		};
 	}
 	| {
 		/** Withdraw liquidity calculated from specified lp_amount */
 		withdraw_liquidity: {
 			/** Amount of LP tokens to burn */
-			lp_amount: Option<NonZero<LpToken>>;
+			lp_amount?: Option<NonZero<LpToken>>;
 		};
 	}
 	| {
@@ -723,7 +723,7 @@ export type ExecuteMsg =
 		 */
 		stake_lp: {
 			/** Amount of LP tokens to convert into xLP. */
-			amount: Option<NonZero<LpToken>>;
+			amount?: Option<NonZero<LpToken>>;
 		};
 	}
 	| {
@@ -734,7 +734,7 @@ export type ExecuteMsg =
 		 */
 		unstake_xlp: {
 			/** Amount of xLP tokens to convert into LP */
-			amount: Option<NonZero<LpToken>>;
+			amount?: Option<NonZero<LpToken>>;
 		};
 	}
 	| {
@@ -749,13 +749,13 @@ export type ExecuteMsg =
 		/** Crank a number of times */
 		crank: {
 			/** Total number of crank executions to do None: config default */
-			execs: Option<u32>;
+			execs?: Option<u32>;
 			/**
 			 * Which wallet receives crank rewards.
 			 *
 			 * If unspecified, sender receives the rewards.
 			 */
-			rewards: Option<RawAddr>;
+			rewards?: Option<RawAddr>;
 		};
 	}
 	| {
@@ -911,7 +911,7 @@ export type QueryMsg =
 		 */
 		status: {
 			/** Price to be used as the current price */
-			price: Option<PriceForQuery>;
+			price?: Option<PriceForQuery>;
 		};
 	}
 	| {
@@ -925,7 +925,7 @@ export type QueryMsg =
 			 *
 			 * None means “give the most recent price.”
 			 */
-			timestamp: Option<Timestamp>;
+			timestamp?: Option<Timestamp>;
 		};
 	}
 	| {
@@ -935,11 +935,11 @@ export type QueryMsg =
 		 */
 		spot_price_history: {
 			/** Last timestamp we saw */
-			start_after: Option<Timestamp>;
+			start_after?: Option<Timestamp>;
 			/** How many prices to query */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 			/** Order to sort by, if None then it will be descending */
-			order: Option<OrderInMessage>;
+			order?: Option<OrderInMessage>;
 		};
 	}
 	| {
@@ -975,15 +975,15 @@ export type QueryMsg =
 			 *
 			 * It is recommended not to use this field going forward, and to instead use `fees`.
 			 */
-			skip_calc_pending_fees: Option<boolean>;
+			skip_calc_pending_fees?: Option<boolean>;
 			/**
 			 * How do we calculate fees for this position?
 			 *
 			 * Any value here will override the `skip_calc_pending_fees` field.
 			 */
-			fees: Option<PositionsQueryFeeApproach>;
+			fees?: Option<PositionsQueryFeeApproach>;
 			/** Price to be used as the current price */
-			price: Option<PriceForQuery>;
+			price?: Option<PriceForQuery>;
 		};
 	}
 	| {
@@ -1005,11 +1005,11 @@ export type QueryMsg =
 			/** Owner of limit orders */
 			owner: RawAddr;
 			/** Last limit order seen */
-			start_after: Option<OrderId>;
+			start_after?: Option<OrderId>;
 			/** Number of order to return */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 			/** Whether to return ascending or descending */
-			order: Option<OrderInMessage>;
+			order?: Option<OrderInMessage>;
 		};
 	}
 	| {
@@ -1020,11 +1020,11 @@ export type QueryMsg =
 			/** Owner of the positions to get history for */
 			owner: RawAddr;
 			/** Cursor to start from, for pagination */
-			cursor: Option<ClosedPositionCursor>;
+			cursor?: Option<ClosedPositionCursor>;
 			/** limit pagination */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 			/** order is default Descending */
-			order: Option<OrderInMessage>;
+			order?: Option<OrderInMessage>;
 		};
 	}
 	| {
@@ -1070,11 +1070,11 @@ export type QueryMsg =
 			/** Which position’s history are we querying? */
 			id: PositionId;
 			/** Last action ID we saw */
-			start_after: Option<string>;
+			start_after?: Option<string>;
 			/** How many actions to query */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 			/** Order to sort by */
-			order: Option<OrderInMessage>;
+			order?: Option<OrderInMessage>;
 		};
 	}
 	| {
@@ -1088,11 +1088,11 @@ export type QueryMsg =
 			/** Which trader’s history are we querying? */
 			owner: RawAddr;
 			/** Last action ID we saw */
-			start_after: Option<string>;
+			start_after?: Option<string>;
 			/** How many actions to query */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 			/** Order to sort by */
-			order: Option<OrderInMessage>;
+			order?: Option<OrderInMessage>;
 		};
 	}
 	| {
@@ -1103,11 +1103,11 @@ export type QueryMsg =
 			/** Which provider’s history are we querying? */
 			addr: RawAddr;
 			/** Last action ID we saw */
-			start_after: Option<string>;
+			start_after?: Option<string>;
 			/** How many actions to query */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 			/** Order to sort by */
-			order: Option<OrderInMessage>;
+			order?: Option<OrderInMessage>;
 		};
 	}
 	| {
@@ -1119,11 +1119,11 @@ export type QueryMsg =
 			/** Trader’s address for history we are querying */
 			addr: RawAddr;
 			/** Last order ID we saw */
-			start_after: Option<string>;
+			start_after?: Option<string>;
 			/** How many orders to query */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 			/** Order to sort the order IDs by */
-			order: Option<OrderInMessage>;
+			order?: Option<OrderInMessage>;
 		};
 	}
 	| {
@@ -1145,7 +1145,7 @@ export type QueryMsg =
 			/** the amount of notional that would be changed */
 			notional_delta: Signed<Notional>;
 			/** for real delta neutrality fees, this is calculated internally should only be supplied if querying the fee for close or update */
-			pos_delta_neutrality_fee_margin: Option<Collateral>;
+			pos_delta_neutrality_fee_margin?: Option<Collateral>;
 		};
 	}
 	| {
@@ -1169,9 +1169,9 @@ export type QueryMsg =
 			/** Trader wallet address */
 			addr: RawAddr;
 			/** Previously seen final ID. */
-			start_after: Option<DeferredExecId>;
+			start_after?: Option<DeferredExecId>;
 			/** How many items to request per batch. */
-			limit: Option<u32>;
+			limit?: Option<u32>;
 		};
 	}
 	| {
