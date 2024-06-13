@@ -1,8 +1,10 @@
+// Time of last check: 2024-06-12
+
 import { PriceIdentifier } from "../../../pyth.d.ts";
 import { Option, u32, Vec } from "../../../rust.d.ts";
 import { Addr, NumberGtZero, RawAddr } from "../../prelude.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 /** Configuration for pyth */
 export interface PythConfig {
@@ -58,10 +60,22 @@ export interface StrideConfigInit {
 	contract_address: RawAddr;
 }
 
-// Enums
+// ———————————————Enums———————————————
 
 /** Which network to use for the price service */
-export type PythPriceServiceNetwork = "stable" | "edge";
+export type PythPriceServiceNetwork =
+	/**
+	 * Stable CosmWasm
+	 *
+	 * From https://pyth.network/developers/price-feed-ids#cosmwasm-stable
+	 */
+	| "stable"
+	/**
+	 * Edge CosmWasm
+	 *
+	 * From https://pyth.network/developers/price-feed-ids#cosmwasm-edge
+	 */
+	| "edge";
 
 /** Spot price config */
 export type SpotPriceConfig =
@@ -97,16 +111,24 @@ export type SpotPriceConfig =
 /** Spot price config for initialization messages */
 export type SpotPriceConfigInit =
 	| {
+		/** Manual spot price */
 		manual: {
+			/** The admin address for manual spot price updates */
 			admin: RawAddr;
 		};
 	}
 	| {
+		/** External oracle */
 		oracle: {
+			/** Pyth configuration, required on chains that use pyth feeds */
 			pyth: Option<PythConfigInit>;
+			/** Stride configuration, required on chains that use stride feeds */
 			stride: Option<StrideConfigInit>;
+			/** sequence of spot price feeds which are composed to generate a single spot price */
 			feeds: Vec<SpotPriceFeedInit>;
+			/** if necessary, sequence of spot price feeds which are composed to generate a single USD spot price */
 			feeds_usd: Vec<SpotPriceFeedInit>;
+			/** See [SpotPriceConfig::volatile_diff_seconds] */
 			volatile_diff_seconds: Option<u32>;
 		};
 	};

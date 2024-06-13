@@ -1,3 +1,5 @@
+// Time of last check: 2024-06-12
+
 import {
 	Addr,
 	Collateral,
@@ -11,7 +13,7 @@ import {
 } from "../../prelude.d.ts";
 import { Option } from "../../../rust.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 /** A limit order */
 export interface LimitOrder {
@@ -27,7 +29,11 @@ export interface LimitOrder {
 	leverage: LeverageToBase;
 	/** Direction of the position */
 	direction: DirectionToNotional;
-	/** Maximum gains */
+	/**
+	 * @deprecated Use take_profit instead
+	 *
+	 * Maximum gains
+	 */
 	max_gains: Option<MaxGainsInQuote>;
 	/** Stop loss price */
 	stop_loss_override: Option<PriceBaseInQuote>;

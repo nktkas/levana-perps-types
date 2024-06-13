@@ -1,6 +1,8 @@
+// Time of last check: 2024-06-12
+
 import { Collateral, Signed } from "../../prelude.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 /** Event when a delta neutrality payment is made. */
 export interface DeltaNeutralityFeeEvent {
@@ -16,7 +18,7 @@ export interface DeltaNeutralityFeeEvent {
 	protocol_amount: Collateral;
 }
 
-// Enums
+// ———————————————Enums———————————————
 
 /** Action taken by trader to incur a delta neutrality fee */
 export type DeltaNeutralityFeeReason =

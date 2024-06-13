@@ -1,10 +1,22 @@
+// Time of last check: 2024-06-12
+
 import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
 import { Expiration } from "../../../cw20.d.ts";
 import { Option, u32 } from "../../../rust.d.ts";
 import { MarketId, RawAddr } from "../../prelude.d.ts";
 import { LiquidityTokenKind } from "./liquidity_token.d.ts";
+import {
+	AllAccountsResponse,
+	AllAllowancesResponse,
+	AllowanceResponse,
+	AllSpenderAllowancesResponse,
+	BalanceResponse,
+	MarketingInfoResponse,
+	TokenInfoResponse,
+} from "../cw20/entry.d.ts";
+import { ContractVersion } from "../../../cw2.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 /** Instantiate message for liquidity token proxy */
 export interface InstantiateMsg {
@@ -16,7 +28,11 @@ export interface InstantiateMsg {
 	kind: LiquidityTokenKind;
 }
 
-// Enums
+/** Placeholder migration message */
+export interface MigrateMsg {
+}
+
+// ———————————————Enums———————————————
 
 /** Execute message for liquidity token proxy */
 export type ExecuteMsg =

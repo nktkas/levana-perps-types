@@ -1,8 +1,10 @@
+// Time of last check: 2024-06-12
+
 import { DeferredExecId, DeferredExecTarget } from "./deferred_execution.d.ts";
 import { OrderId } from "./order.d.ts";
 import { LiquidationReason, PositionId } from "./position.d.ts";
 
-// Enums
+// ———————————————Enums———————————————
 
 /** What work is currently available for the crank. */
 export type CrankWorkInfo =

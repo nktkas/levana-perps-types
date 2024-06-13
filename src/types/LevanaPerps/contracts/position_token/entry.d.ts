@@ -1,10 +1,13 @@
+// Time of last check: 2024-06-12
+
 import { Binary } from "../../../cosmwasm.d.ts";
+import { ContractVersion } from "../../../cw2.d.ts";
 import { Expiration } from "../../../cw20.d.ts";
 import { Option, u32, u64, Vec } from "../../../rust.d.ts";
 import { Addr, MarketId, RawAddr } from "../../prelude.d.ts";
 import { Approval, Metadata } from "./position_token.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 /** Response for QueryMsg::AllNftInfo */
 export interface AllNftInfoResponse {
@@ -32,6 +35,10 @@ export interface InstantiateMsg {
 	factory: RawAddr;
 	/** Unique market identifier, also used for `symbol` in ContractInfo response */
 	market_id: MarketId;
+}
+
+/** Placeholder migration message */
+export interface MigrateMsg {
 }
 
 /** Response for QueryMsg::ContractInfo */
@@ -74,7 +81,7 @@ export interface TokensResponse {
 	tokens: Vec<string>;
 }
 
-// Enums
+// ———————————————Enums———————————————
 
 /**
  * Execute messages for a position token proxy

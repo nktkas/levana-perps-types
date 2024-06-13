@@ -1,7 +1,9 @@
+// Time of last check: 2024-06-08
+
 import { u8 } from "../rust.d.ts";
 import { RawAddr } from "./prelude.d.ts";
 
-// Enums
+// ———————————————Enums———————————————
 
 /**
  * The overall ideas of the Token API are:

@@ -1,9 +1,12 @@
+// Time of last check: 2024-06-12
+
 import { Addr, MarketId, RawAddr, Uint64 } from "../../prelude.d.ts";
 import { Option, u32, Vec } from "../../../rust.d.ts";
 import { ShutdownEffect, ShutdownImpact } from "../../shutdown.d.ts";
 import { NewMarketParams } from "../market/entry.d.ts";
+import { ContractVersion } from "../../../cw2.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 /** Response from QueryMsg::AddrIsContract */
 export interface AddrIsContractResp {
@@ -81,13 +84,17 @@ export interface MarketsResp {
 	markets: Vec<MarketId>;
 }
 
+/** Placeholder migration message */
+export interface MigrateMsg {
+}
+
 /** Return value from [QueryMsg::Shutdown] */
 export interface ShutdownStatus {
 	/** Any parts of the market which have been disabled. */
 	disabled: Vec<ShutdownImpact>;
 }
 
-// Enums
+// ———————————————Enums———————————————
 
 /** The type of contract identified by QueryMsg::AddrIsContract. */
 export type ContractType =
@@ -244,7 +251,7 @@ export type QueryMsg =
 		code_ids: Record<string | number | symbol, never>;
 	};
 
-// Constants
+// ———————————————Constants———————————————
 
 /** Default limit for QueryMsg::Markets */
 export const MARKETS_QUERY_LIMIT_DEFAULT = 15;

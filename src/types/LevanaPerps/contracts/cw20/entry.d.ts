@@ -1,10 +1,13 @@
+// Time of last check: 2024-06-12
+
 import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
 import { Expiration } from "../../../cw20.d.ts";
 import { Option, u32, u8, Vec } from "../../../rust.d.ts";
 import { Addr, RawAddr } from "../../prelude.d.ts";
 import { Cw20Coin } from "./cw20.d.ts";
+import { ContractVersion } from "../../../cw2.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 export interface AllAccountsResponse {
 	accounts: Vec<Addr>;
@@ -72,6 +75,10 @@ export interface MarketingInfoResponse {
 	marketing: Option<Addr>;
 }
 
+/** Placeholder migration message */
+export interface MigrateMsg {
+}
+
 export interface MinterResponse {
 	minter: Addr;
 	/** cap is a hard cap on total supply that can be achieved by minting. Note that this refers to total_supply. If None, there is unlimited cap. */
@@ -91,7 +98,7 @@ export interface TokenInfoResponse {
 	total_supply: Uint128;
 }
 
-// Enums
+// ———————————————Enums———————————————
 
 /** This is used to store the logo on the blockchain in an accepted format. Enforce maximum size of 5KB on all variants. */
 export type EmbeddedLogo =

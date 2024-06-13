@@ -1,7 +1,17 @@
+// Time of last check: 2024-06-12
+
 import { Option, u32, u64 } from "../../../rust.d.ts";
 import { Timestamp } from "../../prelude.d.ts";
 
-// Enums
+// ———————————————Structs———————————————
+
+export interface InstantiateMsg {
+}
+
+export interface MigrateMsg {
+}
+
+// ———————————————Enums———————————————
 
 export type CodeIdResp =
 	| {
@@ -115,9 +125,7 @@ export type QueryMsg =
 		};
 	}
 	| {
-		/**
-		 * Get the contract information for the latest contract in a family
-		 */
+		/** Get the contract information for the latest contract in a family */
 		contract_by_family: {
 			/** This is derived from the Code ID during the Instantiate call */
 			contract_type: string;

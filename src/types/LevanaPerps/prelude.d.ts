@@ -1,6 +1,14 @@
-import { Option, u32, u64 } from "../rust.d.ts";
+// Time of last check: 2024-06-08
 
-// Structs
+import { Attribute } from "../cosmwasm.d.ts";
+import { Option, u32, u64, Vec } from "../rust.d.ts";
+
+// ———————————————Modules———————————————
+
+/** Represents a ratio between 0 and 1 inclusive */
+export type InclusiveRatio = unknown;
+
+// ———————————————Structs———————————————
 
 /**
  * A human readable address.
@@ -34,8 +42,31 @@ export type Decimal256 = string;
 /** A duration of time measured in nanoseconds */
 export type Duration = string;
 
+/**
+ * A full Cosmos SDK event.
+ *
+ * This version uses string attributes (similar to Cosmos SDK StringEvent), which then get magically converted to bytes for Tendermint somewhere between the Rust-Go interface, JSON deserialization and the NewEvent call in Cosmos SDK.
+ */
+export interface Event {
+	/** The event type. This is renamed to “ty” because “type” is reserved in Rust. This sucks, we know. */
+	ty: string;
+	/**
+	 * The attributes to be included in the event.
+	 *
+	 * You can learn more about these from Cosmos SDK docs.
+	 */
+	attributes: Vec<Attribute>;
+}
+
 /** Unsigned value */
 export type FarmingToken = string;
+
+/**
+ * TODO: Not realized
+ *
+ * Item stores one typed item at the given key. This is an analog of Singleton. It functions the same way as Path does but doesn’t use a Vec and thus has a const fn constructor.
+ */
+export type Item<T> = T;
 
 /**
  * The absolute leverage for a position, in terms of the base asset.
@@ -53,6 +84,8 @@ export type LpToken = string;
 /** Unsigned value */
 export type LvnToken = string;
 
+export type Map<K extends string | number | symbol, T> = Record<K, T>;
+
 /** An identifier for a market. */
 export type MarketId = `${string}_${string}`;
 
@@ -63,7 +96,7 @@ export type NonZero<T> = T;
 export type Notional = string;
 
 /** An error message for the perps protocol */
-export interface PerpError {
+export interface PerpError<T = unknown> {
 	/** Unique identifier for this error */
 	id: ErrorId;
 	/** Where in the protocol the error came from */
@@ -71,7 +104,7 @@ export interface PerpError {
 	/** User friendly description */
 	description: string;
 	/** Optional additional information */
-	data: Option<unknown>;
+	data: Option<T>;
 }
 
 /** The price of the pair as used internally by the protocol, given as `collateral / notional`. */
@@ -82,6 +115,13 @@ export type PriceBaseInQuote = string;
 
 /** PriceBaseInQuote converted to USD */
 export type PriceCollateralInUsd = string;
+
+/**
+ * A modified version of a Price used as a key in a Map.
+ *
+ * Due to how cw-storage-plus works, we need to have a reference to a slice, which we can’t get from a Decimal256. Instead, we store an array directly here and provide conversion functions.
+ */
+export type PriceKey = unknown;
 
 /**
  * All prices in the protocol for a given point in time.
@@ -143,6 +183,9 @@ export type Quote = string;
  */
 export type RawAddr = string;
 
+/** Helper data type, following builder pattern, for constructing a [Response]. */
+export type ResponseBuilder = string;
+
 /** Wrap up any UnsignedDecimal to provide negative values too. */
 export type Signed<T> = T;
 
@@ -168,12 +211,12 @@ export type SignedLeverageToNotional = string;
 export type Timestamp = string;
 
 /** A thin wrapper around u64 that is using strings for JSON encoding/decoding, such that the full u64 range can be used for clients that convert JSON numbers to floats, like JavaScript and jq. */
-export type Uint64 = number;
+export type Uint64 = u64;
 
 /** Unsigned value */
 export type Usd = string;
 
-// Enums
+// ———————————————Enums———————————————
 
 /** Check that an addr satisfies auth checks */
 export type AuthCheck =
@@ -523,7 +566,12 @@ export type TriggerType =
 	/** A take profit */
 	| "take-profit";
 
-// Type Aliases
+// ———————————————Constants———————————————
+
+/** useful for placing an upper cap on query iterators as a safety measure to prevent exhausting resources on nodes that allow unbounded query gas */
+export type QUERY_MAX_LIMIT = 1000;
+
+// ———————————————Type Aliases———————————————
 
 /**
  * A signed number type with high fidelity.
@@ -542,3 +590,18 @@ export type Number = Signed<Decimal256>;
  * This is useful for representing things like price.
  */
 export type NumberGtZero = NonZero<Decimal256>;
+
+/**
+ * `Result<T, Error>`
+ *
+ * This is a reasonable return type to use throughout your application but also for `fn main`; if you do, failures will be printed along with any context and a backtrace if one was captured.
+ *
+ * `anyhow::Result` may be used with one or two type parameters.
+ */
+export type Result<T, E = Error> = {
+	/** Contains the success value */
+	ok: T;
+} | {
+	/** Contains the error value */
+	err: E;
+};

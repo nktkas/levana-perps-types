@@ -1,4 +1,6 @@
-// Enums
+// Time of last check: 2024-06-08
+
+// ———————————————Enums———————————————
 
 /** Are we turning off these features or turning them back on? */
 export type ShutdownEffect =

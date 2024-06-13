@@ -1,9 +1,12 @@
+// Time of last check: 2024-06-12
+
 import { Option, u32, u64, Vec } from "../../../rust.d.ts";
 import { Addr, Decimal256, Number, RawAddr, Timestamp } from "../../prelude.d.ts";
 import { Uint128 } from "../../../cosmwasm.d.ts";
 import { Cw20Coin } from "../cw20/cw20.d.ts";
+import { ContractVersion } from "../../../cw2.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 export interface ConfigResponse {
 	admins: Vec<Addr>;
@@ -33,6 +36,10 @@ export interface IsAdminResponse {
 	is_admin: boolean;
 }
 
+/** Placeholder migration message */
+export interface MigrateMsg {
+}
+
 export interface MultitapRecipient {
 	addr: RawAddr;
 	assets: Vec<FaucetAsset>;
@@ -46,7 +53,7 @@ export interface TappersResp {
 	tappers: Vec<Addr>;
 }
 
-// Enums
+// ———————————————Enums———————————————
 
 export type ExecuteMsg =
 	| {
@@ -106,6 +113,7 @@ export type OwnerMsg =
 		};
 	}
 	| {
+		/** Given in seconds */
 		set_tap_limit: {
 			tap_limit: Option<u32>;
 		};

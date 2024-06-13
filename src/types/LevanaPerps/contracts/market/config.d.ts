@@ -1,3 +1,5 @@
+// Time of last check: 2024-06-12
+
 import { Option, u32 } from "../../../rust.d.ts";
 import { NumberGtZero } from "../../prelude.d.ts";
 import { Usd } from "../../prelude.d.ts";
@@ -6,7 +8,7 @@ import { NonZero } from "../../prelude.d.ts";
 import { Decimal256, Number } from "../../prelude.d.ts";
 import { SpotPriceConfig, SpotPriceConfigInit } from "./spot_price.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 /** Configuration info for the vAMM Set by admin-only Since this tends to cross the message boundary all the numeric types are u32 or lower helper functions are available where more bits are needed */
 export interface Config {
@@ -121,7 +123,7 @@ export interface Config {
 }
 
 /**
- * Helper struct to conveniently update Config
+ * Helper struct to conveniently update {@link Config}
  *
  * For each field below, please see the corresponding {@link Config} field’s documentation.
  */
@@ -158,7 +160,7 @@ export interface ConfigUpdate {
 	exposure_margin_ratio: Option<Decimal256>;
 }
 
-// Enums
+// ———————————————Enums———————————————
 
 /**
  * Maximum liquidity for deposit.

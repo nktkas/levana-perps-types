@@ -28,3 +28,9 @@ export interface BlockInfo {
  * This is only needed as serde-json-{core,wasm} has a horrible encoding for Vec. See also https://github.com/CosmWasm/cosmwasm/blob/main/docs/MESSAGE_TYPES.md.
  */
 export type Binary = string;
+
+/** An key value pair that is used in the context of event attributes in logs */
+export type Attribute = {
+	key: string;
+	value: string;
+};

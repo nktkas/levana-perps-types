@@ -1,3 +1,5 @@
+// Time of last check: 2024-06-12
+
 import { PositionId } from "./position.d.ts";
 import {
 	Addr,
@@ -16,7 +18,7 @@ import { OrderId } from "./order.d.ts";
 import { Option, Vec } from "../../../rust.d.ts";
 import { SlippageAssert, StopLoss } from "./entry.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 /** Event when a deferred execution item is executed via the crank. */
 export interface DeferredExecExecutedEvent {
@@ -77,7 +79,7 @@ export interface ListDeferredExecsResp {
 	next_start_after: Option<DeferredExecId>;
 }
 
-// Enums
+// ———————————————Enums———————————————
 
 /**
  * After successful execution of an item, what did it impact?
@@ -105,7 +107,11 @@ export type DeferredExecItem =
 			leverage: LeverageToBase;
 			/** Direction of new position */
 			direction: DirectionToBase;
-			/** Maximum gains of new position */
+			/**
+			 * @deprecated use take_profit instead
+			 *
+			 * Maximum gains of new position
+			 */
 			max_gains: Option<MaxGainsInQuote>;
 			/** Stop loss price of new position */
 			stop_loss_override: Option<PriceBaseInQuote>;
@@ -242,7 +248,11 @@ export type DeferredExecItem =
 			leverage: LeverageToBase;
 			/** Direction of new position */
 			direction: DirectionToBase;
-			/** Maximum gains of new position */
+			/** 
+			 * @deprecated use take_profit instead
+			 * 
+			 * Maximum gains of new position 
+			 */
 			max_gains: Option<MaxGainsInQuote>;
 			/** Stop loss price of new position */
 			stop_loss_override: Option<PriceBaseInQuote>;
