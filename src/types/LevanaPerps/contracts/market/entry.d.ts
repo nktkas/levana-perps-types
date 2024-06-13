@@ -1,8 +1,10 @@
+// Time of last check: 2024-06-13
+
 import { Config, ConfigUpdate } from "./config.d.ts";
 import { DeferredExecId } from "./deferred_execution.d.ts";
 import { LiquidityStats } from "./liquidity.d.ts";
 import { LimitOrder, OrderId } from "./order.d.ts";
-import { Option, u32, u64, Vec } from "../../../rust.d.ts";
+import { BTreeMap, Option, u32, u64, Vec } from "../../../rust.d.ts";
 import { ClosedPosition, PositionId } from "./position.d.ts";
 import {
 	Addr,
@@ -35,8 +37,9 @@ import { LiquidityTokenKind } from "../liquidity_token/liquidity_token.d.ts";
 import { ExecuteMsg as PositionTokenExecuteMsg, QueryMsg as PositionTokenQueryMsg } from "../position_token/entry.d.ts";
 import { ExecuteMsg as LiquidityTokenExecuteMsg, QueryMsg as LiquidityTokenQueryMsg } from "../liquidity_token/entry.d.ts";
 import { Binary, BlockInfo, Uint128 } from "../../../cosmwasm.d.ts";
+import { PriceIdentifier } from "../../../pyth.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 /** A cursor used for paginating the closed position history */
 export interface ClosedPositionCursor {
@@ -49,7 +52,7 @@ export interface ClosedPositionCursor {
 /** Return value from QueryMsg::ClosedPositionHistory */
 export interface ClosedPositionsResp {
 	/** Closed positions */
-	positions: ClosedPosition;
+	positions: Vec<ClosedPosition>;
 	/** the next cursor to start from if we’ve reached the end, it’s a None */
 	cursor: Option<ClosedPositionCursor>;
 }
@@ -138,7 +141,11 @@ export interface LimitOrderResp {
 	leverage: LeverageToBase;
 	/** Direction of the new position */
 	direction: DirectionToBase;
-	/** Max gains of the new position */
+	/**
+	 * @deprecated Use take_profit instead
+	 *
+	 * Max gains of the new position
+	 */
 	max_gains: Option<MaxGainsInQuote>;
 	/** Stop loss of the new position */
 	stop_loss_override: Option<PriceBaseInQuote>;
@@ -236,6 +243,10 @@ export interface LpInfoResp {
 	liquidity_cooldown: Option<LiquidityCooldown>;
 }
 
+/** Placeholder migration message */
+export interface MigrateMsg {
+}
+
 /** Config info passed on to all sub-contracts in order to add a new market. */
 export interface NewMarketParams {
 	/** Base, quote, and market type */
@@ -252,66 +263,58 @@ export interface NewMarketParams {
 	initial_price: Option<InitialPrice>;
 }
 
-/** Part of {@link OraclePriceResp} */
+/** Part of OraclePriceResp */
 export interface OraclePriceFeedPythResp {
 	/** The pyth price */
 	price: NumberGtZero;
-	/** The pyth lish time */
-	lish_time: Timestamp;
+	/** The pyth publish time */
+	publish_time: Timestamp;
 	/** Is this considered a volatile feed? */
 	volatile: boolean;
 }
 
-/** Part of {@link OraclePriceResp} */
+/** Part of OraclePriceResp */
 export interface OraclePriceFeedSeiResp {
 	/** The Sei price */
 	price: NumberGtZero;
-	/** The Sei lish time */
-	lish_time: Timestamp;
+	/** The Sei publish time */
+	publish_time: Timestamp;
 	/** Is this considered a volatile feed? */
 	volatile: boolean;
 }
 
-/** Part of {@link OraclePriceResp} */
+/** Part of OraclePriceResp */
 export interface OraclePriceFeedSimpleResp {
 	/** The price value */
 	value: NumberGtZero;
 	/** The block info when this price was set */
 	block_info: BlockInfo;
 	/** Optional timestamp for the price, independent of block_info.time */
-	lish_time: Option<Timestamp>;
+	timestamp: Option<Timestamp>;
 	/** Is this considered a volatile feed? */
 	volatile: boolean;
 }
 
-/** Part of {@link OraclePriceResp} */
+/** Part of OraclePriceResp */
 export interface OraclePriceFeedStrideResp {
 	/** The redemption rate */
 	redemption_rate: NumberGtZero;
-	/** The redemption price lish time */
-	lish_time: Timestamp;
+	/** The redemption price publish time */
+	publish_time: Timestamp;
 	/** Is this considered a volatile feed? */
 	volatile: boolean;
 }
 
 /** Response for QueryMsg::OraclePrice */
 export interface OraclePriceResp {
-	/** A map of each pyth id used in this market to the price and lish time */
-	pyth: {
-		[key: string]: OraclePriceFeedPythResp;
-	};
+	/** A map of each pyth id used in this market to the price and publish time */
+	pyth: BTreeMap<PriceIdentifier, OraclePriceFeedPythResp>;
 	/** A map of each sei denom used in this market to the price */
-	sei: {
-		[key: string]: OraclePriceFeedSeiResp;
-	};
+	sei: BTreeMap<string, OraclePriceFeedSeiResp>;
 	/** A map of each stride denom used in this market to the redemption price */
-	stride: {
-		[key: string]: OraclePriceFeedStrideResp;
-	};
+	stride: BTreeMap<string, OraclePriceFeedStrideResp>;
 	/** A map of each simple contract used in this market to the contract price */
-	simple: {
-		[key: string]: OraclePriceFeedSimpleResp;
-	};
+	simple: BTreeMap<RawAddr, OraclePriceFeedSimpleResp>;
 	/** The final, composed price. See QueryMsg::OraclePrice for more information about this value */
 	composed_price: PricePoint;
 }
@@ -389,7 +392,7 @@ export interface PriceWouldTriggerResp {
  * * Change in delta neutrality fee from creation of the message to execution of the message. Slippage assert tolerance is the tolerance to the sum of the two sources of slippage.
  */
 export interface SlippageAssert {
-	/** Expected effective price from the sender. To incorporate tolerance on delta neutrality fee, the expected price should be modified by expected fee rate: `price = oracle_price * (1 + fee_rate)` `fee_rate` here is the ratio between the delta neutrality fee amount and notional size delta (in collateral asset). */
+	/** Expected effective price from the sender. To incorporate tolerance on delta neutrality fee, the expected price should be modified by expected fee rate: price = oracle_price * (1 + fee_rate) fee_rate here is the ratio between the delta neutrality fee amount and notional size delta (in collateral asset). */
 	price: PriceBaseInQuote;
 	/** Max ratio tolerance of actual trade price differing in an unfavorable direction from expected price. Tolerance of 0.01 means max 1% difference */
 	tolerance: Number;

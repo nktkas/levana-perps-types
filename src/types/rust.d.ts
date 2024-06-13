@@ -18,9 +18,12 @@ export type Vec<T> = T[];
  *
  * This type is very similar to f32, but has increased precision by using twice as many bits. Please see the documentation for f32 or Wikipedia on double precision values for more information.
  *
- * See also the std::f64::consts module.
+ * See also the std::f64::consts module.F
  */
 export type f64 = number;
 
 /** The 64-bit signed integer type. */
 export type i64 = number;
+
+/** re-export of Record type */
+export type BTreeMap<K extends string | number | symbol, V> = Record<K, V>;

@@ -1,4 +1,4 @@
-// Time of last check: 2024-06-12
+// Time of last check: 2024-06-13
 
 import { PositionId } from "./position.d.ts";
 import {
@@ -84,7 +84,7 @@ export interface ListDeferredExecsResp {
 /**
  * After successful execution of an item, what did it impact?
  *
- * Unlike DeferredExecTarget because, after execution, we always have a specific position or order impacted.
+ * Unlike {@link DeferredExecTarget} because, after execution, we always have a specific position or order impacted.
  */
 export type DeferredExecCompleteTarget =
 	| {
@@ -248,10 +248,10 @@ export type DeferredExecItem =
 			leverage: LeverageToBase;
 			/** Direction of new position */
 			direction: DirectionToBase;
-			/** 
+			/**
 			 * @deprecated use take_profit instead
-			 * 
-			 * Maximum gains of new position 
+			 *
+			 * Maximum gains of new position
 			 */
 			max_gains: Option<MaxGainsInQuote>;
 			/** Stop loss price of new position */
