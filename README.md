@@ -92,3 +92,50 @@ const marketsResp = await levanaCosmWasmClient.queryContractSmart(FACTORY_ADDRES
 	markets: {},
 });
 ```
+3. In `index.ts`, the `ExecuteMsg` `QueryMsg` and `InstantiateMsg` types have been renamed due to name overlap:
+
+./src/types/LevanaPerps/contracts/cw20/entry.d.ts:
+
+`ExecuteMsg` > `Cw20ExecuteMsg`
+
+`QueryMsg` > `Cw20QueryMsg`
+
+`InstantiateMsg` > `Cw20InstantiateMsg`
+
+./src/types/LevanaPerps/contracts/factory/entry.d.ts:
+
+`ExecuteMsg` > `FactoryExecuteMsg`
+
+`QueryMsg` > `FactoryQueryMsg`
+
+`InstantiateMsg` > `FactoryInstantiateMsg`
+
+./src/types/LevanaPerps/contracts/faucet/entry.d.ts:
+
+`ExecuteMsg` > `FaucetExecuteMsg`
+
+`QueryMsg` > `FaucetQueryMsg`
+
+`InstantiateMsg` > `FaucetInstantiateMsg`
+
+./src/types/LevanaPerps/contracts/liquidity_token/entry.d.ts:
+
+`ExecuteMsg` > `LiquidityTokenExecuteMsg`
+
+`QueryMsg` > `LiquidityTokenQueryMsg`
+
+`InstantiateMsg` > `LiquidityTokenInstantiateMsg`
+
+./src/types/LevanaPerps/contracts/market/entry.d.ts:
+
+`ExecuteMsg` > `MarketExecuteMsg`
+
+`QueryMsg` > `MarketQueryMsg`
+
+`InstantiateMsg` > `MarketInstantiateMsg`
+
+./src/types/LevanaPerps/contracts/position_token/entry.d.ts:
+
+`ExecuteMsg` > `TrackerExecuteMsg`
+
+`QueryMsg` > `TrackerQueryMsg`
