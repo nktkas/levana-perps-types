@@ -71,7 +71,16 @@ const numTokensResponse = await levanaCosmWasmClient.queryContractSmart(marketIn
 
 ## Differences from the original documentation
 
-1. Changed keys `_unused1`, `_unused2`, `_unused3`, `_unused4` in type [Config](https://apidocs.levana.finance/msg/doc/levana_perpswap_cosmos_msg/contracts/market/config/struct.Config.html#structfield._unused1) to actual keys from blockchain `price_update_too_old_seconds`, `unpend_limit`, `limit_order_fee`, `staleness_seconds`
+1. Replaced some key types in [Config](https://apidocs.levana.finance/msg/doc/levana_perpswap_cosmos_msg/contracts/market/config/struct.Config.html#structfield._unused1) with actual keys from the blockchain:
+
+`_unused1` > `price_update_too_old_seconds`
+
+`_unused2` > `unpend_limit`
+
+`_unused3` > `limit_order_fee`
+
+`_unused4` > `staleness_seconds`
+
 2. Keys whose values are of type Option can now be omitted in the following types: ExecuteMsg, QueryMsg.
 
 If you follow the original documentation:
