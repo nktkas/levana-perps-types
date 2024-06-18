@@ -136,6 +136,14 @@ const marketsResp = await levanaCosmWasmClient.queryContractSmart(FACTORY_ADDRES
 
 ./src/types/LevanaPerps/contracts/position_token/entry.d.ts:
 
+`ExecuteMsg` > `PositionTokenExecuteMsg`
+
+`QueryMsg` > `PositionTokenQueryMsg`
+
+`InstantiateMsg` > `PositionTokenInstantiateMsg`
+
+./src/types/LevanaPerps/contracts/tracker/entry.d.ts:
+
 `ExecuteMsg` > `TrackerExecuteMsg`
 
 `QueryMsg` > `TrackerQueryMsg`
