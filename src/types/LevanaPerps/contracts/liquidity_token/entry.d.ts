@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-12
-
 import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
 import { Expiration } from "../../../cw20.d.ts";
 import { Option, u32 } from "../../../rust.d.ts";

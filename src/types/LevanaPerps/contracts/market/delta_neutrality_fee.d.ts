@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-12
-
 import { Collateral, Signed } from "../../prelude.d.ts";
 
 // ———————————————Structs———————————————
@@ -23,8 +21,8 @@ export interface DeltaNeutralityFeeEvent {
 /** Action taken by trader to incur a delta neutrality fee */
 export type DeltaNeutralityFeeReason =
 	/** Open a new position */
-	| "position-open"
+	| "position_open"
 	/** Update an existing position */
-	| "position-update"
+	| "position_update"
 	/** Close a position */
-	| "position-close";
+	| "position_close";

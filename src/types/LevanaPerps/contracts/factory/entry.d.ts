@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-12
-
 import { Addr, MarketId, RawAddr, Uint64 } from "../../prelude.d.ts";
 import { Option, u32, Vec } from "../../../rust.d.ts";
 import { ShutdownEffect, ShutdownImpact } from "../../shutdown.d.ts";
@@ -101,9 +99,9 @@ export type ContractType =
 	/** The factory contract */
 	| "factory"
 	/** An LP or xLP liquidity token proxy */
-	| "liquidity-token"
+	| "liquidity_token"
 	/** A position NFT proxy */
-	| "position-token"
+	| "position_token"
 	/** A market */
 	| "market";
 

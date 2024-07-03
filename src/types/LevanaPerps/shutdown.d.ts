@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-08
-
 // ———————————————Enums———————————————
 
 /** Are we turning off these features or turning them back on? */
@@ -16,39 +14,39 @@ export type ShutdownImpact =
 	 *
 	 * Includes: updating trigger orders, creating limit orders.
 	 */
-	| "new-trades"
+	| "new_trades"
 	/** Ability to close positions */
-	| "close-positions"
+	| "close_positions"
 	/** Any owner actions on the market */
-	| "owner-actions"
+	| "owner_actions"
 	/** Deposit liquidity, including reinvesting yield */
-	| "deposit-liquidity"
+	| "deposit_liquidity"
 	/**
 	 * Withdraw liquidity in any way
 	 *
 	 * Includes withdrawing, claiming yield
 	 */
-	| "withdraw-liquidity"
+	| "withdraw_liquidity"
 	/** Any activities around xLP staking */
 	| "staking"
 	/** Any activities around unstaking xLP, including collecting */
 	| "unstaking"
 	/** Transfers of positions tokens */
-	| "transfer-positions"
+	| "transfer_positions"
 	/** Transfers of liquidity tokens, both LP and xLP */
-	| "transfer-lp"
+	| "transfer_lp"
 	/** Setting the price */
-	| "set-price"
+	| "set_price"
 	/** Transfer DAO fees */
-	| "transfer-dao-fees"
+	| "transfer_dao_fees"
 	/** Turning the crank */
 	| "crank"
 	/** Setting manual price */
-	| "set-manual-price";
+	| "set_manual_price";
 
 /** Which wallet called the shutdown action? */
 export type ShutdownWallet =
 	/** The kill switch wallet */
-	| "kill-switch"
+	| "kill_switch"
 	/** The wind down wallet */
-	| "wind-down";
+	| "wind_down";

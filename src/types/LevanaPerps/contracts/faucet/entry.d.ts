@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-12
-
 import { Option, u32, u64, Vec } from "../../../rust.d.ts";
 import { Addr, Decimal256, Number, RawAddr, Timestamp } from "../../prelude.d.ts";
 import { Uint128 } from "../../../cosmwasm.d.ts";
@@ -98,8 +96,8 @@ export type GetTokenResponse =
 	};
 
 export type IneligibleReason =
-	| "too-soon"
-	| "already-tapped";
+	| "too_soon"
+	| "already_tapped";
 
 export type OwnerMsg =
 	| {

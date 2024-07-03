@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-12
-
 import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
 import { Addr } from "../../prelude.d.ts";
 
@@ -24,6 +22,6 @@ export interface Cw20ReceiveMsg {
 // ———————————————Enums———————————————
 
 /** so that receivers of send messgage get the required encapsulation */
-export interface ReceiverExecuteMsg {
+export type ReceiverExecuteMsg = {
 	receive: Cw20ReceiveMsg;
-}
+};

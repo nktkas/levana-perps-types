@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-13
-
 import { Config, ConfigUpdate } from "./config.d.ts";
 import { DeferredExecId } from "./deferred_execution.d.ts";
 import { LiquidityStats } from "./liquidity.d.ts";
@@ -854,21 +852,21 @@ export type LimitOrderResult =
 /** Kind of action for a {@link LpAction}. */
 export type LpActionKind =
 	/** via ExecuteMsg::DepositLiquidity */
-	| "deposit-lp"
+	| "deposit_lp"
 	/** via ExecuteMsg::DepositLiquidity */
-	| "deposit-xlp"
+	| "deposit_xlp"
 	/** via ExecuteMsg::ReinvestYield */
-	| "reinvest-yield-lp"
+	| "reinvest_yield_lp"
 	/** via ExecuteMsg::ReinvestYield */
-	| "reinvest-yield-xlp"
+	| "reinvest_yield_xlp"
 	/** via ExecuteMsg::UnstakeXlp the amount of collateral is determined by the time they send their message ExecuteMsg::CollectUnstakedLp is not accounted for here */
-	| "unstake-xlp"
+	| "unstake_xlp"
 	/** Some amount of unstaked LP has been collected into actual LP. */
-	| "collect-lp"
+	| "collect_lp"
 	/** via ExecuteMsg::WithdrawLiquidity */
 	| "withdraw"
 	/** via ExecuteMsg::ClaimYield */
-	| "claim-yield";
+	| "claim_yield";
 
 /** Action taken by trader for a {@link PositionAction} */
 export type PositionActionKind =
@@ -884,7 +882,7 @@ export type PositionActionKind =
 /** When querying an open position, how do we calculate PnL vis-a-vis fees? */
 export type PositionsQueryFeeApproach =
 	/** Do not include any pending fees */
-	| "no-fees"
+	| "no_fees"
 	/** Include accumulated fees (borrow and funding rates), but do not include future fees (specifically DNF). */
 	| "accumulated"
 	/**
@@ -892,7 +890,7 @@ export type PositionsQueryFeeApproach =
 	 *
 	 * This gives an idea of “what will be my PnL if I close my position right now.” To keep compatibility with previous contract APIs, this is the default behavior. However, going forward, `Accumulated` should be preferred, and will eventually become the default.
 	 */
-	| "all-fees";
+	| "all_fees";
 
 /** Query messages on the market contract */
 export type QueryMsg =

@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-12
-
 import { PriceIdentifier } from "../../../pyth.d.ts";
 import { Option, u32, Vec } from "../../../rust.d.ts";
 import { Addr, NumberGtZero, RawAddr } from "../../prelude.d.ts";

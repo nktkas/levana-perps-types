@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-12
-
 import { Option, u32 } from "../../../rust.d.ts";
 import { NumberGtZero } from "../../prelude.d.ts";
 import { Usd } from "../../prelude.d.ts";

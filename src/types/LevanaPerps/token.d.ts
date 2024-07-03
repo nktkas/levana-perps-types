@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-08
-
 import { u8 } from "../rust.d.ts";
 import { RawAddr } from "./prelude.d.ts";
 

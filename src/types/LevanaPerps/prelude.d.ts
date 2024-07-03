@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-08
-
 import { Attribute } from "../cosmwasm.d.ts";
 import { Option, u32, u64, Vec } from "../rust.d.ts";
 
@@ -227,40 +225,40 @@ export type AuthCheck =
 		addr: Addr;
 	}
 	/** The market wind down address, used to gate the close all positions command. */
-	| "wind-down";
+	| "wind_down";
 
 /** What was the user doing when they hit the congestion error message? */
 export type CongestionReason =
 	/** Opening a new position via market order */
-	| "open-market"
+	| "open_market"
 	/** Placing a new limit order */
-	| "place-pimit"
+	| "place_pimit"
 	/** Updating an existing position */
 	| "update"
 	/** Setting a trigger price on an existing position */
-	| "set-trigger";
+	| "set_trigger";
 
 /** Flags for gating debug_log */
 export type DebugLog =
-	| "sanity-funds-add-unallocated"
-	| "sanity-funds-remove-unallocated"
-	| "sanity-funds-add-collateral"
-	| "sanity-funds-remove-collateral"
-	| "sanity-funds-add-trading-fees"
-	| "sanity-funds-add-borrow-fees"
-	| "sanity-funds-remove-fees"
-	| "sanity-funds-add-liquidity"
-	| "sanity-funds-remove-liquidity"
-	| "sanity-funds-balance-assertion"
-	| "sanity-funds-subtotal"
-	| "sanity-funds-delta-neutrality-fee"
-	| "funding-payment-event"
-	| "funding-rate-change-event"
-	| "borrow-fee-event"
-	| "trading-fee-event"
-	| "delta-neutrality-fee-event"
-	| "limit-order-fee-event"
-	| "delta-neutrality-ratio-event";
+	| "sanity_funds_add_unallocated"
+	| "sanity_funds_remove_unallocated"
+	| "sanity_funds_add_collateral"
+	| "sanity_funds_remove_collateral"
+	| "sanity_funds_add_trading_fees"
+	| "sanity_funds_add_borrow_fees"
+	| "sanity_funds_remove_fees"
+	| "sanity_funds_add_liquidity"
+	| "sanity_funds_remove_liquidity"
+	| "sanity_funds_balance_assertion"
+	| "sanity_funds_subtotal"
+	| "sanity_funds_delta_neutrality_fee"
+	| "funding_payment_event"
+	| "funding_rate_change_event"
+	| "borrow_fee_event"
+	| "trading_fee_event"
+	| "delta_neutrality_fee_event"
+	| "limit_order_fee_event"
+	| "delta_neutrality_ratio_event";
 
 /** Direction in terms of base */
 export type DirectionToBase =
@@ -280,9 +278,9 @@ export enum DirectionToNotional {
 /** Source within the protocol for the error */
 export type ErrorDomain =
 	| "market"
-	| "spot-price"
-	| "position-token"
-	| "liquidity-token"
+	| "spot_price"
+	| "position_token"
+	| "liquidity_token"
 	| "cw20"
 	| "wallet"
 	| "factory"
@@ -291,64 +289,64 @@ export type ErrorDomain =
 	| "pyth"
 	| "farming"
 	| "stride"
-	| "simple-oracle";
+	| "simple_oracle";
 
 /** Unique identifier for an error within perps */
 export type ErrorId =
-	| "invalid-stake-lp"
-	| "invalid-amount"
-	| "slippage-assert"
-	| "price-already-exists"
-	| "price-not-found"
-	| "price-too-old"
+	| "invalid_stake_lp"
+	| "invalid_amount"
+	| "slippage_assert"
+	| "price_already_exists"
+	| "price_not_found"
+	| "price_too_old"
 	| "liquidity"
-	| "position-update"
-	| "native-funds"
-	| "cw20-funds"
+	| "position_update"
+	| "native_funds"
+	| "cw20_funds"
 	| "auth"
 	| "expired"
-	| "msg-validation"
+	| "msg_validation"
 	| "conversion"
 	| "config"
-	| "internal-reply"
+	| "internal_reply"
 	| "exceeded"
 	| "any"
 	| "stale"
-	| "insufficient-margin"
-	| "invalid-liquidity-token-msg"
-	| "address-already-exists"
-	| "delta-neutrality-fee-already-long"
-	| "delta-neutrality-fee-already-short"
-	| "delta-neutrality-fee-newly-long"
-	| "delta-neutrality-fee-newly-short"
-	| "delta-neutrality-fee-long-to-short"
-	| "delta-neutrallty-fee-short-to-long"
-	| "direction-to-base-flipped"
-	| "missing-funds"
-	| "unnecessary-funds"
-	| "no-yield-to-claim"
-	| "insufficient-for-reinvest"
-	| "timestamp-subtract-underflow"
-	| "invalid-infinite-max-gains"
-	| "invalid-infinite-take-profit-price"
-	| "max-gains-too-large"
-	| "withdraw-too-much"
-	| "insufficient-liquidity-for-withdrawal"
-	| "missing-position"
-	| "trader-leverage-out-of-range"
-	| "counter-leverage-out-of-range"
-	| "minimum-deposit"
+	| "insufficient_margin"
+	| "invalid_liquidity_token_msg"
+	| "address_already_exists"
+	| "delta_neutrality_fee_already_long"
+	| "delta_neutrality_fee_already_short"
+	| "delta_neutrality_fee_newly_long"
+	| "delta_neutrality_fee_newly_short"
+	| "delta_neutrality_fee_long_to_short"
+	| "delta_neutrallty_fee_short_to_long"
+	| "direction_to_base_flipped"
+	| "missing_funds"
+	| "unnecessary_funds"
+	| "no_yield_to_claim"
+	| "insufficient_for_reinvest"
+	| "timestamp_subtract_underflow"
+	| "invalid_infinite_max_gains"
+	| "invalid_infinite_take_profit_price"
+	| "max_gains_too_large"
+	| "withdraw_too_much"
+	| "insufficient_liquidity_for_withdrawal"
+	| "missing_position"
+	| "trader_leverage_out_of_range"
+	| "counter_leverage_out_of_range"
+	| "minimum_deposit"
 	| "congestion"
-	| "max-liquidity"
-	| "invalid-trigger-price"
-	| "liquidity-cooldown"
-	| "pending-deferred-exec"
-	| "volatile-price-feed-time-delta"
-	| "limit-order-already-canceling"
-	| "position-already-closing"
-	| "no-price-publish-time-found"
-	| "position-already-closed"
-	| "missing-take-profit";
+	| "max_liquidity"
+	| "invalid_trigger_price"
+	| "liquidity_cooldown"
+	| "pending_deferred_exec"
+	| "volatile_price_feed_time_delta"
+	| "limit_order_already_canceling"
+	| "position_already_closing"
+	| "no_price_publish_time_found"
+	| "position_already_closed"
+	| "missing_take_profit";
 
 /** An error type for known market errors with potentially special error handling. */
 export type MarketError =
@@ -504,7 +502,7 @@ export type MarketError =
 			position_id: Uint64;
 		};
 	}
-	| "no-price-publish-time-found"
+	| "no_price_publish_time_found"
 	| {
 		position_already_closed: {
 			id: Uint64;

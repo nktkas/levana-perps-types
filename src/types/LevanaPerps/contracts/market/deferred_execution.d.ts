@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-13
-
 import { PositionId } from "./position.d.ts";
 import {
 	Addr,
@@ -302,7 +300,7 @@ export type DeferredExecStatus =
 /** What entity within the system will be affected by this. */
 export type DeferredExecTarget =
 	/** For open positions or limit orders, no ID exists yet */
-	| "does-not-exist"
+	| "does_not_exist"
 	| {
 		/** Modifying an existing position */
 		position: PositionId;

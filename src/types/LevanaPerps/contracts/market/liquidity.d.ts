@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-12
-
 import { Collateral, LpToken } from "../../prelude.d.ts";
 
 // ———————————————Structs———————————————

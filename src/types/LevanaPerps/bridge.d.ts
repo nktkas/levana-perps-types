@@ -1,5 +1,3 @@
-// Time of last check: 2024-06-08
-
 import { f64, i64, Option, u64, Vec } from "../rust.d.ts";
 import { Addr, NumberGtZero, PerpError } from "./prelude.d.ts";
 import { ExecuteMsg as MarketExecuteMsg, QueryMsg as MarketQueryMsg } from "./contracts/market/entry.d.ts";
@@ -51,7 +49,7 @@ export type ClientToBridgeMsg =
 			funds: Option<NumberGtZero>;
 		};
 	}
-	| "refresh-price"
+	| "refresh_price"
 	| "crank"
 	| {
 		mint_collateral: {
