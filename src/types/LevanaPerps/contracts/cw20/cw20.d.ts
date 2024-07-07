@@ -1,3 +1,8 @@
+// 0.1.0-beta.15
+//
+// General CW20 contract messages.
+// This is used by perps on testnet, not in production.
+
 import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
 import { Addr } from "../../prelude.d.ts";
 

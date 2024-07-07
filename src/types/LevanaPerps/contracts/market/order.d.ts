@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Data types for limit orders
+
 import {
 	Addr,
 	Collateral,
@@ -39,7 +43,7 @@ export interface LimitOrder {
 	take_profit: Option<TakeProfitTrader>;
 	/** Crank fee charged during deferred execution and placing the limit order */
 	crank_fee_collateral: Collateral;
-	/** Same as Self::crank_fee_collateral but cost-basis expressed in USD. */
+	/** Same as {@link crank_fee_collateral} but cost-basis expressed in USD. */
 	crank_fee_usd: Usd;
 }
 

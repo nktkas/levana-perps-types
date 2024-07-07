@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Entrypoint messages for the factory
+
 import { Addr, MarketId, RawAddr, Uint64 } from "../../prelude.d.ts";
 import { Option, u32, Vec } from "../../../rust.d.ts";
 import { ShutdownEffect, ShutdownImpact } from "../../shutdown.d.ts";
@@ -83,8 +87,7 @@ export interface MarketsResp {
 }
 
 /** Placeholder migration message */
-export interface MigrateMsg {
-}
+export interface MigrateMsg {}
 
 /** Return value from [QueryMsg::Shutdown] */
 export interface ShutdownStatus {
@@ -200,7 +203,7 @@ export type QueryMsg =
 		 * @returns {MarketsResp}
 		 */
 		markets: {
-			/** Last seen market ID in a MarketsResp for enumeration */
+			/** Last seen market ID in a {@link MarketsResp} for enumeration */
 			start_after?: Option<MarketId>;
 			/** Defaults to {@link MARKETS_QUERY_LIMIT_DEFAULT} */
 			limit?: Option<u32>;

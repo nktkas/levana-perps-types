@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Entrypoint messages for liquidity token proxy
+
 import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
 import { Expiration } from "../../../cw20.d.ts";
 import { Option, u32 } from "../../../rust.d.ts";
@@ -27,8 +31,7 @@ export interface InstantiateMsg {
 }
 
 /** Placeholder migration message */
-export interface MigrateMsg {
-}
+export interface MigrateMsg {}
 
 // ———————————————Enums———————————————
 
@@ -88,7 +91,7 @@ export type ExecuteMsg =
 		};
 	}
 	| {
-		/** Sends amount tokens from owner -> contract if env.sender has sufficient pre-approval. */
+		/** Sends amount tokens from owner -> contract if `env.sender` has sufficient pre-approval. */
 		send_from: {
 			/** Owner of the tokens being transferred */
 			owner: RawAddr;

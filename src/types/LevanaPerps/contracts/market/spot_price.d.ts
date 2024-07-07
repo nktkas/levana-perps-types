@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Spot price data structures
+
 import { PriceIdentifier } from "../../../pyth.d.ts";
 import { Option, u32, Vec } from "../../../rust.d.ts";
 import { Addr, NumberGtZero, RawAddr } from "../../prelude.d.ts";
@@ -42,7 +46,7 @@ export interface SpotPriceFeedInit {
 	data: SpotPriceFeedDataInit;
 	/** is this price feed inverted */
 	inverted: boolean;
-	/** See SpotPriceFeed::volatile */
+	/** See {@link SpotPriceFeed.volatile} */
 	volatile: Option<boolean>;
 }
 
@@ -144,7 +148,7 @@ export type SpotPriceFeedData =
 		/** Pyth price feeds */
 		pyth: {
 			/** The identifier on pyth */
-			id: string;
+			id: PriceIdentifier;
 			/**
 			 * price age tolerance, in seconds
 			 *

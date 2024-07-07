@@ -1,3 +1,5 @@
+// 0.1.0-beta.15
+
 import { Option, u32, u64, Vec } from "../../../rust.d.ts";
 import { Addr, Decimal256, Number, RawAddr, Timestamp } from "../../prelude.d.ts";
 import { Uint128 } from "../../../cosmwasm.d.ts";
@@ -35,8 +37,7 @@ export interface IsAdminResponse {
 }
 
 /** Placeholder migration message */
-export interface MigrateMsg {
-}
+export interface MigrateMsg {}
 
 export interface MultitapRecipient {
 	addr: RawAddr;
@@ -67,7 +68,7 @@ export type ExecuteMsg =
 		};
 	}
 	| {
-		OwnerMsg: OwnerMsg;
+		owner_msg: OwnerMsg;
 	};
 
 export type FaucetAsset =
@@ -113,7 +114,7 @@ export type OwnerMsg =
 	| {
 		/** Given in seconds */
 		set_tap_limit: {
-			tap_limit: Option<u32>;
+			tap_limit?: Option<u32>;
 		};
 	}
 	| {
@@ -130,9 +131,9 @@ export type OwnerMsg =
 			/**
 			 * Each trading competition token for an asset is assigned an index to disambiguate them. It also makes it easier to find the token you just created with a deploy. These are intended to be monotonically increasing. When deploying a new trading competition token, consider using QueryMsg::NextTradingIndex to find the next available number.
 			 *
-			 * By providing None, you’re saying that you want to deploy an unrestricted token which can be tapped multiple times and be used with any contract.
+			 * By providing [None](https://doc.rust-lang.org/1.75.0/core/option/enum.Option.html#variant.None), you’re saying that you want to deploy an unrestricted token which can be tapped multiple times and be used with any contract.
 			 */
-			trading_competition_index: Option<u32>;
+			trading_competition_index?: Option<u32>;
 			initial_balances: Vec<Cw20Coin>;
 		};
 	}
@@ -236,23 +237,19 @@ export type QueryMsg =
 		/**
 		 * @returns {TapAmountResponse}
 		 */
-		tapAmount_by_name: {
+		tap_amount_by_name: {
 			name: string;
 		};
 	}
 	| {
-		/**
-		 * Find out the cumulative amount of funds transferred at a given timestamp.
-		 */
+		/** Find out the cumulative amount of funds transferred at a given timestamp. */
 		funds_sent: {
 			asset: FaucetAsset;
 			timestamp?: Option<Timestamp>;
 		};
 	}
 	| {
-		/**
-		 * Enumerate all wallets that tapped the faucet
-		 */
+		/** Enumerate all wallets that tapped the faucet */
 		tappers: {
 			start_after?: Option<RawAddr>;
 			limit?: Option<u32>;

@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Market-wide configuration
+
 import { Option, u32 } from "../../../rust.d.ts";
 import { NumberGtZero } from "../../prelude.d.ts";
 import { Usd } from "../../prelude.d.ts";
@@ -29,7 +33,7 @@ export interface Config {
 	/**
 	 * Needed to ensure financial model is balanced
 	 *
-	 * Must be at most 1 less than the Config::max_leverage
+	 * Must be at most 1 less than the {@link max_leverage}
 	 */
 	carry_leverage: Decimal256;
 	/** Do not emit events (default is false, events will be emitted) */
@@ -54,7 +58,7 @@ export interface Config {
 	 * For example, if this number is 5, then as liquidity in the protocol approaches 100% in LP and 0% in xLP, any xLP token will receive 5x the rewards of an LP token.
 	 */
 	max_xlp_rewards_multiplier: NumberGtZero;
-	/** Minimum counterpoint to Config::max_xlp_rewards_multiplier */
+	/** Minimum counterpoint to {@link max_xlp_rewards_multiplier} */
 	min_xlp_rewards_multiplier: NumberGtZero;
 	/**
 	 * Delta neutrality fee sensitivity parameter.
@@ -111,13 +115,13 @@ export interface Config {
 	/** The spot price config for this market */
 	spot_price: SpotPriceConfig;
 	/** Just for historical reasons/migrations */
-	price_update_too_old_seconds: Option<u32>;
+	_unused1: Option<u32>;
 	/** Just for historical reasons/migrations */
-	unpend_limit: Option<u32>;
+	_unused2: Option<u32>;
 	/** Just for historical reasons/migrations */
-	limit_order_fee: Option<Collateral>;
+	_unused3: Option<Collateral>;
 	/** Just for historical reasons/migrations */
-	staleness_seconds: Option<u32>;
+	_unused4: Option<u32>;
 }
 
 /**

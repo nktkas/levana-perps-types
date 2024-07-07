@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Entrypoint messages for position token proxy
+
 import { Binary } from "../../../cosmwasm.d.ts";
 import { ContractVersion } from "../../../cw2.d.ts";
 import { Expiration } from "../../../cw20.d.ts";
@@ -36,8 +40,7 @@ export interface InstantiateMsg {
 }
 
 /** Placeholder migration message */
-export interface MigrateMsg {
-}
+export interface MigrateMsg {}
 
 /** Response for QueryMsg::ContractInfo */
 export interface NftContractInfo {
@@ -145,7 +148,7 @@ export type ExecuteMsg =
 	};
 
 /**
- * Query message for liquidity token proxy
+ * Query messages for a position token proxy
  *
  * Matches the CW721 standard.
  */

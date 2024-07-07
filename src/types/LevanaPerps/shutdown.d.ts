@@ -1,3 +1,9 @@
+// 0.1.0-beta.15
+//
+// Types for market kill switch and winddown.
+//
+// These two mechanisms both allow authorized wallets to shut down parts of the protocol, either at a market level or the entire protocol. Therefore they share a set of types here.
+
 // ———————————————Enums———————————————
 
 /** Are we turning off these features or turning them back on? */

@@ -1,5 +1,11 @@
-import { Timestamp } from "./LevanaPerps/prelude.d.ts";
 import { u64 } from "./rust.d.ts";
+
+/**
+ * A point in time in nanosecond precision.
+ *
+ * This type can represent times from 1970-01-01T00:00:00Z to 2554-07-21T23:34:33Z.
+ */
+export type Timestamp = string;
 
 /** A thin wrapper around u128 that is using strings for JSON encoding/decoding, such that the full u128 range can be used for clients that convert JSON numbers to floats, like JavaScript and jq. */
 export type Uint128 = string;
@@ -28,3 +34,5 @@ export type Attribute = {
 	key: string;
 	value: string;
 };
+
+export type QueryResponse = Binary;

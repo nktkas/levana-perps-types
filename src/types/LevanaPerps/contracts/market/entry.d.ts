@@ -1,5 +1,9 @@
+// 0.1.0-beta.15
+//
+// Entrypoint messages for the market
+
 import { Config, ConfigUpdate } from "./config.d.ts";
-import { DeferredExecId } from "./deferred_execution.d.ts";
+import { DeferredExecId, ListDeferredExecsResp } from "./deferred_execution.d.ts";
 import { LiquidityStats } from "./liquidity.d.ts";
 import { LimitOrder, OrderId } from "./order.d.ts";
 import { BTreeMap, Option, u32, u64, Vec } from "../../../rust.d.ts";
@@ -34,8 +38,9 @@ import { SpotPriceConfigInit } from "./spot_price.d.ts";
 import { LiquidityTokenKind } from "../liquidity_token/liquidity_token.d.ts";
 import { ExecuteMsg as PositionTokenExecuteMsg, QueryMsg as PositionTokenQueryMsg } from "../position_token/entry.d.ts";
 import { ExecuteMsg as LiquidityTokenExecuteMsg, QueryMsg as LiquidityTokenQueryMsg } from "../liquidity_token/entry.d.ts";
-import { Binary, BlockInfo, Uint128 } from "../../../cosmwasm.d.ts";
+import { Binary, BlockInfo, QueryResponse, Uint128 } from "../../../cosmwasm.d.ts";
 import { PriceIdentifier } from "../../../pyth.d.ts";
+import { GetDeferredExecResp } from "./deferred_execution.d.ts";
 
 // ———————————————Structs———————————————
 
@@ -104,7 +109,7 @@ export interface InstantiateMsg {
 	/**
 	 * Initial price to use in the contract
 	 *
-	 * This is required when doing manual price updates, and prohibited for oracle based price updates. It would make more sense to include this in SpotPriceConfigInit, but that will create more complications in config update logic.
+	 * This is required when doing manual price updates, and prohibited for oracle based price updates. It would make more sense to include this in {@link SpotPriceConfigInit}, but that will create more complications in config update logic.
 	 */
 	initial_price: Option<InitialPrice>;
 	/** Base, quote, and market type */
@@ -242,8 +247,7 @@ export interface LpInfoResp {
 }
 
 /** Placeholder migration message */
-export interface MigrateMsg {
-}
+export interface MigrateMsg {}
 
 /** Config info passed on to all sub-contracts in order to add a new market. */
 export interface NewMarketParams {
@@ -261,7 +265,7 @@ export interface NewMarketParams {
 	initial_price: Option<InitialPrice>;
 }
 
-/** Part of OraclePriceResp */
+/** Part of {@link OraclePriceResp} */
 export interface OraclePriceFeedPythResp {
 	/** The pyth price */
 	price: NumberGtZero;
@@ -271,7 +275,7 @@ export interface OraclePriceFeedPythResp {
 	volatile: boolean;
 }
 
-/** Part of OraclePriceResp */
+/** Part of {@link OraclePriceResp} */
 export interface OraclePriceFeedSeiResp {
 	/** The Sei price */
 	price: NumberGtZero;
@@ -281,7 +285,7 @@ export interface OraclePriceFeedSeiResp {
 	volatile: boolean;
 }
 
-/** Part of OraclePriceResp */
+/** Part of {@link OraclePriceResp} */
 export interface OraclePriceFeedSimpleResp {
 	/** The price value */
 	value: NumberGtZero;
@@ -293,7 +297,7 @@ export interface OraclePriceFeedSimpleResp {
 	volatile: boolean;
 }
 
-/** Part of OraclePriceResp */
+/** Part of {@link OraclePriceResp} */
 export interface OraclePriceFeedStrideResp {
 	/** The redemption rate */
 	redemption_rate: NumberGtZero;
@@ -385,14 +389,13 @@ export interface PriceWouldTriggerResp {
 
 /**
  * There are two sources of slippage in the protocol:
- *
  * * Change in the oracle price from creation of the message to execution of the message.
  * * Change in delta neutrality fee from creation of the message to execution of the message. Slippage assert tolerance is the tolerance to the sum of the two sources of slippage.
  */
 export interface SlippageAssert {
-	/** Expected effective price from the sender. To incorporate tolerance on delta neutrality fee, the expected price should be modified by expected fee rate: price = oracle_price * (1 + fee_rate) fee_rate here is the ratio between the delta neutrality fee amount and notional size delta (in collateral asset). */
+	/** Expected effective price from the sender. To incorporate tolerance on delta neutrality fee, the expected price should be modified by expected fee rate: `price = oracle_price * (1 + fee_rate)` `fee_rate` here is the ratio between the delta neutrality fee amount and notional size delta (in collateral asset). */
 	price: PriceBaseInQuote;
-	/** Max ratio tolerance of actual trade price differing in an unfavorable direction from expected price. Tolerance of 0.01 means max 1% difference */
+	/** Max ratio tolerance of actual trade price differing in an unfavorable direction from expected price. Tolerance of 0.01 means max 1% difference. */
 	tolerance: Number;
 }
 
@@ -438,9 +441,9 @@ export interface StatusResp {
 	last_processed_deferred_exec_id: Option<DeferredExecId>;
 	/** Overall borrow fee rate (annualized), combining LP and xLP */
 	borrow_fee: Decimal256;
-	/** LP component of Self::borrow_fee */
+	/** LP component of {@link borrow_fee} */
 	borrow_fee_lp: Decimal256;
-	/** xLP component of Self::borrow_fee */
+	/** xLP component of {@link borrow_fee} */
 	borrow_fee_xlp: Decimal256;
 	/** Long funding rate (annualized) */
 	long_funding: Number;
@@ -498,7 +501,7 @@ export interface UnstakingStatus {
 	 * Note that this value must be the sum of collected, available, and pending.
 	 */
 	xlp_unstaking: NonZero<LpToken>;
-	/** Collateral, at current exchange rate, underlying the UnstakingStatus::xlp_unstaking */
+	/** Collateral, at current exchange rate, underlying the {@link xlp_unstaking} */
 	xlp_unstaking_collateral: Collateral;
 	/** Total amount of LP tokens that have been unstaked and collected */
 	collected: LpToken;
@@ -508,7 +511,7 @@ export interface UnstakingStatus {
 	pending: LpToken;
 }
 
-// Enums
+// ———————————————Enums———————————————
 
 /** Execute message for the market contract */
 export type ExecuteMsg =
@@ -523,7 +526,7 @@ export type ExecuteMsg =
 			sender: RawAddr;
 			/** Amount of funds sent */
 			amount: Uint128;
-			/** Must parse to a ExecuteMsg */
+			/** Must parse to a {@link ExecuteMsg} */
 			msg: Binary;
 		};
 	}
@@ -536,7 +539,11 @@ export type ExecuteMsg =
 			leverage: LeverageToBase;
 			/** Direction of new position */
 			direction: DirectionToBase;
-			/** Maximum gains of new position */
+			/**
+			 * @deprecated Use take_profit instead
+			 *
+			 * Maximum gains of new position
+			 */
 			max_gains?: Option<MaxGainsInQuote>;
 			/** Stop loss price of new position */
 			stop_loss_override?: Option<PriceBaseInQuote>;
@@ -650,7 +657,11 @@ export type ExecuteMsg =
 			leverage: LeverageToBase;
 			/** Direction of new position */
 			direction: DirectionToBase;
-			/** Maximum gains of new position */
+			/**
+			 * @deprecated Use take_profit instead
+			 *
+			 * Maximum gains of new position
+			 */
 			max_gains?: Option<MaxGainsInQuote>;
 			/** Stop loss price of new position */
 			stop_loss_override?: Option<PriceBaseInQuote>;
@@ -717,7 +728,7 @@ export type ExecuteMsg =
 		/**
 		 * Stake some existing LP tokens into xLP
 		 *
-		 * None means stake all LP tokens.
+		 * [None](https://doc.rust-lang.org/1.75.0/core/option/enum.Option.html#variant.None) means stake all LP tokens.
 		 */
 		stake_lp: {
 			/** Amount of LP tokens to convert into xLP. */
@@ -728,7 +739,7 @@ export type ExecuteMsg =
 		/**
 		 * Begin unstaking xLP into LP
 		 *
-		 * None means unstake all xLP tokens.
+		 * [None](https://doc.rust-lang.org/1.75.0/core/option/enum.Option.html#variant.None) means unstake all xLP tokens.
 		 */
 		unstake_xlp: {
 			/** Amount of xLP tokens to convert into LP */
@@ -921,7 +932,7 @@ export type QueryMsg =
 			/**
 			 * Timestamp when the price should be effective.
 			 *
-			 * None means “give the most recent price.”
+			 * [None](https://doc.rust-lang.org/1.75.0/core/option/enum.Option.html#variant.None) means “give the most recent price.”
 			 */
 			timestamp?: Option<Timestamp>;
 		};
@@ -950,6 +961,7 @@ export type QueryMsg =
 		 * @returns {OraclePriceResp}
 		 */
 		oracle_price: {
+			/** If true then it will validate the publish_time age as though it were used to push a new spot_price update Otherwise, it just returns the oracle price as-is, even if it’s old */
 			validate_age: boolean;
 		};
 	}
@@ -1030,7 +1042,7 @@ export type QueryMsg =
 		 * Nft proxy messages. Not meant to be called directly but rather for internal cross-contract calls
 		 *
 		 * however, these are merely queries, and can be called by anyone and clients may take advantage of this to save query gas by calling the market directly
-		 * @returns [cosmwasm_std::QueryResponse]
+		 * @returns {QueryResponse}
 		 */
 		nft_proxy: {
 			/** NFT message to process */
@@ -1042,7 +1054,7 @@ export type QueryMsg =
 		 * Liquidity token cw20 proxy messages. Not meant to be called directly but rather for internal cross-contract calls
 		 *
 		 * however, these are merely queries, and can be called by anyone and clients may take advantage of this to save query gas by calling the market directly
-		 * @returns [cosmwasm_std::QueryResponse]
+		 * @returns {QueryResponse}
 		 */
 		liquidity_token_proxy: {
 			/** Whether to query LP or xLP tokens */

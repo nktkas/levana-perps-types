@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Entrypoint messages for the CW20 contract.
+
 import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
 import { Expiration } from "../../../cw20.d.ts";
 import { Option, u32, u8, Vec } from "../../../rust.d.ts";
@@ -74,8 +78,7 @@ export interface MarketingInfoResponse {
 }
 
 /** Placeholder migration message */
-export interface MigrateMsg {
-}
+export interface MigrateMsg {}
 
 export interface MinterResponse {
 	minter: Addr;

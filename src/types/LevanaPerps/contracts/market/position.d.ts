@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Data structures and events for positions
+
 import {
 	Addr,
 	Base,
@@ -18,7 +22,7 @@ import { PricePoint } from "../../prelude.d.ts";
 import { NonZero } from "../../prelude.d.ts";
 import { Price } from "../../prelude.d.ts";
 
-// Structs
+// ———————————————Structs———————————————
 
 /**
  * Instructions to close a position.
@@ -42,7 +46,7 @@ export interface ClosePositionInstructions {
 	additional_losses: Collateral;
 	/** The price point used for settling this position. */
 	settlement_price: PricePoint;
-	/** See ClosedPosition::reason */
+	/** See {@link ClosedPosition.reason} */
 	reason: PositionCloseReason;
 	/** Did this occur because the position was closed during liquifunding? */
 	closed_during_liquifunding: boolean;
@@ -274,7 +278,7 @@ export interface PositionQueryResponse {
 	 * This value is the current balance, including all updates
 	 */
 	trading_fee_collateral: Collateral;
-	/** USD expression of Self::trading_fee_collateral using cost-basis calculation. */
+	/** USD expression of {@link trading_fee_collateral} using cost-basis calculation. */
 	trading_fee_usd: Usd;
 	/**
 	 * The ongoing fee paid (and earned!) between positions to incentivize keeping longs and shorts in balance which in turn reduces risk for LPs
@@ -282,7 +286,7 @@ export interface PositionQueryResponse {
 	 * This value is the current balance, not a historical record of each payment
 	 */
 	funding_fee_collateral: Signed<Collateral>;
-	/** USD expression of Self::funding_fee_collateral using cost-basis calculation. */
+	/** USD expression of {@link funding_fee_collateral} using cost-basis calculation. */
 	funding_fee_usd: Signed<Usd>;
 	/**
 	 * The ongoing fee paid to LPs to lock up their deposit as counter-size collateral in this position
@@ -290,26 +294,26 @@ export interface PositionQueryResponse {
 	 * This value is the current balance, not a historical record of each payment
 	 */
 	borrow_fee_collateral: Collateral;
-	/** USD expression of Self::borrow_fee_collateral using cost-basis calculation. */
+	/** USD expression of {@link borrow_fee_collateral} using cost-basis calculation. */
 	borrow_fee_usd: Usd;
 	/** Cumulative amount of crank fees paid by the position */
 	crank_fee_collateral: Collateral;
-	/** USD expression of Self::crank_fee_collateral using cost-basis calculation. */
+	/** USD expression of {@link crank_fee_collateral} using cost-basis calculation. */
 	crank_fee_usd: Usd;
 	/** Aggregate delta neutrality fees paid or received through position opens and upates. */
 	delta_neutrality_fee_collateral: Signed<Collateral>;
-	/** USD expression of Self::delta_neutrality_fee_collateral using cost-basis calculation. */
+	/** USD expression of {@link delta_neutrality_fee_collateral} using cost-basis calculation. */
 	delta_neutrality_fee_usd: Signed<Usd>;
-	/** See Position::deposit_collateral */
+	/** See {@link Position.deposit_collateral} */
 	deposit_collateral: Signed<Collateral>;
-	/** USD expression of Self::deposit_collateral using cost-basis calculation. */
+	/** USD expression of {@link deposit_collateral} using cost-basis calculation. */
 	deposit_collateral_usd: Signed<Usd>;
-	/** See Position::active_collateral */
-	active_collateral: Signed<Collateral>;
-	/** Self::active_collateral converted to USD at the current exchange rate */
-	active_collateral_usd: Signed<Usd>;
-	/** See Position::counter_collateral */
-	counter_collateral: Signed<Collateral>;
+	/** See {@link Position.active_collateral} */
+	active_collateral: NonZero<Collateral>;
+	/** {@link active_collateral} converted to USD at the current exchange rate */
+	active_collateral_usd: NonZero<Usd>;
+	/** See {@link Position.counter_collateral} */
+	counter_collateral: NonZero<Collateral>;
 	/** Unrealized PnL on this position, in terms of collateral. */
 	pnl_collateral: Signed<Collateral>;
 	/** Unrealized PnL on this position, in USD, using cost-basis analysis. */
@@ -326,13 +330,17 @@ export interface PositionQueryResponse {
 	 * Note that this is not a simple conversion from notional size. Instead, this needs to account for the off-by-one leverage that occurs in collateral-is-base markets.
 	 */
 	position_size_base: Signed<Base>;
-	/** Convert Self::position_size_base into USD at the current exchange rate. */
+	/** Convert {@link position_size_base} into USD at the current exchange rate. */
 	position_size_usd: Signed<Usd>;
 	/** Price at which liquidation will occur */
 	liquidation_price_base: Option<PriceBaseInQuote>;
 	/** The liquidation margin set aside on this position */
 	liquidation_margin: LiquidationMargin;
-	/** Maximum gains, in terms of quote, the trader can achieve */
+	/**
+	 * @deprecated Use take_profit_trader instead
+	 *
+	 * Maximum gains, in terms of quote, the trader can achieve
+	 */
 	max_gains_in_quote: Option<MaxGainsInQuote>;
 	/** Entry price */
 	entry_price_base: PriceBaseInQuote;
@@ -341,9 +349,9 @@ export interface PositionQueryResponse {
 	/** Stop loss price set by the trader */
 	stop_loss_override: Option<PriceBaseInQuote>;
 	/** The take profit value set by the trader in a message. For historical reasons, this value can be optional if the user provided a max gains price. */
-	take_profit_override: Option<TakeProfitTrader>;
+	take_profit_trader: Option<TakeProfitTrader>;
 	/** The most recently calculated price at which the trader will achieve maximum gains and take all counter collateral. */
-	take_profit_price_base: Option<PriceBaseInQuote>;
+	take_profit_total_base: Option<PriceBaseInQuote>;
 }
 
 /** Response from [QueryMsg::Positions] */
@@ -363,7 +371,7 @@ export interface PositionsResp {
 /** Collateral and USD which can become negative */
 export type SignedCollateralAndUsd = string;
 
-// Enums
+// ———————————————Enums———————————————
 
 /** Reason why a position was liquidated */
 export type LiquidationReason =

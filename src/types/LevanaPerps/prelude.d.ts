@@ -1,3 +1,9 @@
+// 0.1.0-beta.15
+//
+// Convenience prelude module.
+//
+// This reexports commonly used identifiers for use by contracts and tools.
+
 import { Attribute } from "../cosmwasm.d.ts";
 import { Option, u32, u64, Vec } from "../rust.d.ts";
 
@@ -20,7 +26,7 @@ export type InclusiveRatio = unknown;
  * 3. Use `let checked: Addr = deps.api.addr_humanize(canonical_addr)?`
  * 4. Deserialize from JSON. This must only be done from JSON that was validated before such as a contract’s state. Addr must not be used in messages sent by the user because this would result in unvalidated instances.
  *
- * This type is immutable. If you really need to mutate it (Really? Are you sure?), create a mutable copy using let mut mutable = Addr::to_string() and operate on that String instance.
+ * This type is immutable. If you really need to mutate it (Really? Are you sure?), create a mutable copy using `let mut mutable = Addr::to_string()` and operate on that `String` instance.
  */
 export type Addr = string;
 
@@ -41,9 +47,9 @@ export type Decimal256 = string;
 export type Duration = string;
 
 /**
- * A full Cosmos SDK event.
+ * A full [Cosmos SDK event](https://docs.cosmos.network/main/basics/events).
  *
- * This version uses string attributes (similar to Cosmos SDK StringEvent), which then get magically converted to bytes for Tendermint somewhere between the Rust-Go interface, JSON deserialization and the NewEvent call in Cosmos SDK.
+ * This version uses string attributes (similar to [Cosmos SDK StringEvent](https://github.com/cosmos/cosmos-sdk/blob/v0.42.5/proto/cosmos/base/abci/v1beta1/abci.proto#L56-L70)), which then get magically converted to bytes for Tendermint somewhere between the Rust-Go interface, JSON deserialization and the `NewEvent` call in Cosmos SDK.
  */
 export interface Event {
 	/** The event type. This is renamed to “ty” because “type” is reserved in Rust. This sucks, we know. */
@@ -51,20 +57,13 @@ export interface Event {
 	/**
 	 * The attributes to be included in the event.
 	 *
-	 * You can learn more about these from Cosmos SDK docs.
+	 * You can learn more about these from [Cosmos SDK docs](https://docs.cosmos.network/main/learn/advanced/events).
 	 */
 	attributes: Vec<Attribute>;
 }
 
 /** Unsigned value */
 export type FarmingToken = string;
-
-/**
- * TODO: Not realized
- *
- * Item stores one typed item at the given key. This is an analog of Singleton. It functions the same way as Path does but doesn’t use a Vec and thus has a const fn constructor.
- */
-export type Item<T> = T;
 
 /**
  * The absolute leverage for a position, in terms of the base asset.
@@ -81,8 +80,6 @@ export type LpToken = string;
 
 /** Unsigned value */
 export type LvnToken = string;
-
-export type Map<K extends string | number | symbol, T> = Record<K, T>;
 
 /** An identifier for a market. */
 export type MarketId = `${string}_${string}`;
@@ -113,13 +110,6 @@ export type PriceBaseInQuote = string;
 
 /** PriceBaseInQuote converted to USD */
 export type PriceCollateralInUsd = string;
-
-/**
- * A modified version of a Price used as a key in a Map.
- *
- * Due to how cw-storage-plus works, we need to have a reference to a slice, which we can’t get from a Decimal256. Instead, we store an array directly here and provide conversion functions.
- */
-export type PriceKey = unknown;
 
 /**
  * All prices in the protocol for a given point in time.
@@ -181,9 +171,6 @@ export type Quote = string;
  */
 export type RawAddr = string;
 
-/** Helper data type, following builder pattern, for constructing a [Response]. */
-export type ResponseBuilder = string;
-
 /** Wrap up any UnsignedDecimal to provide negative values too. */
 export type Signed<T> = T;
 
@@ -204,7 +191,7 @@ export type SignedLeverageToNotional = string;
 /**
  * Essentially a newtype wrapper for Timestamp providing additional impls.
  *
- * Internal representation in nanoseconds since the epoch. We keep a u64 directly (instead of a Timestamp or cosmwasm_std::Uint64) to make it easier to derive some impls. The result is that we need to explicitly implement Serialize and Deserialize to keep the stringy representation.
+ * Internal representation in nanoseconds since the epoch. We keep a {@link u64} directly (instead of a Timestamp or {@link Uint64}) to make it easier to derive some impls. The result is that we need to explicitly implement [Serialize](https://docs.rs/serde/1.0.200/serde/ser/trait.Serialize.html) and [Deserialize](https://docs.rs/serde/1.0.200/serde/de/trait.Deserialize.html) to keep the stringy representation.
  */
 export type Timestamp = string;
 
@@ -232,7 +219,7 @@ export type CongestionReason =
 	/** Opening a new position via market order */
 	| "open_market"
 	/** Placing a new limit order */
-	| "place_pimit"
+	| "place_limit"
 	/** Updating an existing position */
 	| "update"
 	/** Setting a trigger price on an existing position */
@@ -270,9 +257,9 @@ export type DirectionToBase =
 /** Direction in terms of notional */
 export enum DirectionToNotional {
 	/** Long versus notional */
-	Long = 0,
+	long = 0,
 	/** Short versus notional */
-	Short = 1,
+	short = 1,
 }
 
 /** Source within the protocol for the error */
@@ -299,7 +286,6 @@ export type ErrorId =
 	| "price_already_exists"
 	| "price_not_found"
 	| "price_too_old"
-	| "liquidity"
 	| "position_update"
 	| "native_funds"
 	| "cw20_funds"
@@ -320,7 +306,7 @@ export type ErrorId =
 	| "delta_neutrality_fee_newly_long"
 	| "delta_neutrality_fee_newly_short"
 	| "delta_neutrality_fee_long_to_short"
-	| "delta_neutrallty_fee_short_to_long"
+	| "delta_neutrality_fee_short_to_long"
 	| "direction_to_base_flipped"
 	| "missing_funds"
 	| "unnecessary_funds"
@@ -346,7 +332,9 @@ export type ErrorId =
 	| "position_already_closing"
 	| "no_price_publish_time_found"
 	| "position_already_closed"
-	| "missing_take_profit";
+	| "missing_take_profit"
+	| "insufficient_liquidity_for_unlock"
+	| "liquidity";
 
 /** An error type for known market errors with potentially special error handling. */
 export type MarketError =
@@ -509,10 +497,34 @@ export type MarketError =
 			close_time: Timestamp;
 			reason: string;
 		};
+	}
+	| {
+		insufficient_liquidity_for_unlock: {
+			requested: NonZero<Collateral>;
+			total_locked: Collateral;
+		};
+	}
+	| {
+		liquidity: {
+			/** Total amount of liquidity requested to take from unlocked pool. */
+			requested: NonZero<Collateral>;
+			/** Total amount of liquidity available in the unlocked pool. */
+			total_unlocked: Collateral;
+			/**
+			 * Liquidity allowed to be taken for this action.
+			 *
+			 * In particular, carry leverage may restrict the total amount of liquidity that can be used to ensure sufficient funds for cash-and-carry balancing operations.
+			 */
+			allowed: Collateral;
+		};
 	};
 
 /** Whether the collateral asset is the same as the quote or base asset. */
-export type MarketType = "collateral_is_base" | "collateral_is_quote";
+export type MarketType =
+	/** A market where the collateral is the base asset */
+	| "collateral_is_quote"
+	/** A market where the collateral is the quote asset */
+	| "collateral_is_base";
 
 /**
  * The max gains for a position.
@@ -522,17 +534,19 @@ export type MarketType = "collateral_is_base" | "collateral_is_quote";
  * Note that when opening long positions in collateral-is-base markets, infinite max gains is possible. However, this is an error in the case of short positions or collateral-is-quote markets.
  */
 export type MaxGainsInQuote =
-	/** Finite max gains */
-	| string
+	| {
+		/** Finite max gains */
+		finite: NonZero<Decimal256>;
+	}
 	/** Infinite max gains */
-	| "+Inf";
+	| "pos_infinity";
 
 export enum Order {
-	Ascending = 1,
-	Descending = 2,
+	ascending = 1,
+	descending = 2,
 }
 
-/** Like cosmwasm_std::Order but serialized as a string and with a schema export */
+/** Like {@link Order} but serialized as a string and with a schema export */
 export type OrderInMessage =
 	/** Ascending order */
 	| "ascending"
@@ -545,10 +559,12 @@ export type OrderInMessage =
  * Infinite take profit price is possible. However, this is an error in the case of short positions or collateral-is-quote markets.
  */
 export type TakeProfitTrader =
-	/** Finite take profit price */
-	| string
+	| {
+		/** Finite take profit price */
+		finite: NonZero<Decimal256>;
+	}
 	/** Infinite take profit price */
-	| "+Inf";
+	| "pos_infinity";
 
 /** Was the price provided by the trader too high or too low? */
 export type TriggerPriceMustBe =
@@ -560,14 +576,14 @@ export type TriggerPriceMustBe =
 /** What type of price trigger occurred? */
 export type TriggerType =
 	/** A stop loss */
-	| "stop-loss"
+	| "stop_loss"
 	/** A take profit */
-	| "take-profit";
+	| "take_profit";
 
 // ———————————————Constants———————————————
 
 /** useful for placing an upper cap on query iterators as a safety measure to prevent exhausting resources on nodes that allow unbounded query gas */
-export type QUERY_MAX_LIMIT = 1000;
+export const QUERY_MAX_LIMIT = 1000;
 
 // ———————————————Type Aliases———————————————
 
@@ -581,9 +597,9 @@ export type QUERY_MAX_LIMIT = 1000;
 export type Number = Signed<Decimal256>;
 
 /**
- * A special case of NonZero which stores a big endian array of data.
+ * A special case of {@link NonZero} which stores a big endian array of data.
  *
- * Purpose: this is intended to be used as a key in a cw-storage-plus Map. This wouldn’t be necessary if cw-storage-plus allowed non-reference A Number which is always greater than zero.
+ * Purpose: this is intended to be used as a key in a cw-storage-plus Map. This wouldn’t be necessary if cw-storage-plus allowed non-reference A {@link Number} which is always greater than zero.
  *
  * This is useful for representing things like price.
  */

@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Data types and events for cranking.
+
 import { DeferredExecId, DeferredExecTarget } from "./deferred_execution.d.ts";
 import { OrderId } from "./order.d.ts";
 import { LiquidationReason, PositionId } from "./position.d.ts";

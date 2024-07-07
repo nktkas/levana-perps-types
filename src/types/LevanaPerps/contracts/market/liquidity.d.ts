@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Data types for tracking liquidity
+
 import { Collateral, LpToken } from "../../prelude.d.ts";
 
 // ———————————————Structs———————————————

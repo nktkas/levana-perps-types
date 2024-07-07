@@ -1,15 +1,16 @@
-// Time of last check: 2024-06-12
+// 0.1.0-beta.15
+//
+// Tracks different code IDs and instantiated contracts on testnet.
+// This is used by perps on testnet, not in production.
 
 import { Option, u32, u64 } from "../../../rust.d.ts";
 import { Timestamp } from "../../prelude.d.ts";
 
 // ———————————————Structs———————————————
 
-export interface InstantiateMsg {
-}
+export interface InstantiateMsg {}
 
-export interface MigrateMsg {
-}
+export interface MigrateMsg {}
 
 // ———————————————Enums———————————————
 

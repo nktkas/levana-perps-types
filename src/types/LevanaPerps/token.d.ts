@@ -1,3 +1,7 @@
+// 0.1.0-beta.15
+//
+// Represents the native coin or CW20 used for collateral in a market.
+
 import { u8 } from "../rust.d.ts";
 import { RawAddr } from "./prelude.d.ts";
 

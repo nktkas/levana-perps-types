@@ -1,3 +1,8 @@
+// 0.1.0-beta.15
+//
+// Deferred execution work items.
+// This allows the protocol to ensure only fresh prices are used for price-sensitive operations.
+
 import { PositionId } from "./position.d.ts";
 import {
 	Addr,
