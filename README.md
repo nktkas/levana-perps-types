@@ -11,7 +11,7 @@ const FACTORY_ADDRESS = "osmo1ssw6x553kzqher0earlkwlxasfm2stnl3ms3ma2zz4tnajxyya
 
 const levanaCosmWasmClient = await CosmWasmClient.connect(RPC_ENDPOINT) as LevanaCosmWasmClient;
 
-// TypeScript automatically recognizes a query and offers certain hints and returns the appropriate type for the query
+// TypeScript automatically recognizes a query, offers certain hints, and returns the appropriate response type for the query
 
 const marketsResp = await levanaCosmWasmClient.queryContractSmart(FACTORY_ADDRESS, {
 	markets: {},
