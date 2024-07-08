@@ -1,10 +1,13 @@
 Types from [Rust documentation](https://apidocs.levana.finance/msg/doc/levana_perpswap_cosmos_msg/index.html) Levana Perps in TypeScript
 
-## Usage (Deno)
+## Install
+Visit https://jsr.io/@nktkas/levana-perps-types to learn about all the ways to install the package in your work environment (Deno, npm, Yarn, pnpm, Bun).
+
+## Usage (in [Deno](https://deno.com/))
 
 ```typescript
-import { LevanaCosmWasmClient, LevanaSigningCosmWasmClient } from "./index.ts";
-import { CosmWasmClient } from "https://esm.sh/@cosmjs/cosmwasm-stargate@0.32.3";
+import type { LevanaCosmWasmClient, LevanaSigningCosmWasmClient } from "jsr:@nktkas/levana-perps-types";
+import { CosmWasmClient } from "npm:@cosmjs/cosmwasm-stargate@0.32.4";
 
 const RPC_ENDPOINT = "https://osmosis-rpc.publicnode.com:443";
 const FACTORY_ADDRESS = "osmo1ssw6x553kzqher0earlkwlxasfm2stnl3ms3ma2zz4tnajxyyaaqlucd45";
