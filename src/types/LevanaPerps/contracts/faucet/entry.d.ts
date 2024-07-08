@@ -1,10 +1,10 @@
 // 0.1.0-beta.15
 
-import { Option, u32, u64, Vec } from "../../../rust.d.ts";
-import { Addr, Decimal256, Number, RawAddr, Timestamp } from "../../prelude.d.ts";
-import { Uint128 } from "../../../cosmwasm.d.ts";
-import { Cw20Coin } from "../cw20/cw20.d.ts";
-import { ContractVersion } from "../../../cw2.d.ts";
+import type { Option, u32, u64, Vec } from "../../../rust.d.ts";
+import type { Addr, Decimal256, Number, RawAddr, Timestamp } from "../../prelude.d.ts";
+import type { Uint128 } from "../../../cosmwasm.d.ts";
+import type { Cw20Coin } from "../cw20/cw20.d.ts";
+import type { ContractVersion } from "../../../cw2.d.ts";
 
 // ———————————————Structs———————————————
 
@@ -35,9 +35,6 @@ export interface InstantiateMsg {
 export interface IsAdminResponse {
 	is_admin: boolean;
 }
-
-/** Placeholder migration message */
-export interface MigrateMsg {}
 
 export interface MultitapRecipient {
 	addr: RawAddr;
@@ -174,19 +171,19 @@ export type OwnerMsg =
 export type QueryMsg =
 	| {
 		/**
-		 * @returns {ContractVersion}
+		 * @returns {ContractVersion} {@link ContractVersion}
 		 */
 		version: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
-		 * @returns {ConfigResponse}
+		 * @returns {ConfigResponse} {@link ConfigResponse}
 		 */
 		config: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
-		 * @returns {GetTokenResponse}
+		 * @returns {GetTokenResponse} {@link GetTokenResponse}
 		 */
 		get_token: {
 			name: string;
@@ -196,7 +193,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns the next trading competition index we can use for the given asset name
-		 * @returns {NextTradingIndexResponse}
+		 * @returns {NextTradingIndexResponse} {@link NextTradingIndexResponse}
 		 */
 		next_trading_index: {
 			name: string;
@@ -204,13 +201,13 @@ export type QueryMsg =
 	}
 	| {
 		/**
-		 * @returns {GasAllowanceResp}
+		 * @returns {GasAllowanceResp} {@link GasAllowanceResp}
 		 */
 		get_gas_allowance: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
-		 * @returns {TapEligibleResponse}
+		 * @returns {TapEligibleResponse} {@link TapEligibleResponse}
 		 */
 		is_tap_eligible: {
 			addr: RawAddr;
@@ -219,7 +216,7 @@ export type QueryMsg =
 	}
 	| {
 		/**
-		 * @returns {IsAdminResponse}
+		 * @returns {IsAdminResponse} {@link IsAdminResponse}
 		 */
 		is_admin: {
 			addr: RawAddr;
@@ -227,7 +224,7 @@ export type QueryMsg =
 	}
 	| {
 		/**
-		 * @returns {TapAmountResponse}
+		 * @returns {TapAmountResponse} {@link TapAmountResponse}
 		 */
 		tap_amount: {
 			asset: FaucetAsset;
@@ -235,7 +232,7 @@ export type QueryMsg =
 	}
 	| {
 		/**
-		 * @returns {TapAmountResponse}
+		 * @returns {TapAmountResponse} {@link TapAmountResponse}
 		 */
 		tap_amount_by_name: {
 			name: string;

@@ -2,13 +2,13 @@
 //
 // Entrypoint messages for the market
 
-import { Config, ConfigUpdate } from "./config.d.ts";
-import { DeferredExecId, ListDeferredExecsResp } from "./deferred_execution.d.ts";
-import { LiquidityStats } from "./liquidity.d.ts";
-import { LimitOrder, OrderId } from "./order.d.ts";
-import { BTreeMap, Option, u32, u64, Vec } from "../../../rust.d.ts";
-import { ClosedPosition, PositionId } from "./position.d.ts";
-import {
+import type { Config, ConfigUpdate } from "./config.d.ts";
+import type { DeferredExecId, ListDeferredExecsResp } from "./deferred_execution.d.ts";
+import type { LiquidityStats } from "./liquidity.d.ts";
+import type { LimitOrder, OrderId } from "./order.d.ts";
+import type { BTreeMap, Option, u32, u64, Vec } from "../../../rust.d.ts";
+import type { ClosedPosition, PositionId } from "./position.d.ts";
+import type {
 	Addr,
 	Collateral,
 	Decimal256,
@@ -32,15 +32,15 @@ import {
 	Timestamp,
 	Usd,
 } from "../../prelude.d.ts";
-import { Token, TokenInit } from "../../token.d.ts";
-import { CrankWorkInfo } from "./crank.d.ts";
-import { SpotPriceConfigInit } from "./spot_price.d.ts";
-import { LiquidityTokenKind } from "../liquidity_token/liquidity_token.d.ts";
-import { ExecuteMsg as PositionTokenExecuteMsg, QueryMsg as PositionTokenQueryMsg } from "../position_token/entry.d.ts";
-import { ExecuteMsg as LiquidityTokenExecuteMsg, QueryMsg as LiquidityTokenQueryMsg } from "../liquidity_token/entry.d.ts";
-import { Binary, BlockInfo, QueryResponse, Uint128 } from "../../../cosmwasm.d.ts";
-import { PriceIdentifier } from "../../../pyth.d.ts";
-import { GetDeferredExecResp } from "./deferred_execution.d.ts";
+import type { Token, TokenInit } from "../../token.d.ts";
+import type { CrankWorkInfo } from "./crank.d.ts";
+import type { SpotPriceConfigInit } from "./spot_price.d.ts";
+import type { LiquidityTokenKind } from "../liquidity_token/liquidity_token.d.ts";
+import type { ExecuteMsg as PositionTokenExecuteMsg, QueryMsg as PositionTokenQueryMsg } from "../position_token/entry.d.ts";
+import type { ExecuteMsg as LiquidityTokenExecuteMsg, QueryMsg as LiquidityTokenQueryMsg } from "../liquidity_token/entry.d.ts";
+import type { Binary, BlockInfo, QueryResponse, Uint128 } from "../../../cosmwasm.d.ts";
+import type { PriceIdentifier } from "../../../pyth.d.ts";
+import type { GetDeferredExecResp } from "./deferred_execution.d.ts";
 
 // ———————————————Structs———————————————
 
@@ -245,9 +245,6 @@ export interface LpInfoResp {
 	/** Liquidity cooldown information, if active. */
 	liquidity_cooldown: Option<LiquidityCooldown>;
 }
-
-/** Placeholder migration message */
-export interface MigrateMsg {}
 
 /** Config info passed on to all sub-contracts in order to add a new market. */
 export interface NewMarketParams {
@@ -907,7 +904,7 @@ export type PositionsQueryFeeApproach =
 export type QueryMsg =
 	| {
 		/**
-		 * @returns {ContractVersion}
+		 * @returns {ContractVersion} {@link ContractVersion}
 		 */
 		version: Record<string | number | symbol, never>;
 	}
@@ -916,7 +913,7 @@ export type QueryMsg =
 		 * Provides overall information about this market.
 		 *
 		 * This is intended as catch-all for protocol wide information, both static (like market ID) and dynamic (like notional interest). The goal is to limit the total number of queries callers have to make to get relevant information.
-		 * @returns {StatusResp}
+		 * @returns {StatusResp} {@link StatusResp}
 		 */
 		status: {
 			/** Price to be used as the current price */
@@ -926,7 +923,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Gets the spot price, if no time is supplied, then it’s current This is the spot price as seen by the contract storage i.e. the price that was pushed via execution messages
-		 * @returns {PricePoint}
+		 * @returns {PricePoint} {@link PricePoint}
 		 */
 		spot_price: {
 			/**
@@ -940,7 +937,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Gets a collection of historical spot prices
-		 * @returns {SpotPriceHistoryResp}
+		 * @returns {SpotPriceHistoryResp} {@link SpotPriceHistoryResp}
 		 */
 		spot_price_history: {
 			/** Last timestamp we saw */
@@ -958,7 +955,7 @@ export type QueryMsg =
 		 * Also returns prices for each feed used to compose the final price
 		 *
 		 * This may be more up-to-date than the spot price which was validated and pushed into the contract storage via execution messages
-		 * @returns {OraclePriceResp}
+		 * @returns {OraclePriceResp} {@link OraclePriceResp}
 		 */
 		oracle_price: {
 			/** If true then it will validate the publish_time age as though it were used to push a new spot_price update Otherwise, it just returns the oracle price as-is, even if it’s old */
@@ -968,7 +965,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Maps the given PositionIds into Positions
-		 * @returns {PositionsResp}
+		 * @returns {PositionsResp} {@link PositionsResp}
 		 */
 		positions: {
 			/** Positions to query. */
@@ -999,7 +996,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns the specified Limit Order
-		 * @returns {LimitOrderResp}
+		 * @returns {LimitOrderResp} {@link LimitOrderResp}
 		 */
 		limit_order: {
 			/** Limit order ID to query */
@@ -1009,7 +1006,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns the Limit Orders for the specified addr
-		 * @returns {LimitOrdersResp}
+		 * @returns {LimitOrdersResp} {@link LimitOrdersResp}
 		 */
 		limit_orders: {
 			/** Owner of limit orders */
@@ -1024,7 +1021,7 @@ export type QueryMsg =
 	}
 	| {
 		/**
-		 * @returns {ClosedPositionsResp}
+		 * @returns {ClosedPositionsResp} {@link ClosedPositionsResp}
 		 */
 		closed_position_history: {
 			/** Owner of the positions to get history for */
@@ -1065,7 +1062,7 @@ export type QueryMsg =
 	}
 	| {
 		/**
-		 * @returns {TradeHistorySummary} for a given wallet addr
+		 * @returns {TradeHistorySummary} {@link TradeHistorySummary} for a given wallet addr
 		 */
 		trade_history_summary: {
 			/** Which wallet’s history are we querying? */
@@ -1074,7 +1071,7 @@ export type QueryMsg =
 	}
 	| {
 		/**
-		 * @returns {PositionActionHistoryResp}
+		 * @returns {PositionActionHistoryResp} {@link PositionActionHistoryResp}
 		 */
 		position_action_history: {
 			/** Which position’s history are we querying? */
@@ -1092,7 +1089,7 @@ export type QueryMsg =
 		 * Actions taken by a trader.
 		 *
 		 * Similar to Self::PositionActionHistory, but provides all details for an individual trader, not an individual position.
-		 * @returns {TraderActionHistoryResp}
+		 * @returns {TraderActionHistoryResp} {@link TraderActionHistoryResp}
 		 */
 		trader_action_history: {
 			/** Which trader’s history are we querying? */
@@ -1107,7 +1104,7 @@ export type QueryMsg =
 	}
 	| {
 		/**
-		 * @returns {LpActionHistoryResp}
+		 * @returns {LpActionHistoryResp} {@link LpActionHistoryResp}
 		 */
 		lp_action_history: {
 			/** Which provider’s history are we querying? */
@@ -1123,7 +1120,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Provides information on triggered limit orders.
-		 * @returns {LimitOrderHistoryResp}
+		 * @returns {LimitOrderHistoryResp} {@link LimitOrderHistoryResp}
 		 */
 		limit_order_history: {
 			/** Trader’s address for history we are querying */
@@ -1139,7 +1136,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Provides the data needed by the earn page.
-		 * @returns {LpInfoResp}
+		 * @returns {LpInfoResp} {@link LpInfoResp}
 		 */
 		lp_info: {
 			/** Which provider’s information are we querying? */
@@ -1149,7 +1146,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Gets the delta neutrality fee at the current price, for a given change in terms of net notional
-		 * @returns {DeltaNeutralityFeeResp}
+		 * @returns {DeltaNeutralityFeeResp} {@link DeltaNeutralityFeeResp}
 		 */
 		delta_neutrality_fee: {
 			/** the amount of notional that would be changed */
@@ -1161,7 +1158,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Check if a price update would trigger a liquidation/take profit/etc.
-		 * @returns {PriceWouldTriggerResp}
+		 * @returns {PriceWouldTriggerResp} {@link PriceWouldTriggerResp}
 		 */
 		price_would_trigger: {
 			/** The new price of the base asset in terms of quote */
@@ -1173,7 +1170,7 @@ export type QueryMsg =
 		 * Enumerate deferred execution work items for the given trader.
 		 *
 		 * Always begins enumeration from the most recent.
-		 * @returns {ListDeferredExecsResp}
+		 * @returns {ListDeferredExecsResp} {@link ListDeferredExecsResp}
 		 */
 		list_deferred_execs: {
 			/** Trader wallet address */
@@ -1187,7 +1184,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Get a single deferred execution item, if available.
-		 * @returns {GetDeferredExecResp}
+		 * @returns {GetDeferredExecResp} {@link GetDeferredExecResp}
 		 */
 		get_deferred_exec: {
 			/** ID */

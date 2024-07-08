@@ -2,7 +2,7 @@
 //
 // Data types for tracking liquidity
 
-import { Collateral, LpToken } from "../../prelude.d.ts";
+import type { Collateral, LpToken } from "../../prelude.d.ts";
 
 // ———————————————Structs———————————————
 

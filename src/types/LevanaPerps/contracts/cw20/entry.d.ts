@@ -2,12 +2,12 @@
 //
 // Entrypoint messages for the CW20 contract.
 
-import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
-import { Expiration } from "../../../cw20.d.ts";
-import { Option, u32, u8, Vec } from "../../../rust.d.ts";
-import { Addr, RawAddr } from "../../prelude.d.ts";
-import { Cw20Coin } from "./cw20.d.ts";
-import { ContractVersion } from "../../../cw2.d.ts";
+import type { Binary, Uint128 } from "../../../cosmwasm.d.ts";
+import type { Expiration } from "../../../cw20.d.ts";
+import type { Option, u32, u8, Vec } from "../../../rust.d.ts";
+import type { Addr, RawAddr } from "../../prelude.d.ts";
+import type { Cw20Coin } from "./cw20.d.ts";
+import type { ContractVersion } from "../../../cw2.d.ts";
 
 // ———————————————Structs———————————————
 
@@ -76,9 +76,6 @@ export interface MarketingInfoResponse {
 	/** The address (if any) who can update this data structure */
 	marketing: Option<Addr>;
 }
-
-/** Placeholder migration message */
-export interface MigrateMsg {}
 
 export interface MinterResponse {
 	minter: Addr;
@@ -241,7 +238,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * The current balance of the given address, 0 if unset.
-		 * @returns {BalanceResponse}
+		 * @returns {BalanceResponse} {@link BalanceResponse}
 		 */
 		balance: {
 			address: RawAddr;
@@ -250,21 +247,21 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns metadata on the contract - name, decimals, supply, etc.
-		 * @returns {TokenInfoResponse}
+		 * @returns {TokenInfoResponse} {@link TokenInfoResponse}
 		 */
 		token_info: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
 		 * Returns who can mint and the hard cap on maximum tokens after minting.
-		 * @returns {MinterResponse}
+		 * @returns {MinterResponse} {@link MinterResponse}
 		 */
 		minter: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
 		 * Returns how much spender can use from owner account, 0 if unset.
-		 * @returns {AllowanceResponse}
+		 * @returns {AllowanceResponse} {@link AllowanceResponse}
 		 */
 		allowance: {
 			owner: RawAddr;
@@ -274,7 +271,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns all allowances this owner has approved. Supports pagination.
-		 * @returns {AllAllowancesResponse}
+		 * @returns {AllAllowancesResponse} {@link AllAllowancesResponse}
 		 */
 		all_allowances: {
 			owner: RawAddr;
@@ -285,7 +282,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns all allowances this spender has been granted. Supports pagination.
-		 * @returns {AllSpenderAllowancesResponse}
+		 * @returns {AllSpenderAllowancesResponse} {@link AllSpenderAllowancesResponse}
 		 */
 		all_spender_allowances: {
 			spender: RawAddr;
@@ -296,7 +293,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns all accounts that have balances. Supports pagination.
-		 * @returns {AllAccountsResponse}
+		 * @returns {AllAccountsResponse} {@link AllAccountsResponse}
 		 */
 		all_accounts: {
 			start_after?: Option<RawAddr>;
@@ -307,20 +304,20 @@ export type QueryMsg =
 		/**
 		 * Returns more metadata on the contract to display in the client:
 		 * * description, logo, project url, etc.
-		 * @returns {MarketingInfoResponse}
+		 * @returns {MarketingInfoResponse} {@link MarketingInfoResponse}
 		 */
 		marketing_info: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
 		 * Downloads the embedded logo data (if stored on chain). Errors if no logo data is stored for this contract.
-		 * @returns {DownloadLogoResponse}
+		 * @returns {DownloadLogoResponse} {@link DownloadLogoResponse}
 		 */
 		download_logo: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
-		 * @returns {ContractVersion}
+		 * @returns {ContractVersion} {@link ContractVersion}
 		 */
 		version: Record<string | number | symbol, never>;
 	};

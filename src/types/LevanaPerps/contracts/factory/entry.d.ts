@@ -2,11 +2,11 @@
 //
 // Entrypoint messages for the factory
 
-import { Addr, MarketId, RawAddr, Uint64 } from "../../prelude.d.ts";
-import { Option, u32, Vec } from "../../../rust.d.ts";
-import { ShutdownEffect, ShutdownImpact } from "../../shutdown.d.ts";
-import { NewMarketParams } from "../market/entry.d.ts";
-import { ContractVersion } from "../../../cw2.d.ts";
+import type { Addr, MarketId, RawAddr, Uint64 } from "../../prelude.d.ts";
+import type { Option, u32, Vec } from "../../../rust.d.ts";
+import type { ShutdownEffect, ShutdownImpact } from "../../shutdown.d.ts";
+import type { NewMarketParams } from "../market/entry.d.ts";
+import type { ContractVersion } from "../../../cw2.d.ts";
 
 // ———————————————Structs———————————————
 
@@ -85,9 +85,6 @@ export interface MarketsResp {
 	/** Markets maintained by this factory */
 	markets: Vec<MarketId>;
 }
-
-/** Placeholder migration message */
-export interface MigrateMsg {}
 
 /** Return value from [QueryMsg::Shutdown] */
 export interface ShutdownStatus {
@@ -193,14 +190,14 @@ export type ExecuteMsg =
 export type QueryMsg =
 	| {
 		/**
-		 * @returns {ContractVersion}
+		 * @returns {ContractVersion} {@link ContractVersion}
 		 */
 		version: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
 		 * All the markets
-		 * @returns {MarketsResp}
+		 * @returns {MarketsResp} {@link MarketsResp}
 		 */
 		markets: {
 			/** Last seen market ID in a {@link MarketsResp} for enumeration */
@@ -212,7 +209,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Combined query to get the market related addresses
-		 * @returns {MarketInfoResponse}
+		 * @returns {MarketInfoResponse} {@link MarketInfoResponse}
 		 */
 		market_info: {
 			/** Market ID to look up */
@@ -222,7 +219,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * given an address, checks if it’s any of the registered protocol contracts.
-		 * @returns {AddrIsContractResp}
+		 * @returns {AddrIsContractResp} {@link AddrIsContractResp}
 		 */
 		addr_is_contract: {
 			/** Address to check */
@@ -232,13 +229,13 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns information about the owners of the factory
-		 * @returns {FactoryOwnerResp}
+		 * @returns {FactoryOwnerResp} {@link FactoryOwnerResp}
 		 */
 		factory_owner: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
-		 * @returns {ShutdownStatus}
+		 * @returns {ShutdownStatus} {@link ShutdownStatus}
 		 */
 		shutdown_status: {
 			/** Market to look up */
@@ -247,7 +244,7 @@ export type QueryMsg =
 	}
 	| {
 		/**
-		 * @returns {CodeIds}
+		 * @returns {CodeIds} {@link CodeIds}
 		 */
 		code_ids: Record<string | number | symbol, never>;
 	};

@@ -2,12 +2,12 @@
 //
 // Entrypoint messages for position token proxy
 
-import { Binary } from "../../../cosmwasm.d.ts";
-import { ContractVersion } from "../../../cw2.d.ts";
-import { Expiration } from "../../../cw20.d.ts";
-import { Option, u32, u64, Vec } from "../../../rust.d.ts";
-import { Addr, MarketId, RawAddr } from "../../prelude.d.ts";
-import { Approval, Metadata } from "./position_token.d.ts";
+import type { Binary } from "../../../cosmwasm.d.ts";
+import type { ContractVersion } from "../../../cw2.d.ts";
+import type { Expiration } from "../../../cw20.d.ts";
+import type { Option, u32, u64, Vec } from "../../../rust.d.ts";
+import type { Addr, MarketId, RawAddr } from "../../prelude.d.ts";
+import type { Approval, Metadata } from "./position_token.d.ts";
 
 // ———————————————Structs———————————————
 
@@ -38,9 +38,6 @@ export interface InstantiateMsg {
 	/** Unique market identifier, also used for `symbol` in ContractInfo response */
 	market_id: MarketId;
 }
-
-/** Placeholder migration message */
-export interface MigrateMsg {}
 
 /** Response for QueryMsg::ContractInfo */
 export interface NftContractInfo {
@@ -156,7 +153,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Return the owner of the given token, error if token does not exist
-		 * @returns {OwnerOfResponse}
+		 * @returns {OwnerOfResponse} {@link OwnerOfResponse}
 		 */
 		owner_of: {
 			/** Position ID, represented as a `String` to match the NFT spec */
@@ -168,7 +165,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Return operator that can access all of the owner’s tokens.
-		 * @returns {ApprovalResponse}
+		 * @returns {ApprovalResponse} {@link ApprovalResponse}
 		 */
 		approval: {
 			/** Position ID, represented as a `String` to match the NFT spec */
@@ -182,7 +179,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Return approvals that a token has
-		 * @returns {ApprovalsResponse}
+		 * @returns {ApprovalsResponse} {@link ApprovalsResponse}
 		 */
 		approvals: {
 			/** Position ID, represented as a `String` to match the NFT spec */
@@ -194,7 +191,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * List all operators that can access all of the owner’s tokens
-		 * @returns {OperatorsResponse}
+		 * @returns {OperatorsResponse} {@link OperatorsResponse}
 		 */
 		all_operators: {
 			/** Position ID, represented as a `String` to match the NFT spec */
@@ -210,21 +207,21 @@ export type QueryMsg =
 	| {
 		/**
 		 * Total number of tokens issued
-		 * @returns {NumTokensResponse}
+		 * @returns {NumTokensResponse} {@link NumTokensResponse}
 		 */
 		num_tokens: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
 		 * Returns top-level metadata about the contract: `ContractInfoResponse`
-		 * @returns {NftContractInfo}
+		 * @returns {NftContractInfo} {@link NftContractInfo}
 		 */
 		contract_info: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
 		 * Returns metadata for a given token/position the format is based on the ERC721 Metadata JSON Schema but directly from the contract: `NftInfoResponse`
-		 * @returns {NftInfoResponse}
+		 * @returns {NftInfoResponse} {@link NftInfoResponse}
 		 */
 		nft_info: {
 			/** Position ID, represented as a `String` to match the NFT spec */
@@ -234,7 +231,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns the result of both `NftInfo` and `OwnerOf` as one query as an optimization for clients: `AllNftInfo`
-		 * @returns {AllNftInfoResponse}
+		 * @returns {AllNftInfoResponse} {@link AllNftInfoResponse}
 		 */
 		all_nft_info: {
 			/** Position ID, represented as a `String` to match the NFT spec */
@@ -246,7 +243,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns all tokens owned by the given address, [] if unset.
-		 * @returns {TokensResponse}
+		 * @returns {TokensResponse} {@link TokensResponse}
 		 */
 		tokens: {
 			/** Owner to enumerate over */
@@ -260,7 +257,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Requires pagination. Lists all token_ids controlled by the contract.
-		 * @returns {TokensResponse}
+		 * @returns {TokensResponse} {@link TokensResponse}
 		 */
 		all_tokens: {
 			/** Last position ID seen */
@@ -271,7 +268,7 @@ export type QueryMsg =
 	}
 	| {
 		/**
-		 * @returns {ContractVersion}
+		 * @returns {ContractVersion} {@link ContractVersion}
 		 */
 		version: Record<string | number | symbol, never>;
 	};

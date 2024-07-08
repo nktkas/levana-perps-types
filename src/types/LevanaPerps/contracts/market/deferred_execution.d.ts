@@ -3,8 +3,8 @@
 // Deferred execution work items.
 // This allows the protocol to ensure only fresh prices are used for price-sensitive operations.
 
-import { PositionId } from "./position.d.ts";
-import {
+import type { PositionId } from "./position.d.ts";
+import type {
 	Addr,
 	Collateral,
 	DirectionToBase,
@@ -17,9 +17,9 @@ import {
 	Timestamp,
 	Usd,
 } from "../../prelude.d.ts";
-import { OrderId } from "./order.d.ts";
-import { Option, Vec } from "../../../rust.d.ts";
-import { SlippageAssert, StopLoss } from "./entry.d.ts";
+import type { OrderId } from "./order.d.ts";
+import type { Option, Vec } from "../../../rust.d.ts";
+import type { SlippageAssert, StopLoss } from "./entry.d.ts";
 
 // ———————————————Structs———————————————
 

@@ -2,9 +2,9 @@
 //
 // Spot price data structures
 
-import { PriceIdentifier } from "../../../pyth.d.ts";
-import { Option, u32, Vec } from "../../../rust.d.ts";
-import { Addr, NumberGtZero, RawAddr } from "../../prelude.d.ts";
+import type { PriceIdentifier } from "../../../pyth.d.ts";
+import type { Option, u32, Vec } from "../../../rust.d.ts";
+import type { Addr, NumberGtZero, RawAddr } from "../../prelude.d.ts";
 
 // ———————————————Structs———————————————
 

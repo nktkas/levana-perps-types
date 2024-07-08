@@ -1,9 +1,9 @@
 // 0.1.0-beta.15
 
-import { f64, i64, Option, u64, Vec } from "../rust.d.ts";
-import { Addr, NumberGtZero, PerpError } from "./prelude.d.ts";
-import { ExecuteMsg as MarketExecuteMsg, QueryMsg as MarketQueryMsg } from "./contracts/market/entry.d.ts";
-import { Binary } from "../cosmwasm.d.ts";
+import type { f64, i64, Option, u64, Vec } from "../rust.d.ts";
+import type { Addr, NumberGtZero, PerpError } from "./prelude.d.ts";
+import type { ExecuteMsg as MarketExecuteMsg, QueryMsg as MarketQueryMsg } from "./contracts/market/entry.d.ts";
+import type { Binary } from "../cosmwasm.d.ts";
 
 // ———————————————Structs———————————————
 

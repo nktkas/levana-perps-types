@@ -2,13 +2,13 @@
 //
 // Market-wide configuration
 
-import { Option, u32 } from "../../../rust.d.ts";
-import { NumberGtZero } from "../../prelude.d.ts";
-import { Usd } from "../../prelude.d.ts";
-import { Collateral } from "../../prelude.d.ts";
-import { NonZero } from "../../prelude.d.ts";
-import { Decimal256, Number } from "../../prelude.d.ts";
-import { SpotPriceConfig, SpotPriceConfigInit } from "./spot_price.d.ts";
+import type { Option, u32 } from "../../../rust.d.ts";
+import type { NumberGtZero } from "../../prelude.d.ts";
+import type { Usd } from "../../prelude.d.ts";
+import type { Collateral } from "../../prelude.d.ts";
+import type { NonZero } from "../../prelude.d.ts";
+import type { Decimal256, Number } from "../../prelude.d.ts";
+import type { SpotPriceConfig, SpotPriceConfigInit } from "./spot_price.d.ts";
 
 // ———————————————Structs———————————————
 

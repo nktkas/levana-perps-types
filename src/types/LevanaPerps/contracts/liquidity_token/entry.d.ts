@@ -2,12 +2,12 @@
 //
 // Entrypoint messages for liquidity token proxy
 
-import { Binary, Uint128 } from "../../../cosmwasm.d.ts";
-import { Expiration } from "../../../cw20.d.ts";
-import { Option, u32 } from "../../../rust.d.ts";
-import { MarketId, RawAddr } from "../../prelude.d.ts";
-import { LiquidityTokenKind } from "./liquidity_token.d.ts";
-import {
+import type { Binary, Uint128 } from "../../../cosmwasm.d.ts";
+import type { Expiration } from "../../../cw20.d.ts";
+import type { Option, u32 } from "../../../rust.d.ts";
+import type { MarketId, RawAddr } from "../../prelude.d.ts";
+import type { LiquidityTokenKind } from "./liquidity_token.d.ts";
+import type {
 	AllAccountsResponse,
 	AllAllowancesResponse,
 	AllowanceResponse,
@@ -16,7 +16,7 @@ import {
 	MarketingInfoResponse,
 	TokenInfoResponse,
 } from "../cw20/entry.d.ts";
-import { ContractVersion } from "../../../cw2.d.ts";
+import type { ContractVersion } from "../../../cw2.d.ts";
 
 // ———————————————Structs———————————————
 
@@ -29,9 +29,6 @@ export interface InstantiateMsg {
 	/** The liquidity token kind */
 	kind: LiquidityTokenKind;
 }
-
-/** Placeholder migration message */
-export interface MigrateMsg {}
 
 // ———————————————Enums———————————————
 
@@ -109,7 +106,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * The current balance of the given address, 0 if unset.
-		 * @returns {BalanceResponse}
+		 * @returns {BalanceResponse} {@link BalanceResponse}
 		 */
 		balance: {
 			/** Address whose balance to check */
@@ -119,14 +116,14 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns metadata on the contract - name, decimals, supply, etc.
-		 * @returns {TokenInfoResponse}
+		 * @returns {TokenInfoResponse} {@link TokenInfoResponse}
 		 */
 		token_info: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
 		 * Returns how much spender can use from owner account, 0 if unset.
-		 * @returns {AllowanceResponse}
+		 * @returns {AllowanceResponse} {@link AllowanceResponse}
 		 */
 		allowance: {
 			/** Owner of tokens */
@@ -138,7 +135,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns all allowances this owner has approved. Supports pagination.
-		 * @returns {AllAllowancesResponse}
+		 * @returns {AllAllowancesResponse} {@link AllAllowancesResponse}
 		 */
 		all_allowances: {
 			/** Owner of tokens */
@@ -152,7 +149,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns all allowances this spender has been granted. Supports pagination.
-		 * @returns {AllSpenderAllowancesResponse}
+		 * @returns {AllSpenderAllowancesResponse} {@link AllSpenderAllowancesResponse}
 		 */
 		all_spender_allowances: {
 			/** Spender address */
@@ -166,7 +163,7 @@ export type QueryMsg =
 	| {
 		/**
 		 * Returns all accounts that have balances. Supports pagination.
-		 * @returns {AllAccountsResponse}
+		 * @returns {AllAccountsResponse} {@link AllAccountsResponse}
 		 */
 		all_accounts: {
 			/** Last owner we saw */
@@ -179,19 +176,19 @@ export type QueryMsg =
 		/**
 		 * Returns more metadata on the contract to display in the client:
 		 * * description, logo, project url, etc.
-		 * @returns {MarketingInfoResponse}
+		 * @returns {MarketingInfoResponse} {@link MarketingInfoResponse}
 		 */
 		marketing_info: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
-		 * @returns {ContractVersion}
+		 * @returns {ContractVersion} {@link ContractVersion}
 		 */
 		version: Record<string | number | symbol, never>;
 	}
 	| {
 		/**
-		 * @returns {LiquidityTokenKind}
+		 * @returns {LiquidityTokenKind} {@link LiquidityTokenKind}
 		 */
 		kind: Record<string | number | symbol, never>;
 	};

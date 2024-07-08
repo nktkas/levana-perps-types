@@ -2,7 +2,7 @@
 //
 // Data structures and events for positions
 
-import {
+import type {
 	Addr,
 	Base,
 	Collateral,
@@ -17,10 +17,10 @@ import {
 	Usd,
 } from "../../prelude.d.ts";
 
-import { Option, Vec } from "../../../rust.d.ts";
-import { PricePoint } from "../../prelude.d.ts";
-import { NonZero } from "../../prelude.d.ts";
-import { Price } from "../../prelude.d.ts";
+import type { Option, Vec } from "../../../rust.d.ts";
+import type { PricePoint } from "../../prelude.d.ts";
+import type { NonZero } from "../../prelude.d.ts";
+import type { Price } from "../../prelude.d.ts";
 
 // ———————————————Structs———————————————
 

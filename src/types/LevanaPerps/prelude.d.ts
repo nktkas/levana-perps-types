@@ -1,11 +1,10 @@
 // 0.1.0-beta.15
 //
 // Convenience prelude module.
-//
 // This reexports commonly used identifiers for use by contracts and tools.
 
-import { Attribute } from "../cosmwasm.d.ts";
-import { Option, u32, u64, Vec } from "../rust.d.ts";
+import type { Attribute } from "../cosmwasm.d.ts";
+import type { Option, u32, u64, Vec } from "../rust.d.ts";
 
 // ———————————————Modules———————————————
 

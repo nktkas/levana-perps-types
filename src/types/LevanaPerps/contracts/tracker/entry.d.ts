@@ -3,14 +3,8 @@
 // Tracks different code IDs and instantiated contracts on testnet.
 // This is used by perps on testnet, not in production.
 
-import { Option, u32, u64 } from "../../../rust.d.ts";
-import { Timestamp } from "../../prelude.d.ts";
-
-// ———————————————Structs———————————————
-
-export interface InstantiateMsg {}
-
-export interface MigrateMsg {}
+import type { Option, u32, u64 } from "../../../rust.d.ts";
+import type { Timestamp } from "../../prelude.d.ts";
 
 // ———————————————Enums———————————————
 

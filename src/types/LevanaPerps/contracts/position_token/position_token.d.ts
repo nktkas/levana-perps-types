@@ -3,10 +3,10 @@
 // Messages for the perps position token contract.
 // The position token is a proxy providing a CW721 (NFT) interface for all positions within a single market.
 
-import { Binary } from "../../../cosmwasm.d.ts";
-import { Expiration } from "../../../cw20.d.ts";
-import { Option, Vec } from "../../../rust.d.ts";
-import { Addr } from "../../prelude.d.ts";
+import type { Binary } from "../../../cosmwasm.d.ts";
+import type { Expiration } from "../../../cw20.d.ts";
+import type { Option, Vec } from "../../../rust.d.ts";
+import type { Addr } from "../../prelude.d.ts";
 
 // ———————————————Structs———————————————
 

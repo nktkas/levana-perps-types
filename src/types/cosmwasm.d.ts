@@ -1,4 +1,4 @@
-import { u64 } from "./rust.d.ts";
+import type { u64 } from "./rust.d.ts";
 
 /**
  * A point in time in nanosecond precision.

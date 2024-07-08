@@ -1,5 +1,5 @@
-import { Timestamp } from "./cosmwasm.d.ts";
-import { u64 } from "./rust.d.ts";
+import type { Timestamp } from "./cosmwasm.d.ts";
+import type { u64 } from "./rust.d.ts";
 
 /** Expiration represents a point in time when some event happens. It can compare with a BlockInfo and will return is_expired() == true once the condition is hit (and for every block in the future) */
 export type Expiration =

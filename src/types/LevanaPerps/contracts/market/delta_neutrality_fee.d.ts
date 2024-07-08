@@ -2,7 +2,7 @@
 //
 // Events around the delta neutrality fee
 
-import { Collateral, Signed } from "../../prelude.d.ts";
+import type { Collateral, Signed } from "../../prelude.d.ts";
 
 // ———————————————Structs———————————————
 

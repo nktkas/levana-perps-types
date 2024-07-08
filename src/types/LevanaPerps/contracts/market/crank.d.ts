@@ -2,9 +2,9 @@
 //
 // Data types and events for cranking.
 
-import { DeferredExecId, DeferredExecTarget } from "./deferred_execution.d.ts";
-import { OrderId } from "./order.d.ts";
-import { LiquidationReason, PositionId } from "./position.d.ts";
+import type { DeferredExecId, DeferredExecTarget } from "./deferred_execution.d.ts";
+import type { OrderId } from "./order.d.ts";
+import type { LiquidationReason, PositionId } from "./position.d.ts";
 
 // ———————————————Enums———————————————
 

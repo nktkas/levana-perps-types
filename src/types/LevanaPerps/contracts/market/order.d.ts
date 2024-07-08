@@ -2,7 +2,7 @@
 //
 // Data types for limit orders
 
-import {
+import type {
 	Addr,
 	Collateral,
 	DirectionToNotional,
@@ -13,7 +13,7 @@ import {
 	TakeProfitTrader,
 	Usd,
 } from "../../prelude.d.ts";
-import { Option } from "../../../rust.d.ts";
+import type { Option } from "../../../rust.d.ts";
 
 // ———————————————Structs———————————————
 
