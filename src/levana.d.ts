@@ -3,8 +3,8 @@ import type {
 	ExecuteInstruction,
 	ExecuteResult,
 	SigningCosmWasmClient,
-} from "https://esm.sh/@cosmjs/cosmwasm-stargate@0.32.3";
-import type { Coin, StdFee } from "https://esm.sh/@cosmjs/amino@0.32.3";
+} from "npm:@cosmjs/cosmwasm-stargate";
+import type { Coin, StdFee } from "npm:@cosmjs/amino";
 import type { ContractVersion } from "./types/cw2.d.ts";
 import type { PricePoint } from "./types/LevanaPerps/prelude.d.ts";
 import type {
