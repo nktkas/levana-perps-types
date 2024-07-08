@@ -1,0 +1,11 @@
+{
+	"fmt": {
+		"useTabs": true,
+		"indentWidth": 4,
+		"proseWrap": "never",
+		"lineWidth": 140
+	},
+	"name": "@nktkas/levana-perps-types",
+	"version": "1.0.0",
+	"exports": "./index.ts"
+}
