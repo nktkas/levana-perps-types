@@ -337,7 +337,7 @@ export interface PositionQueryResponse {
 	/** The liquidation margin set aside on this position */
 	liquidation_margin: LiquidationMargin;
 	/**
-	 * @deprecated Use take_profit_trader instead
+	 * @deprecated Use {@link take_profit_override} instead
 	 *
 	 * Maximum gains, in terms of quote, the trader can achieve
 	 */
@@ -349,9 +349,9 @@ export interface PositionQueryResponse {
 	/** Stop loss price set by the trader */
 	stop_loss_override: Option<PriceBaseInQuote>;
 	/** The take profit value set by the trader in a message. For historical reasons, this value can be optional if the user provided a max gains price. */
-	take_profit_trader: Option<TakeProfitTrader>;
+	take_profit_override: Option<TakeProfitTrader>;
 	/** The most recently calculated price at which the trader will achieve maximum gains and take all counter collateral. */
-	take_profit_total_base: Option<PriceBaseInQuote>;
+	take_profit_price_base: Option<PriceBaseInQuote>;
 }
 
 /** Response from [QueryMsg::Positions] */

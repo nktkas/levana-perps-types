@@ -32,7 +32,7 @@ export interface LimitOrder {
 	/** Direction of the position */
 	direction: DirectionToNotional;
 	/**
-	 * @deprecated Use take_profit instead
+	 * @deprecated Use {@link take_profit} instead
 	 *
 	 * Maximum gains
 	 */

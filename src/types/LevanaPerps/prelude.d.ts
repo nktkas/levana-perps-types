@@ -195,7 +195,7 @@ export type SignedLeverageToNotional = string;
 export type Timestamp = string;
 
 /** A thin wrapper around u64 that is using strings for JSON encoding/decoding, such that the full u64 range can be used for clients that convert JSON numbers to floats, like JavaScript and jq. */
-export type Uint64 = u64;
+export type Uint64 = string;
 
 /** Unsigned value */
 export type Usd = string;
@@ -253,13 +253,11 @@ export type DirectionToBase =
 	/** Short versus base */
 	| "short";
 
-/** Direction in terms of notional */
-export enum DirectionToNotional {
+export type DirectionToNotional =
 	/** Long versus notional */
-	long = 0,
+	| "long"
 	/** Short versus notional */
-	short = 1,
-}
+	| "short";
 
 /** Source within the protocol for the error */
 export type ErrorDomain =
@@ -533,12 +531,10 @@ export type MarketType =
  * Note that when opening long positions in collateral-is-base markets, infinite max gains is possible. However, this is an error in the case of short positions or collateral-is-quote markets.
  */
 export type MaxGainsInQuote =
-	| {
-		/** Finite max gains */
-		finite: NonZero<Decimal256>;
-	}
+	/** Finite max gains */
+	| NonZero<Decimal256>
 	/** Infinite max gains */
-	| "pos_infinity";
+	| "+Inf";
 
 export enum Order {
 	ascending = 1,
@@ -558,12 +554,10 @@ export type OrderInMessage =
  * Infinite take profit price is possible. However, this is an error in the case of short positions or collateral-is-quote markets.
  */
 export type TakeProfitTrader =
-	| {
-		/** Finite take profit price */
-		finite: NonZero<Decimal256>;
-	}
+	/** Finite take profit price */
+	| NonZero<Decimal256>
 	/** Infinite take profit price */
-	| "pos_infinity";
+	| "+Inf";
 
 /** Was the price provided by the trader too high or too low? */
 export type TriggerPriceMustBe =

@@ -5,7 +5,7 @@ import type { u64 } from "./rust.d.ts";
  *
  * This type can represent times from 1970-01-01T00:00:00Z to 2554-07-21T23:34:33Z.
  */
-export type Timestamp = string;
+export type Timestamp_cosmwasm = string;
 
 /** A thin wrapper around u128 that is using strings for JSON encoding/decoding, such that the full u128 range can be used for clients that convert JSON numbers to floats, like JavaScript and jq. */
 export type Uint128 = string;
@@ -18,7 +18,7 @@ export interface BlockInfo {
 	 *
 	 * The source of this is the BFT Time in Tendermint, which has the same nanosecond precision as the `Timestamp` type.
 	 */
-	time: Timestamp;
+	time: Timestamp_cosmwasm;
 	chain_id: string;
 }
 

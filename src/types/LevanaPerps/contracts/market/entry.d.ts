@@ -349,7 +349,7 @@ export interface PositionAction {
 	/** If this is a position transfer, the new owner. */
 	new_owner: Option<Addr>;
 	/** The take profit price set by the trader. For historical reasons this is optional, i.e. if the trader had set max gains price instead */
-	take_profit_trader: Option<TakeProfitTrader>;
+	take_profit_override: Option<TakeProfitTrader>;
 	/** The stop loss override, if set. */
 	stop_loss_override: Option<PriceBaseInQuote>;
 }

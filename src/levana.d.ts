@@ -1,9 +1,4 @@
-import type {
-	CosmWasmClient,
-	ExecuteInstruction,
-	ExecuteResult,
-	SigningCosmWasmClient,
-} from "npm:@cosmjs/cosmwasm-stargate@0.32.4";
+import type { CosmWasmClient, ExecuteInstruction, ExecuteResult, SigningCosmWasmClient } from "npm:@cosmjs/cosmwasm-stargate@0.32.4";
 import type { Coin, StdFee } from "npm:@cosmjs/amino@0.32.4";
 import type { ContractVersion } from "./types/cw2.d.ts";
 import type { PricePoint } from "./types/LevanaPerps/prelude.d.ts";

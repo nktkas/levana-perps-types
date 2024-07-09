@@ -111,7 +111,7 @@ export type DeferredExecItem =
 			/** Direction of new position */
 			direction: DirectionToBase;
 			/**
-			 * @deprecated use take_profit instead
+			 * @deprecated use {@link take_profit} instead
 			 *
 			 * Maximum gains of new position
 			 */
@@ -252,7 +252,7 @@ export type DeferredExecItem =
 			/** Direction of new position */
 			direction: DirectionToBase;
 			/**
-			 * @deprecated use take_profit instead
+			 * @deprecated use {@link take_profit} instead
 			 *
 			 * Maximum gains of new position
 			 */

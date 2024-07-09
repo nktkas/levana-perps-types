@@ -115,13 +115,13 @@ export interface Config {
 	/** The spot price config for this market */
 	spot_price: SpotPriceConfig;
 	/** Just for historical reasons/migrations */
-	_unused1: Option<u32>;
+	price_update_too_old_seconds: Option<u32>;
 	/** Just for historical reasons/migrations */
-	_unused2: Option<u32>;
+	unpend_limit: Option<u32>;
 	/** Just for historical reasons/migrations */
-	_unused3: Option<Collateral>;
+	limit_order_fee: Option<Collateral>;
 	/** Just for historical reasons/migrations */
-	_unused4: Option<u32>;
+	staleness_seconds: Option<u32>;
 }
 
 /**
