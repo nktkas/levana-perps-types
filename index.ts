@@ -1,5 +1,5 @@
 export type * from "./src/levana.d.ts";
-export type { Attribute, Binary, BlockInfo, QueryResponse, Uint128 } from "./src/types/cosmwasm.d.ts";
+export type * from "./src/types/cosmwasm.d.ts";
 export type * from "./src/types/cw2.d.ts";
 export type * from "./src/types/cw20.d.ts";
 export type * from "./src/types/pyth.d.ts";
