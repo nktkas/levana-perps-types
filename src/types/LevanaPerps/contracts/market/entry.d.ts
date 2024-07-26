@@ -1196,7 +1196,5 @@ export type QueryMsg =
 export type StopLoss =
 	/** Remove stop loss price for the position */
 	| "remove"
-	| {
-		/** Set the stop loss price for the position */
-		price: PriceBaseInQuote;
-	};
+	/** Set the stop loss price for the position */
+	| PriceBaseInQuote;
