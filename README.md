@@ -69,3 +69,7 @@ const numTokensResponse = await levanaCosmWasmClient.queryContractSmart(marketIn
     },
 });
 ```
+
+## License
+
+This project is licensed under the MIT License. Check the [License file](LICENSE) for more info.
