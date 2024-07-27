@@ -1,3 +1,5 @@
+# LevanaPerps Types
+
 Types from [Rust documentation](https://apidocs.levana.finance/msg/doc/levana_perpswap_cosmos_msg/index.html) Levana Perps in TypeScript
 
 ## Install
