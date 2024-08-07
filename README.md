@@ -29,7 +29,7 @@ const FACTORY_ADDRESS = "osmo1ymuvx9nydujjghgxxug28w48ptzcu9ysvnynqdw78qgteafj0s
 const RPC_ENDPOINT = "https://rpc.osmotest5.osmosis.zone";
 
 // TypeScript automatically recognizes a query, offers certain hints, and returns the appropriate response type for the query
-const levanaCosmWasmClient = await CosmWasmClient.connect("https://rpc.osmotest5.osmosis.zone") as LevanaCosmWasmClient;
+const levanaCosmWasmClient = await CosmWasmClient.connect(RPC_ENDPOINT) as LevanaCosmWasmClient;
 
 const marketsResp = await levanaCosmWasmClient.queryContractSmart(FACTORY_ADDRESS, {
     markets: {},
