@@ -1,4 +1,4 @@
-/.vscode
-/deno.lock
-/node_modules
-/package-lock.json
+.vscode
+deno.lock
+node_modules
+package-lock.json
