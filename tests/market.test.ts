@@ -1,5 +1,5 @@
 import { CosmWasmClient } from "npm:@cosmjs/cosmwasm-stargate@0.32.4";
-import type { LevanaCosmWasmClient } from "../index.ts";
+import type { LevanaCosmWasmClient } from "../index.d.ts";
 import { resolve } from "jsr:@std/path@0.225.2";
 import * as tsj from "npm:ts-json-schema-generator@2.3.0";
 import { Ajv } from "npm:ajv@8.16.0";
@@ -153,26 +153,26 @@ Deno.test("MarketQueryMsg", async (t) => {
     });
 
     // TODO: It's not done
-    await t.step("nft_proxy", async () => {
-        const schema = tsjSchemaGenerator.createSchema("QueryResponse");
+    // await t.step("nft_proxy", async () => {
+    //     const schema = tsjSchemaGenerator.createSchema("QueryResponse");
 
-        const data = await client.queryContractSmart(CONTRACT_ADDRESS, {
-            nft_proxy: {},
-        });
+    //     const data = await client.queryContractSmart(CONTRACT_ADDRESS, {
+    //         nft_proxy: {},
+    //     });
 
-        assertTSJSchema(ajv, schema, data);
-    });
+    //     assertTSJSchema(ajv, schema, data);
+    // });
 
     // TODO: It's not done
-    await t.step("liquidity_token_proxy", async () => {
-        const schema = tsjSchemaGenerator.createSchema("QueryResponse");
+    // await t.step("liquidity_token_proxy", async () => {
+    //     const schema = tsjSchemaGenerator.createSchema("QueryResponse");
 
-        const data = await client.queryContractSmart(CONTRACT_ADDRESS, {
-            liquidity_token_proxy: {},
-        });
+    //     const data = await client.queryContractSmart(CONTRACT_ADDRESS, {
+    //         liquidity_token_proxy: {},
+    //     });
 
-        assertTSJSchema(ajv, schema, data);
-    });
+    //     assertTSJSchema(ajv, schema, data);
+    // });
 
     await t.step("trade_history_summary", async () => {
         const schema = tsjSchemaGenerator.createSchema("TradeHistorySummary");

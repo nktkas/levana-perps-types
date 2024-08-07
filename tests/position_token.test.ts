@@ -1,5 +1,5 @@
 import { CosmWasmClient } from "npm:@cosmjs/cosmwasm-stargate@0.32.4";
-import type { LevanaCosmWasmClient } from "../index.ts";
+import type { LevanaCosmWasmClient } from "../index.d.ts";
 import { resolve } from "jsr:@std/path@0.225.2";
 import * as tsj from "npm:ts-json-schema-generator@2.3.0";
 import { Ajv } from "npm:ajv@8.16.0";
