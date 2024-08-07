@@ -1,9 +1,18 @@
-# LevanaPerps Types
+# LevanaPerpsTypes
 
-Types from [Rust documentation](https://apidocs.levana.finance/msg/doc/levana_perpswap_cosmos_msg/index.html) Levana Perps in TypeScript
+Types from [Rust documentation of Levana Perps](https://apidocs.levana.finance/msg/doc/levana_perpswap_cosmos_msg/index.html) in TypeScript
 
 ## Install
-Visit https://jsr.io/@nktkas/levana-perps-types to learn about all the ways to install the package in your work environment (Deno, npm, Yarn, pnpm, Bun).
+
+### NPM
+
+```
+npm i @nktkas/levana-perps-types
+```
+
+### Deno, Yarn, pnpm, Bun from [JSR](https://jsr.io/)
+
+Visit https://jsr.io/@nktkas/levana-perps-types to learn about all the ways to install a package in your package manager
 
 ## Usage
 
