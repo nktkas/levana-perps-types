@@ -1,0 +1,27 @@
+{
+  "name": "@nktkas/levana-perps-types",
+  "version": "3.0.3",
+  "description": "Types from Rust documentation Levana Perps in TypeScript",
+  "types": "./index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nktkas/LevanaPerpsTypes.git"
+  },
+  "keywords": [
+    "levana",
+    "cosmwasm",
+    "types"
+  ],
+  "author": {
+    "email": "github.turk9@passmail.net",
+    "name": "nktkas"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nktkas/LevanaPerpsTypes/issues"
+  },
+  "homepage": "https://github.com/nktkas/LevanaPerpsTypes#readme",
+  "publishConfig": {
+    "@nktkas:registry": "https://npm.pkg.github.com"
+  }
+}
