@@ -16,69 +16,46 @@ Visit https://jsr.io/@nktkas/levana-perps-types to learn about all the ways to i
 
 ## Usage
 
+### Query to Levana
+
 ```typescript
-import type { LevanaCosmWasmClient, LevanaSigningCosmWasmClient } from "@nktkas/levana-perps-types";
+import type { LevanaCosmWasmClient } from "@nktkas/levana-perps-types";
 import { CosmWasmClient } from "@cosmjs/cosmwasm-stargate";
 
-const RPC_ENDPOINT = "https://osmosis-rpc.publicnode.com:443";
-const FACTORY_ADDRESS = "osmo1ssw6x553kzqher0earlkwlxasfm2stnl3ms3ma2zz4tnajxyyaaqlucd45";
+// Testnet factory address
+const FACTORY_ADDRESS = "osmo1ymuvx9nydujjghgxxug28w48ptzcu9ysvnynqdw78qgteafj0syq247w5u";
 
-const levanaCosmWasmClient = await CosmWasmClient.connect(RPC_ENDPOINT) as LevanaCosmWasmClient;
+// Osmosis testnet RPC endpoint
+const RPC_ENDPOINT = "https://rpc.osmotest5.osmosis.zone";
 
 // TypeScript automatically recognizes a query, offers certain hints, and returns the appropriate response type for the query
+const levanaCosmWasmClient = await CosmWasmClient.connect("https://rpc.osmotest5.osmosis.zone") as LevanaCosmWasmClient;
 
 const marketsResp = await levanaCosmWasmClient.queryContractSmart(FACTORY_ADDRESS, {
     markets: {},
 });
-console.log("All market ids:", marketsResp);
+console.log("Markets maintained by this factory:", marketsResp);
 
 const marketInfoResponse = await levanaCosmWasmClient.queryContractSmart(FACTORY_ADDRESS, {
     market_info: {
         market_id: marketsResp.markets[0],
     },
 });
-console.log("Market info:", marketInfoResponse);
+console.log("Information about a specific market:", marketInfoResponse);
 
 const statusResp = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
     status: {},
 });
-console.log("Market status:", statusResp);
+console.log("Overall market status information:", statusResp);
 
-const tokensResponse = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
+const nftContractInfo = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
     nft_proxy: {
         nft_msg: {
-            tokens: {
-                owner: "osmo13euuwxeg62w2xw3ul8pyk2s4fq6awnh8tqgs5y",
-            },
+            contract_info: {},
         },
     },
 });
-console.log("Tokens:", tokensResponse);
-
-// TypeScript will also notify you if you try to make a query that does not exist in the documentation
-
-const marketLimitOrder = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
-    // TS Error: Property 'owner' is missing in type '{}' but required in type '{ owner: string; start_after?: Option<string> | undefined; limit?: Option<number> | undefined; order?: Option<OrderInMessage> | undefined; }'.
-    limit_orders: {},
-});
-
-const marketOraclePrice = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
-    oracle_price: {
-        // TS Error: Type 'number' is not assignable to type 'boolean'.
-        validate_age: 0,
-    },
-});
-
-const numTokensResponse = await levanaCosmWasmClient.queryContractSmart(marketInfoResponse.market_addr, {
-    nft_proxy: {
-        nft_msg: {
-            num_tokens: {
-                // TS Error: Type 'string' is not assignable to type 'never'.
-                direction: "long",
-            },
-        },
-    },
-});
+console.log("Top-level metadata about the position contract:", nftContractInfo);
 ```
 
 ## License
