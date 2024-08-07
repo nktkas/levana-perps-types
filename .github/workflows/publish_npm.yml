@@ -1,16 +1,16 @@
-name: Publish NPM
+name: Publish Package to npmjs
 on:
   push:
     branches:
       - main
 
 jobs:
-  publish-gpr:
+  build:
     runs-on: ubuntu-latest
 
     permissions:
-      packages: write
       contents: read
+      id-token: write
 
     steps:
       - uses: actions/checkout@v4
