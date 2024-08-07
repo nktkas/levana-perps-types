@@ -6,6 +6,6 @@
 		"lineWidth": 140
 	},
 	"name": "@nktkas/levana-perps-types",
-	"version": "3.0.3",
+	"version": "3.0.4",
 	"exports": "./index.d.ts"
 }
