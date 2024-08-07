@@ -20,8 +20,5 @@
   "bugs": {
     "url": "https://github.com/nktkas/LevanaPerpsTypes/issues"
   },
-  "homepage": "https://github.com/nktkas/LevanaPerpsTypes#readme",
-  "publishConfig": {
-    "@nktkas:registry": "https://npm.pkg.github.com"
-  }
+  "homepage": "https://github.com/nktkas/LevanaPerpsTypes#readme"
 }
