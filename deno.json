@@ -6,6 +6,18 @@
 		"lineWidth": 140
 	},
 	"name": "@nktkas/levana-perps-types",
-	"version": "3.0.5",
-	"exports": "./index.d.ts"
+	"version": "3.0.6",
+	"exports": "./index.d.ts",
+	"imports": {
+		"@cosmjs/cosmwasm-stargate": "npm:@cosmjs/cosmwasm-stargate@^0.32.4",
+		"@cosmjs/stargate": "npm:@cosmjs/stargate@^0.32.4"
+	},
+	"publish": {
+		"exclude": [
+			".github",
+			".npmignore",
+			"package.json",
+			"tests"
+		]
+	}
 }

@@ -1,6 +1,6 @@
 {
   "name": "@nktkas/levana-perps-types",
-  "version": "3.0.5",
+  "version": "3.0.6",
   "description": "Types from Rust documentation Levana Perps in TypeScript",
   "types": "./index.d.ts",
   "repository": {
@@ -20,5 +20,9 @@
   "bugs": {
     "url": "https://github.com/nktkas/LevanaPerpsTypes/issues"
   },
-  "homepage": "https://github.com/nktkas/LevanaPerpsTypes#readme"
+  "homepage": "https://github.com/nktkas/LevanaPerpsTypes#readme",
+  "dependencies": {
+    "@cosmjs/cosmwasm-stargate": "^0.32.4",
+    "@cosmjs/stargate": "^0.32.4"
+  }
 }
