@@ -4,15 +4,29 @@ Types from [Rust documentation of Levana Perps](https://apidocs.levana.finance/m
 
 ## Installation
 
-### NPM
+### [NPM](https://www.npmjs.com/package/@nktkas/levana-perps-types)
 
 ```
 npm i @nktkas/levana-perps-types
 ```
 
-### Deno, Yarn, pnpm, Bun from [JSR](https://jsr.io/)
+### Deno, Yarn, pnpm, Bun from [JSR](https://jsr.io/@nktkas/levana-perps-types)
 
-Visit https://jsr.io/@nktkas/levana-perps-types to learn about all the ways to install a package in your package manager
+```
+deno add @nktkas/levana-perps-types
+```
+
+```
+yarn dlx jsr add @nktkas/levana-perps-types
+```
+
+```
+pnpm dlx jsr add @nktkas/levana-perps-types
+```
+
+```
+bunx jsr add @nktkas/levana-perps-types
+```
 
 ## Usage
 
