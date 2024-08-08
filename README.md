@@ -2,7 +2,7 @@
 
 Types from [Rust documentation of Levana Perps](https://apidocs.levana.finance/msg/doc/levana_perpswap_cosmos_msg/index.html) in TypeScript
 
-## Install
+## Installation
 
 ### NPM
 
