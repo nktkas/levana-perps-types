@@ -25,10 +25,7 @@ import type {
 	QueryMsg as FactoryQueryMsg,
 	ShutdownStatus,
 } from "./types/LevanaPerps/contracts/factory/entry.d.ts";
-import type {
-	ExecuteMsg as LiquidityTokenExecuteMsg,
-	QueryMsg as LiquidityTokenQueryMsg,
-} from "./types/LevanaPerps/contracts/liquidity_token/entry.d.ts";
+import type { ExecuteMsg as LiquidityTokenExecuteMsg, QueryMsg as LiquidityTokenQueryMsg } from "./types/LevanaPerps/contracts/liquidity_token/entry.d.ts";
 import type { LiquidityTokenKind } from "./types/LevanaPerps/contracts/liquidity_token/liquidity_token.d.ts";
 import type { GetDeferredExecResp, ListDeferredExecsResp } from "./types/LevanaPerps/contracts/market/deferred_execution.d.ts";
 import type {
@@ -65,10 +62,24 @@ import type {
 } from "./types/LevanaPerps/contracts/position_token/entry.d.ts";
 
 type UnionKeys<T> = T extends unknown ? keyof T : never;
-
 type ExtractValueByKey<T, K extends UnionKeys<T>> = T extends Record<K, unknown> ? T : never;
 
-export interface LevanaExecuteInstruction<
+type ExtractMarketNftProxyQueryMsg<
+	K extends UnionKeys<PositionTokenQueryMsg>,
+> = ExtractValueByKey<MarketQueryMsg, "nft_proxy"> & {
+	nft_proxy: {
+		nft_msg: ExtractValueByKey<PositionTokenQueryMsg, K>;
+	};
+};
+type ExtractMarketLiquidityTokenProxyQueryMsg<
+	K extends UnionKeys<LiquidityTokenQueryMsg>,
+> = ExtractValueByKey<MarketQueryMsg, "liquidity_token_proxy"> & {
+	liquidity_token_proxy: {
+		msg: ExtractValueByKey<LiquidityTokenQueryMsg, K>;
+	};
+};
+
+interface LevanaExecuteInstruction<
 	T extends Cw20ExecuteMsg | FactoryExecuteMsg | LiquidityTokenExecuteMsg | MarketExecuteMsg | PositionTokenExecuteMsg,
 > extends ExecuteInstruction {
 	contractAddress: string;
@@ -90,118 +101,186 @@ export interface LevanaExecuteInstruction<
 	funds?: readonly Coin[];
 }
 
-export type Cw20QueryResult<
-	T extends Cw20QueryMsg,
-> = T extends ExtractValueByKey<Cw20QueryMsg, "balance"> ? BalanceResponse
-	: T extends ExtractValueByKey<Cw20QueryMsg, "token_info"> ? TokenInfoResponse
-	: T extends ExtractValueByKey<Cw20QueryMsg, "minter"> ? MinterResponse
-	: T extends ExtractValueByKey<Cw20QueryMsg, "allowance"> ? AllowanceResponse
-	: T extends ExtractValueByKey<Cw20QueryMsg, "all_allowances"> ? AllAllowancesResponse
-	: T extends ExtractValueByKey<Cw20QueryMsg, "all_spender_allowances"> ? AllSpenderAllowancesResponse
-	: T extends ExtractValueByKey<Cw20QueryMsg, "all_accounts"> ? AllAccountsResponse
-	: T extends ExtractValueByKey<Cw20QueryMsg, "marketing_info"> ? MarketingInfoResponse
-	: T extends ExtractValueByKey<Cw20QueryMsg, "download_logo"> ? DownloadLogoResponse
-	: T extends ExtractValueByKey<Cw20QueryMsg, "version"> ? ContractVersion
-	: never;
-
-export type FactoryQueryResult<
-	T extends FactoryQueryMsg,
-> = T extends ExtractValueByKey<FactoryQueryMsg, "version"> ? ContractVersion
-	: T extends ExtractValueByKey<FactoryQueryMsg, "markets"> ? MarketsResp
-	: T extends ExtractValueByKey<FactoryQueryMsg, "market_info"> ? MarketInfoResponse
-	: T extends ExtractValueByKey<FactoryQueryMsg, "addr_is_contract"> ? AddrIsContractResp
-	: T extends ExtractValueByKey<FactoryQueryMsg, "factory_owner"> ? FactoryOwnerResp
-	: T extends ExtractValueByKey<FactoryQueryMsg, "shutdown_status"> ? ShutdownStatus
-	: T extends ExtractValueByKey<FactoryQueryMsg, "code_ids"> ? CodeIds
-	: never;
-
-export type LiquidityTokenQueryResult<
-	T extends LiquidityTokenQueryMsg,
-> = T extends ExtractValueByKey<LiquidityTokenQueryMsg, "balance"> ? BalanceResponse
-	: T extends ExtractValueByKey<LiquidityTokenQueryMsg, "token_info"> ? TokenInfoResponse
-	: T extends ExtractValueByKey<LiquidityTokenQueryMsg, "allowance"> ? AllowanceResponse
-	: T extends ExtractValueByKey<LiquidityTokenQueryMsg, "all_allowances"> ? AllAllowancesResponse
-	: T extends ExtractValueByKey<LiquidityTokenQueryMsg, "all_spender_allowances"> ? AllSpenderAllowancesResponse
-	: T extends ExtractValueByKey<LiquidityTokenQueryMsg, "all_accounts"> ? AllAccountsResponse
-	: T extends ExtractValueByKey<LiquidityTokenQueryMsg, "marketing_info"> ? MarketingInfoResponse
-	: T extends ExtractValueByKey<LiquidityTokenQueryMsg, "version"> ? ContractVersion
-	: T extends ExtractValueByKey<LiquidityTokenQueryMsg, "kind"> ? LiquidityTokenKind
-	: never;
-
-export type MarketQueryResult<
-	T extends MarketQueryMsg,
-> = T extends ExtractValueByKey<MarketQueryMsg, "version"> ? ContractVersion
-	: T extends ExtractValueByKey<MarketQueryMsg, "status"> ? StatusResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "spot_price"> ? PricePoint
-	: T extends ExtractValueByKey<MarketQueryMsg, "spot_price_history"> ? SpotPriceHistoryResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "oracle_price"> ? OraclePriceResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "positions"> ? PositionsResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "limit_order"> ? LimitOrderResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "limit_orders"> ? LimitOrdersResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "closed_position_history"> ? ClosedPositionsResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "nft_proxy">
-		? PositionTokenQueryResult<Extract<T, { nft_proxy: unknown }>["nft_proxy"]["nft_msg"]>
-	: T extends ExtractValueByKey<MarketQueryMsg, "liquidity_token_proxy">
-		? LiquidityTokenQueryResult<Extract<T, { liquidity_token_proxy: unknown }>["liquidity_token_proxy"]["msg"]>
-	: T extends ExtractValueByKey<MarketQueryMsg, "trade_history_summary"> ? TradeHistorySummary
-	: T extends ExtractValueByKey<MarketQueryMsg, "position_action_history"> ? PositionActionHistoryResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "trader_action_history"> ? TraderActionHistoryResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "lp_action_history"> ? LpActionHistoryResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "limit_order_history"> ? LimitOrderHistoryResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "lp_info"> ? LpInfoResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "delta_neutrality_fee"> ? DeltaNeutralityFeeResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "price_would_trigger"> ? PriceWouldTriggerResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "list_deferred_execs"> ? ListDeferredExecsResp
-	: T extends ExtractValueByKey<MarketQueryMsg, "get_deferred_exec"> ? GetDeferredExecResp
-	: never;
-
-export type PositionTokenQueryResult<
-	T extends PositionTokenQueryMsg,
-> = T extends ExtractValueByKey<PositionTokenQueryMsg, "owner_of"> ? OwnerOfResponse
-	: T extends ExtractValueByKey<PositionTokenQueryMsg, "approval"> ? ApprovalResponse
-	: T extends ExtractValueByKey<PositionTokenQueryMsg, "approvals"> ? ApprovalsResponse
-	: T extends ExtractValueByKey<PositionTokenQueryMsg, "all_operators"> ? OperatorsResponse
-	: T extends ExtractValueByKey<PositionTokenQueryMsg, "num_tokens"> ? NumTokensResponse
-	: T extends ExtractValueByKey<PositionTokenQueryMsg, "contract_info"> ? NftContractInfo
-	: T extends ExtractValueByKey<PositionTokenQueryMsg, "nft_info"> ? NftInfoResponse
-	: T extends ExtractValueByKey<PositionTokenQueryMsg, "all_nft_info"> ? AllNftInfoResponse
-	: T extends ExtractValueByKey<PositionTokenQueryMsg, "tokens"> ? TokensResponse
-	: T extends ExtractValueByKey<PositionTokenQueryMsg, "all_tokens"> ? TokensResponse
-	: T extends ExtractValueByKey<PositionTokenQueryMsg, "version"> ? ContractVersion
-	: never;
-
-// ———————————————Classes———————————————
-
 export declare class LevanaCosmWasmClient extends CosmWasmClient {
-	queryContractSmart<
-		T extends Cw20QueryMsg | FactoryQueryMsg | LiquidityTokenQueryMsg | MarketQueryMsg | PositionTokenQueryMsg,
-	>(
-		address: string,
-		queryMsg: T,
-	): Promise<
-		T extends Cw20QueryMsg ? Cw20QueryResult<T>
-			: T extends FactoryQueryMsg ? FactoryQueryResult<T>
-			: T extends LiquidityTokenQueryMsg ? LiquidityTokenQueryResult<T>
-			: T extends MarketQueryMsg ? MarketQueryResult<T>
-			: T extends PositionTokenQueryMsg ? PositionTokenQueryResult<T>
-			: never
-	>;
+	// Cw20
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "balance">): Promise<BalanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "token_info">): Promise<TokenInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "minter">): Promise<MinterResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "allowance">): Promise<AllowanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "all_allowances">): Promise<AllAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "all_spender_allowances">): Promise<AllSpenderAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "all_accounts">): Promise<AllAccountsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "marketing_info">): Promise<MarketingInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "download_logo">): Promise<DownloadLogoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "version">): Promise<ContractVersion>;
+
+	// Factory
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "version">): Promise<ContractVersion>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "markets">): Promise<MarketsResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "market_info">): Promise<MarketInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "addr_is_contract">): Promise<AddrIsContractResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "factory_owner">): Promise<FactoryOwnerResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "shutdown_status">): Promise<ShutdownStatus>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "code_ids">): Promise<CodeIds>;
+
+	// LiquidityToken
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "balance">): Promise<BalanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "token_info">): Promise<TokenInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "allowance">): Promise<AllowanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "all_allowances">): Promise<AllAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "all_spender_allowances">): Promise<AllSpenderAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "all_accounts">): Promise<AllAccountsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "marketing_info">): Promise<MarketingInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "version">): Promise<ContractVersion>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "kind">): Promise<LiquidityTokenKind>;
+
+	// Market
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "version">): Promise<ContractVersion>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "status">): Promise<StatusResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "spot_price">): Promise<PricePoint>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "spot_price_history">): Promise<SpotPriceHistoryResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "oracle_price">): Promise<OraclePriceResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "positions">): Promise<PositionsResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "limit_order">): Promise<LimitOrderResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "limit_orders">): Promise<LimitOrdersResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "closed_position_history">): Promise<ClosedPositionsResp>;
+
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"owner_of">): Promise<OwnerOfResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"approval">): Promise<ApprovalResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"approvals">): Promise<ApprovalsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"all_operators">): Promise<OperatorsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"num_tokens">): Promise<NumTokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"contract_info">): Promise<NftContractInfo>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"nft_info">): Promise<NftInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"all_nft_info">): Promise<AllNftInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"tokens">): Promise<TokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"all_tokens">): Promise<TokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"version">): Promise<ContractVersion>;
+
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"balance">): Promise<BalanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"token_info">): Promise<TokenInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"allowance">): Promise<AllowanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"all_allowances">): Promise<AllAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"all_spender_allowances">): Promise<AllSpenderAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"all_accounts">): Promise<AllAccountsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"marketing_info">): Promise<MarketingInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"version">): Promise<ContractVersion>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"kind">): Promise<LiquidityTokenKind>;
+
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "trade_history_summary">): Promise<TradeHistorySummary>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "position_action_history">): Promise<PositionActionHistoryResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "trader_action_history">): Promise<TraderActionHistoryResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "lp_action_history">): Promise<LpActionHistoryResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "limit_order_history">): Promise<LimitOrderHistoryResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "lp_info">): Promise<LpInfoResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "delta_neutrality_fee">): Promise<DeltaNeutralityFeeResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "price_would_trigger">): Promise<PriceWouldTriggerResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "list_deferred_execs">): Promise<ListDeferredExecsResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "get_deferred_exec">): Promise<GetDeferredExecResp>;
+
+	// PositionToken
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "owner_of">): Promise<OwnerOfResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "approval">): Promise<ApprovalResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "approvals">): Promise<ApprovalsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "all_operators">): Promise<OperatorsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "num_tokens">): Promise<NumTokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "contract_info">): Promise<NftContractInfo>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "nft_info">): Promise<NftInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "all_nft_info">): Promise<AllNftInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "tokens">): Promise<TokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "all_tokens">): Promise<TokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "version">): Promise<ContractVersion>;
 }
 
 export declare class LevanaSigningCosmWasmClient extends SigningCosmWasmClient {
-	queryContractSmart<
-		T extends Cw20QueryMsg | FactoryQueryMsg | LiquidityTokenQueryMsg | MarketQueryMsg | PositionTokenQueryMsg,
-	>(
-		address: string,
-		queryMsg: T,
-	): Promise<
-		T extends Cw20QueryMsg ? Cw20QueryResult<T>
-			: T extends FactoryQueryMsg ? FactoryQueryResult<T>
-			: T extends LiquidityTokenQueryMsg ? LiquidityTokenQueryResult<T>
-			: T extends MarketQueryMsg ? MarketQueryResult<T>
-			: T extends PositionTokenQueryMsg ? PositionTokenQueryResult<T>
-			: never
-	>;
+	// Cw20
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "balance">): Promise<BalanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "token_info">): Promise<TokenInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "minter">): Promise<MinterResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "allowance">): Promise<AllowanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "all_allowances">): Promise<AllAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "all_spender_allowances">): Promise<AllSpenderAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "all_accounts">): Promise<AllAccountsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "marketing_info">): Promise<MarketingInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "download_logo">): Promise<DownloadLogoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "version">): Promise<ContractVersion>;
+
+	// Factory
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "version">): Promise<ContractVersion>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "markets">): Promise<MarketsResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "market_info">): Promise<MarketInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "addr_is_contract">): Promise<AddrIsContractResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "factory_owner">): Promise<FactoryOwnerResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "shutdown_status">): Promise<ShutdownStatus>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<FactoryQueryMsg, "code_ids">): Promise<CodeIds>;
+
+	// LiquidityToken
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "balance">): Promise<BalanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "token_info">): Promise<TokenInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "allowance">): Promise<AllowanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "all_allowances">): Promise<AllAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "all_spender_allowances">): Promise<AllSpenderAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "all_accounts">): Promise<AllAccountsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "marketing_info">): Promise<MarketingInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "version">): Promise<ContractVersion>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<LiquidityTokenQueryMsg, "kind">): Promise<LiquidityTokenKind>;
+
+	// Market
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "version">): Promise<ContractVersion>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "status">): Promise<StatusResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "spot_price">): Promise<PricePoint>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "spot_price_history">): Promise<SpotPriceHistoryResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "oracle_price">): Promise<OraclePriceResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "positions">): Promise<PositionsResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "limit_order">): Promise<LimitOrderResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "limit_orders">): Promise<LimitOrdersResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "closed_position_history">): Promise<ClosedPositionsResp>;
+
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"owner_of">): Promise<OwnerOfResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"approval">): Promise<ApprovalResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"approvals">): Promise<ApprovalsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"all_operators">): Promise<OperatorsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"num_tokens">): Promise<NumTokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"contract_info">): Promise<NftContractInfo>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"nft_info">): Promise<NftInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"all_nft_info">): Promise<AllNftInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"tokens">): Promise<TokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"all_tokens">): Promise<TokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketNftProxyQueryMsg<"version">): Promise<ContractVersion>;
+
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"balance">): Promise<BalanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"token_info">): Promise<TokenInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"allowance">): Promise<AllowanceResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"all_allowances">): Promise<AllAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"all_spender_allowances">): Promise<AllSpenderAllowancesResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"all_accounts">): Promise<AllAccountsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"marketing_info">): Promise<MarketingInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"version">): Promise<ContractVersion>;
+	queryContractSmart(address: string, queryMsg: ExtractMarketLiquidityTokenProxyQueryMsg<"kind">): Promise<LiquidityTokenKind>;
+
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "trade_history_summary">): Promise<TradeHistorySummary>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "position_action_history">): Promise<PositionActionHistoryResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "trader_action_history">): Promise<TraderActionHistoryResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "lp_action_history">): Promise<LpActionHistoryResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "limit_order_history">): Promise<LimitOrderHistoryResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "lp_info">): Promise<LpInfoResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "delta_neutrality_fee">): Promise<DeltaNeutralityFeeResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "price_would_trigger">): Promise<PriceWouldTriggerResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "list_deferred_execs">): Promise<ListDeferredExecsResp>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<MarketQueryMsg, "get_deferred_exec">): Promise<GetDeferredExecResp>;
+
+	// PositionToken
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "owner_of">): Promise<OwnerOfResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "approval">): Promise<ApprovalResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "approvals">): Promise<ApprovalsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "all_operators">): Promise<OperatorsResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "num_tokens">): Promise<NumTokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "contract_info">): Promise<NftContractInfo>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "nft_info">): Promise<NftInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "all_nft_info">): Promise<AllNftInfoResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "tokens">): Promise<TokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "all_tokens">): Promise<TokensResponse>;
+	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "version">): Promise<ContractVersion>;
 
 	execute(
 		senderAddress: string,
