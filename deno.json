@@ -3,10 +3,10 @@
 		"useTabs": true,
 		"indentWidth": 4,
 		"proseWrap": "never",
-		"lineWidth": 140
+		"lineWidth": 160
 	},
 	"name": "@nktkas/levana-perps-types",
-	"version": "3.0.6",
+	"version": "3.1.0",
 	"exports": "./index.d.ts",
 	"imports": {
 		"@cosmjs/cosmwasm-stargate": "npm:@cosmjs/cosmwasm-stargate@^0.32.4",
