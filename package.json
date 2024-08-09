@@ -1,6 +1,6 @@
 {
   "name": "@nktkas/levana-perps-types",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "Types from Rust documentation Levana Perps in TypeScript",
   "types": "./index.d.ts",
   "repository": {
