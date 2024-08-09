@@ -101,6 +101,11 @@ interface LevanaExecuteInstruction<
 	funds?: readonly Coin[];
 }
 
+/**
+ * Extended CosmWasmClient for Levana Perps interactions.
+ * Provides type-safe query methods for Levana Perps contracts.
+ * @extends CosmWasmClient
+ */
 export declare class LevanaCosmWasmClient extends CosmWasmClient {
 	// Cw20
 	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "balance">): Promise<BalanceResponse>;
@@ -192,6 +197,11 @@ export declare class LevanaCosmWasmClient extends CosmWasmClient {
 	queryContractSmart(address: string, queryMsg: ExtractValueByKey<PositionTokenQueryMsg, "version">): Promise<ContractVersion>;
 }
 
+/**
+ * Extended SigningCosmWasmClient for Levana Perps interactions.
+ * Provides type-safe query and execute methods for Levana Perps contracts.
+ * @extends SigningCosmWasmClient
+ */
 export declare class LevanaSigningCosmWasmClient extends SigningCosmWasmClient {
 	// Cw20
 	queryContractSmart(address: string, queryMsg: ExtractValueByKey<Cw20QueryMsg, "balance">): Promise<BalanceResponse>;
