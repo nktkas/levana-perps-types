@@ -64,42 +64,84 @@ import type {
 type UnionKeys<T> = T extends unknown ? keyof T : never;
 type ExtractValueByKey<T, K extends UnionKeys<T>> = T extends Record<K, unknown> ? T : never;
 
-type ExtractMarketNftProxyQueryMsg<
-	K extends UnionKeys<PositionTokenQueryMsg>,
-> = ExtractValueByKey<MarketQueryMsg, "nft_proxy"> & {
-	nft_proxy: {
-		nft_msg: ExtractValueByKey<PositionTokenQueryMsg, K>;
+type ExtractMarketNftProxyQueryMsg<K extends UnionKeys<PositionTokenQueryMsg>> =
+	& ExtractValueByKey<MarketQueryMsg, "nft_proxy">
+	& {
+		nft_proxy: {
+			nft_msg: ExtractValueByKey<PositionTokenQueryMsg, K>;
+		};
 	};
-};
-type ExtractMarketLiquidityTokenProxyQueryMsg<
-	K extends UnionKeys<LiquidityTokenQueryMsg>,
-> = ExtractValueByKey<MarketQueryMsg, "liquidity_token_proxy"> & {
-	liquidity_token_proxy: {
-		msg: ExtractValueByKey<LiquidityTokenQueryMsg, K>;
+type ExtractMarketLiquidityTokenProxyQueryMsg<K extends UnionKeys<LiquidityTokenQueryMsg>> =
+	& ExtractValueByKey<MarketQueryMsg, "liquidity_token_proxy">
+	& {
+		liquidity_token_proxy: {
+			msg: ExtractValueByKey<LiquidityTokenQueryMsg, K>;
+		};
 	};
-};
 
-interface LevanaExecuteInstruction<
-	T extends Cw20ExecuteMsg | FactoryExecuteMsg | LiquidityTokenExecuteMsg | MarketExecuteMsg | PositionTokenExecuteMsg,
-> extends ExecuteInstruction {
-	contractAddress: string;
-	msg: T;
-	/**
-	 * TODO: Allow funds to be used only for the following messages:
-	 * * open_position
-	 * * update_position_add_collateral_impact_leverage
-	 * * update_position_add_collateral_impact_size
-	 * * update_position_remove_collateral_impact_leverage
-	 * * update_position_remove_collateral_impact_size
-	 * * update_position_leverage
-	 * * update_position_max_gains
-	 * * update_position_take_profit_price
-	 * * update_position_stop_loss_price
-	 * * set_trigger_order
-	 * * place_limit_order
-	 */
-	funds?: readonly Coin[];
-}
+/**
+ * Represents an execution instruction for Levana Perps contracts.
+ *
+ * @extends {ExecuteInstruction} Base execute instruction type from CosmJS
+ *
+ * @property {readonly [Coin]} funds Optional. The funds to be sent with the execution.
+ *   Required for certain MarketExecuteMsg types:
+ *   - open_position
+ *   - update_position_add_collateral_impact_leverage
+ *   - update_position_add_collateral_impact_size
+ *   - update_position_remove_collateral_impact_leverage
+ *   - update_position_remove_collateral_impact_size
+ *   - update_position_leverage
+ *   - update_position_max_gains
+ *   - update_position_take_profit_price
+ *   - update_position_stop_loss_price
+ *   - set_trigger_order
+ *   - place_limit_order
+ *   - provide_crank_funds
+ *
+ * @example
+ * // Example of a position update instruction
+ * const openPositionInstruction: LevanaExecuteInstruction<MarketExecuteMsg> = {
+ *   contractAddress: "market_address_here",
+ *   msg: {
+ *     update_position_add_collateral_impact_leverage: {
+ *       id: "position_id_here",
+ *     }
+ *   },
+ *   funds: [{ denom: "uosmo", amount: "1000000" }]
+ * };
+ *
+ * @example
+ * // Example of a token transfer instruction
+ * const transferInstruction: LevanaExecuteInstruction<LiquidityTokenExecuteMsg> = {
+ *   contractAddress: "token_address_here",
+ *   msg: {
+ *     transfer: {
+ *       recipient: "recipient_address_here",
+ *       amount: "1000000"
+ *     }
+ *   }
+ * };
+ */
+export type LevanaExecuteInstruction<T extends Cw20ExecuteMsg | FactoryExecuteMsg | LiquidityTokenExecuteMsg | MarketExecuteMsg | PositionTokenExecuteMsg> =
+	& {
+		contractAddress: string;
+		msg: T;
+	}
+	& (T extends
+		| ExtractValueByKey<MarketExecuteMsg, "open_position">
+		| ExtractValueByKey<MarketExecuteMsg, "update_position_add_collateral_impact_leverage">
+		| ExtractValueByKey<MarketExecuteMsg, "update_position_add_collateral_impact_size">
+		| ExtractValueByKey<MarketExecuteMsg, "update_position_remove_collateral_impact_leverage">
+		| ExtractValueByKey<MarketExecuteMsg, "update_position_remove_collateral_impact_size">
+		| ExtractValueByKey<MarketExecuteMsg, "update_position_leverage">
+		| ExtractValueByKey<MarketExecuteMsg, "update_position_max_gains">
+		| ExtractValueByKey<MarketExecuteMsg, "update_position_take_profit_price">
+		| ExtractValueByKey<MarketExecuteMsg, "update_position_stop_loss_price">
+		| ExtractValueByKey<MarketExecuteMsg, "set_trigger_order">
+		| ExtractValueByKey<MarketExecuteMsg, "place_limit_order">
+		| ExtractValueByKey<MarketExecuteMsg, "provide_crank_funds"> ? { funds: readonly [Coin] }
+		: { funds?: never });
 
 /**
  * Extended CosmWasmClient for Levana Perps interactions.
