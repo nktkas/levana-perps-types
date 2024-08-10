@@ -25,5 +25,12 @@
   "dependencies": {
     "@cosmjs/cosmwasm-stargate": "^0.32.4",
     "@cosmjs/stargate": "^0.32.4"
-  }
+  },
+  "files": [
+    "*",
+    "!/.github",
+    "!/.gitignore",
+    "!/deno.json",
+    "!/tests"
+  ]
 }
