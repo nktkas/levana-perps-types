@@ -15,7 +15,6 @@
 	"publish": {
 		"exclude": [
 			".github",
-			".npmignore",
 			"package.json",
 			"tests"
 		]
