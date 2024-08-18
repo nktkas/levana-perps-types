@@ -1,7 +1,6 @@
 import { CosmWasmClient } from "npm:@cosmjs/cosmwasm-stargate@^0.32.4";
 import { resolve } from "jsr:@std/path@^1.0.2";
 import * as tsj from "npm:ts-json-schema-generator@^2.3.0";
-import { Ajv } from "npm:ajv@^8.17.1";
 import type { LevanaCosmWasmClient } from "../index.d.ts";
 import { assertJsonSchema } from "./utils/assert.ts";
 
@@ -20,8 +19,6 @@ const client = await CosmWasmClient.connect(RPC_ENDPOINT) as LevanaCosmWasmClien
 
 const tsjSchemaGenerator = tsj.createGenerator({ path: TYPES_PATH });
 
-const ajv = new Ajv({ strict: true });
-
 // ———————————————Tests———————————————
 
 Deno.test("Cw20QueryMsg", async (t) => {
@@ -35,7 +32,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             },
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("approval", async () => {
@@ -48,7 +45,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             },
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("approvals", async () => {
@@ -61,7 +58,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             },
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("all_operators", async () => {
@@ -74,7 +71,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             },
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("num_tokens", async () => {
@@ -84,7 +81,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             num_tokens: {},
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("contract_info", async () => {
@@ -94,7 +91,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             contract_info: {},
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("nft_info", async () => {
@@ -106,7 +103,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             },
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("all_nft_info", async () => {
@@ -119,7 +116,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             },
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("tokens", async () => {
@@ -131,7 +128,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             },
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("all_tokens", async () => {
@@ -141,7 +138,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             all_tokens: {},
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("version", async () => {
@@ -151,6 +148,6 @@ Deno.test("Cw20QueryMsg", async (t) => {
             version: {},
         });
 
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 });

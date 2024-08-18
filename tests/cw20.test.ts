@@ -1,6 +1,5 @@
 import { resolve } from "jsr:@std/path@^1.0.2";
 import * as tsj from "npm:ts-json-schema-generator@^2.3.0";
-import { Ajv } from "npm:ajv@^8.17.1";
 import "jsr:@std/dotenv@^0.225.0/load";
 import { assertNotEquals, assertObjectMatch } from "jsr:@std/assert@^1.0.2";
 import type { LevanaSigningCosmWasmClient } from "../index.d.ts";
@@ -22,7 +21,6 @@ if (!PRIVATE_KEY) {
 }
 
 const tsjSchemaGenerator = tsj.createGenerator({ path: resolve("./src/types/LevanaPerps/contracts/cw20/entry.d.ts") });
-const ajv = new Ajv({ strict: true });
 
 const client = await getSigningCosmWasmClientFromPrivateKey(PRIVATE_KEY, RPC_ENDPOINT, "osmo", "0.025uosmo") as LevanaSigningCosmWasmClient;
 const walletAddress = await getAddressFromPrivateKey(PRIVATE_KEY, "osmo");
@@ -272,14 +270,14 @@ Deno.test("Cw20QueryMsg", async (t) => {
         const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { balance: { address: tempWalletAddress1 } });
 
         const schema = tsjSchemaGenerator.createSchema("BalanceResponse");
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("token_info", async () => {
         const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { token_info: {} });
 
         const schema = tsjSchemaGenerator.createSchema("TokenInfoResponse");
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 
     await t.step("minter", async (t) => {
@@ -287,7 +285,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { minter: {} });
 
             const schema = tsjSchemaGenerator.createSchema("MinterResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
         });
 
         // Could not find a cw20 contract with MinterResponse.cap != null
@@ -311,7 +309,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             });
 
             const schema = tsjSchemaGenerator.createSchema("AllowanceResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
         });
 
         await t.step("AllowanceResponse.expires.at_height", async () => {
@@ -332,7 +330,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             });
 
             const schema = tsjSchemaGenerator.createSchema("AllowanceResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
             assertObjectMatch(data.expires, { at_height });
         });
 
@@ -353,7 +351,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             });
 
             const schema = tsjSchemaGenerator.createSchema("AllowanceResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
             assertObjectMatch(data.expires, { at_time });
         });
 
@@ -373,7 +371,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             });
 
             const schema = tsjSchemaGenerator.createSchema("AllowanceResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
             assertObjectMatch(data.expires, { never: {} });
         });
     });
@@ -389,7 +387,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { all_allowances: { owner: tempWalletAddress1 } });
 
             const schema = tsjSchemaGenerator.createSchema("AllAllowancesResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
         });
 
         await t.step("AllAllowancesResponse.allowances[0].expires.at_height", async () => {
@@ -405,7 +403,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { all_allowances: { owner: tempWalletAddress1 } });
 
             const schema = tsjSchemaGenerator.createSchema("AllAllowancesResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
             assertObjectMatch(data.allowances[0]?.expires, { at_height });
         });
 
@@ -421,7 +419,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { all_allowances: { owner: tempWalletAddress1 } });
 
             const schema = tsjSchemaGenerator.createSchema("AllAllowancesResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
             assertObjectMatch(data.allowances[0]?.expires, { at_time });
         });
 
@@ -436,7 +434,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { all_allowances: { owner: tempWalletAddress1 } });
 
             const schema = tsjSchemaGenerator.createSchema("AllAllowancesResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
             assertObjectMatch(data.allowances[0]?.expires, { never: {} });
         });
 
@@ -461,7 +459,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             });
 
             const schema = tsjSchemaGenerator.createSchema("AllAllowancesResponse");
-            assertJsonSchema(ajv, schema, data2);
+            assertJsonSchema(schema, data2);
             assertNotEquals(data1.allowances.length, data2.allowances.length);
         });
 
@@ -481,7 +479,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             });
 
             const schema = tsjSchemaGenerator.createSchema("AllAllowancesResponse");
-            assertJsonSchema(ajv, schema, data2);
+            assertJsonSchema(schema, data2);
             assertNotEquals(JSON.stringify(data1), JSON.stringify(data2));
         });
     });
@@ -498,7 +496,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { all_spender_allowances: { spender: tempWalletAddress2 } });
 
             const schema = tsjSchemaGenerator.createSchema("AllSpenderAllowancesResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
         });
 
         await t.step("AllSpenderAllowancesResponse.allowances[0].expires.at_height", async () => {
@@ -514,7 +512,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { all_spender_allowances: { spender: tempWalletAddress2 } });
 
             const schema = tsjSchemaGenerator.createSchema("AllSpenderAllowancesResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
             assertObjectMatch(data.allowances[0]?.expires, { at_height });
         });
 
@@ -530,7 +528,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { all_spender_allowances: { spender: tempWalletAddress2 } });
 
             const schema = tsjSchemaGenerator.createSchema("AllSpenderAllowancesResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
             assertObjectMatch(data.allowances[0]?.expires, { at_time });
         });
 
@@ -545,7 +543,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { all_spender_allowances: { spender: tempWalletAddress2 } });
 
             const schema = tsjSchemaGenerator.createSchema("AllSpenderAllowancesResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
             assertObjectMatch(data.allowances[0]?.expires, { never: {} });
         });
 
@@ -570,7 +568,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             });
 
             const schema = tsjSchemaGenerator.createSchema("AllSpenderAllowancesResponse");
-            assertJsonSchema(ajv, schema, data2);
+            assertJsonSchema(schema, data2);
             assertNotEquals(data1.allowances.length, data2.allowances.length);
         });
 
@@ -590,7 +588,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             });
 
             const schema = tsjSchemaGenerator.createSchema("AllSpenderAllowancesResponse");
-            assertJsonSchema(ajv, schema, data2);
+            assertJsonSchema(schema, data2);
             assertNotEquals(JSON.stringify(data1), JSON.stringify(data2));
         });
     });
@@ -600,7 +598,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { all_accounts: {} });
 
             const schema = tsjSchemaGenerator.createSchema("AllAccountsResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
         });
 
         await t.step("all_accounts.limit", async () => {
@@ -608,7 +606,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data2 = await tempClient1.queryContractSmart(CW20_ADDRESS, { all_accounts: { limit: 2 } });
 
             const schema = tsjSchemaGenerator.createSchema("AllAccountsResponse");
-            assertJsonSchema(ajv, schema, data2);
+            assertJsonSchema(schema, data2);
             assertNotEquals(data1.accounts.length, data2.accounts.length);
         });
 
@@ -626,7 +624,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             });
 
             const schema = tsjSchemaGenerator.createSchema("AllAccountsResponse");
-            assertJsonSchema(ajv, schema, data2);
+            assertJsonSchema(schema, data2);
             assertNotEquals(JSON.stringify(data1), JSON.stringify(data2));
         });
     });
@@ -636,7 +634,7 @@ Deno.test("Cw20QueryMsg", async (t) => {
             const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { marketing_info: {} });
 
             const schema = tsjSchemaGenerator.createSchema("MarketingInfoResponse");
-            assertJsonSchema(ajv, schema, data);
+            assertJsonSchema(schema, data);
         });
 
         // Unable to check all fields individually
@@ -653,6 +651,6 @@ Deno.test("Cw20QueryMsg", async (t) => {
         const data = await tempClient1.queryContractSmart(CW20_ADDRESS, { version: {} });
 
         const schema = tsjSchemaGenerator.createSchema("ContractVersion");
-        assertJsonSchema(ajv, schema, data);
+        assertJsonSchema(schema, data);
     });
 });
