@@ -1,9 +1,9 @@
-import { CosmWasmClient } from "npm:@cosmjs/cosmwasm-stargate@0.32.4";
+import { CosmWasmClient } from "npm:@cosmjs/cosmwasm-stargate@^0.32.4";
+import { resolve } from "jsr:@std/path@^1.0.2";
+import * as tsj from "npm:ts-json-schema-generator@^2.3.0";
+import { Ajv } from "npm:ajv@^8.17.1";
 import type { LevanaCosmWasmClient } from "../index.d.ts";
-import { resolve } from "jsr:@std/path@0.225.2";
-import * as tsj from "npm:ts-json-schema-generator@2.3.0";
-import { Ajv } from "npm:ajv@8.16.0";
-import { assertTSJSchema } from "./utils.ts";
+import { assertJsonSchema } from "./utils/assert.ts";
 
 // ———————————————Config———————————————
 
@@ -31,7 +31,7 @@ Deno.test("LiquidityTokenQueryMsg", async (t) => {
             },
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("token_info", async () => {
@@ -41,7 +41,7 @@ Deno.test("LiquidityTokenQueryMsg", async (t) => {
             token_info: {},
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("allowance", async () => {
@@ -54,7 +54,7 @@ Deno.test("LiquidityTokenQueryMsg", async (t) => {
             },
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("all_allowances", async () => {
@@ -66,7 +66,7 @@ Deno.test("LiquidityTokenQueryMsg", async (t) => {
             },
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("all_spender_allowances", async () => {
@@ -78,7 +78,7 @@ Deno.test("LiquidityTokenQueryMsg", async (t) => {
             },
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("all_accounts", async () => {
@@ -88,7 +88,7 @@ Deno.test("LiquidityTokenQueryMsg", async (t) => {
             all_accounts: {},
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("marketing_info", async () => {
@@ -98,7 +98,7 @@ Deno.test("LiquidityTokenQueryMsg", async (t) => {
             marketing_info: {},
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("version", async () => {
@@ -108,7 +108,7 @@ Deno.test("LiquidityTokenQueryMsg", async (t) => {
             version: {},
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("kind", async () => {
@@ -118,6 +118,6 @@ Deno.test("LiquidityTokenQueryMsg", async (t) => {
             kind: {},
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 });

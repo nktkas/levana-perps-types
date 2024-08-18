@@ -1,9 +1,9 @@
-import { CosmWasmClient } from "npm:@cosmjs/cosmwasm-stargate@0.32.4";
+import { CosmWasmClient } from "npm:@cosmjs/cosmwasm-stargate@^0.32.4";
+import { resolve } from "jsr:@std/path@^1.0.2";
+import * as tsj from "npm:ts-json-schema-generator@^2.3.0";
+import { Ajv } from "npm:ajv@^8.17.1";
 import type { LevanaCosmWasmClient } from "../index.d.ts";
-import { resolve } from "jsr:@std/path@0.225.2";
-import * as tsj from "npm:ts-json-schema-generator@2.3.0";
-import { Ajv } from "npm:ajv@8.16.0";
-import { assertTSJSchema } from "./utils.ts";
+import { assertJsonSchema } from "./utils/assert.ts";
 
 // ———————————————Config———————————————
 
@@ -41,7 +41,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             version: {},
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("status", async () => {
@@ -51,7 +51,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             status: {},
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("spot_price", async () => {
@@ -61,7 +61,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             spot_price: {},
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("spot_price_history", async () => {
@@ -71,7 +71,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             spot_price_history: {},
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("oracle_price", async () => {
@@ -83,7 +83,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             },
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("positions", async () => {
@@ -105,7 +105,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             throw new Error("There is no open position in the list of positions. It is not possible to check all types.");
         }
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("limit_order", async () => {
@@ -117,7 +117,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             },
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("limit_orders", async () => {
@@ -133,7 +133,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             throw new Error("The list of limit orders is empty. It is not possible to check all types.");
         }
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("closed_position_history", async () => {
@@ -149,7 +149,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             throw new Error("The list of closed positions is empty. It is not possible to check all types.");
         }
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     // TODO: It's not done
@@ -160,7 +160,7 @@ Deno.test("MarketQueryMsg", async (t) => {
     //         nft_proxy: {},
     //     });
 
-    //     assertTSJSchema(ajv, schema, data);
+    //     assertJsonSchema(ajv, schema, data);
     // });
 
     // TODO: It's not done
@@ -171,7 +171,7 @@ Deno.test("MarketQueryMsg", async (t) => {
     //         liquidity_token_proxy: {},
     //     });
 
-    //     assertTSJSchema(ajv, schema, data);
+    //     assertJsonSchema(ajv, schema, data);
     // });
 
     await t.step("trade_history_summary", async () => {
@@ -183,7 +183,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             },
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("position_action_history", async () => {
@@ -199,7 +199,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             throw new Error("The list of position actions is empty. It is not possible to check all types.");
         }
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("trader_action_history", async () => {
@@ -215,7 +215,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             throw new Error("The list of trader actions is empty. It is not possible to check all types.");
         }
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("lp_action_history", async () => {
@@ -231,7 +231,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             throw new Error("The list of lp actions is empty. It is not possible to check all types.");
         }
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("limit_order_history", async () => {
@@ -247,7 +247,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             throw new Error("The list of limit order history is empty. It is not possible to check all types.");
         }
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("lp_info", async () => {
@@ -259,7 +259,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             },
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("delta_neutrality_fee", async () => {
@@ -271,7 +271,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             },
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("price_would_trigger", async () => {
@@ -283,7 +283,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             },
         });
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("list_deferred_execs", async () => {
@@ -299,7 +299,7 @@ Deno.test("MarketQueryMsg", async (t) => {
             throw new Error("The list of deferred execs is empty. It is not possible to check all types.");
         }
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 
     await t.step("get_deferred_exec", async () => {
@@ -315,6 +315,6 @@ Deno.test("MarketQueryMsg", async (t) => {
             throw new Error("The deferred exec is not found. It is not possible to check all types.");
         }
 
-        assertTSJSchema(ajv, schema, data);
+        assertJsonSchema(ajv, schema, data);
     });
 });
