@@ -9,9 +9,10 @@
 	"version": "4.1.0",
 	"exports": "./index.d.ts",
 	"imports": {
-		"@cosmjs/cosmwasm-stargate": "npm:@cosmjs/cosmwasm-stargate@^0.32.4",
-		"@cosmjs/stargate": "npm:@cosmjs/stargate@^0.32.4"
+		"@cosmjs/cosmwasm-stargate": "npm:@cosmjs/cosmwasm-stargate",
+		"@cosmjs/stargate": "npm:@cosmjs/stargate"
 	},
+	"lock": false,
 	"publish": {
 		"exclude": [
 			".github",
