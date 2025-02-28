@@ -9,8 +9,8 @@
 	"version": "5.0.0",
 	"exports": "./index.d.ts",
 	"imports": {
-		"@cosmjs/cosmwasm-stargate": "npm:@cosmjs/cosmwasm-stargate",
-		"@cosmjs/stargate": "npm:@cosmjs/stargate"
+		"@cosmjs/cosmwasm-stargate": "npm:@cosmjs/cosmwasm-stargate@^0.33.0",
+		"@cosmjs/stargate": "npm:@cosmjs/stargate@^0.33.0"
 	},
 	"lock": false,
 	"publish": {
